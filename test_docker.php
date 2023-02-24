@@ -1,13 +1,11 @@
 <?php
 
-/*$connect = mysqli_connect(
+$connect = mysqli_connect(
     'db', 
     'php_docker', 
     'password', 
     'php_docker' 
-);*/
-
-include "db.php";
+);
 
 $table_name = "Test";
 
