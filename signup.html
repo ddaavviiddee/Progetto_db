@@ -15,8 +15,13 @@
     
     <form action="processo-registrazione.php" method="post" id="registrazione" novalidate>
         <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome">
+        </div>
+
+        <div>
+            <label for="cognome">Cognome</label>
+            <input type="text" id="cognome" name="cognome">
         </div>
 
         <div>
@@ -30,9 +35,24 @@
         </div>
 
         <div>
-            <label for="conferma_password">Ripeti passowrd</label>
+            <label for="conferma_password">Ripeti password</label>
             <input type="password" id="conferma_password" name="conferma_password">
         </div>
+        
+        <form>
+            
+            <fieldset>
+            <legend>Come vuoi accedere?</legend>
+            <select name="ruolo" >
+            <option value="Studente" selected="selected">Studente </option>
+            <option value="Referente">Referente </option>
+            <option value="Esercente">Esercente </option>
+            </select>
+            </fieldset>
+
+        </form>
+
+
 
         <button>Registrati</button>
     </form>
