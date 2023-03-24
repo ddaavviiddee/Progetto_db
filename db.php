@@ -1,8 +1,8 @@
 <?php
 	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "DB_1";
+	$username = "php_docker";
+	$password = "password";
+	$dbname = "php_docker";
 	
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 	

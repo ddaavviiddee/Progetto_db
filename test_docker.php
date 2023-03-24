@@ -1,11 +1,12 @@
 <?php
 
 $connect = mysqli_connect(
-    'db', 
+    'localhost', 
     'php_docker', 
     'password', 
     'php_docker' 
 );
+
 
 $table_name = "Test";
 
