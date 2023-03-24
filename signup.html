@@ -5,23 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
 </head>
 <body>
-    
-</body>
-</html>
 
 <body>
 
     <h1>Signup</h1>
-    <form>
+    
+    <form action="processo-registrazione.php" method="post" id="registrazione" novalidate>
         <div>
             <label for="name">Name</label>
             <input type="text" id="name" name="name">
         </div>
 
         <div>
-            <label for="email">email</label>
+            <label for="email">E-mail</label>
             <input type="email" id="email" name="email">
         </div>        
 
@@ -29,6 +28,13 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password">
         </div>
+
+        <div>
+            <label for="conferma_password">Ripeti passowrd</label>
+            <input type="password" id="conferma_password" name="conferma_password">
+        </div>
+
+        <button>Registrati</button>
     </form>
 </body>
 </html>
