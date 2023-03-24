@@ -11,7 +11,7 @@
 
 <body>
 
-    <h1>Signup</h1>
+    <h1>Signup</h1> <!-- Form per la registrazione-->
     
     <form action="processo-registrazione.php" method="post" id="registrazione" novalidate>
         <div>
@@ -39,18 +39,18 @@
             <input type="password" id="conferma_password" name="conferma_password">
         </div>
         
-        <form>
-            
-            <fieldset>
-            <legend>Come vuoi accedere?</legend>
-            <select name="ruolo" >
-            <option value="Studente" selected="selected">Studente </option>
-            <option value="Referente">Referente </option>
-            <option value="Esercente">Esercente </option>
-            </select>
-            </fieldset>
-
-        </form>
+        
+        <div>        <!-- Scelta del ruolo-->
+        <fieldset>
+        <legend>Come vuoi accedere?</legend>
+        <select name="ruolo" >
+        <option value="Studente">Studente </option>
+        <option value="Referente">Referente </option>
+        <option value="Esercente">Esercente </option>
+        </select>
+        </fieldset>
+        </div>
+        
 
 
 
