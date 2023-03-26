@@ -27,6 +27,10 @@ if($_POST["password"] !== $_POST["conferma_password"]){
 }
 
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+$mysqli = require __DIR__. '/db_conn.php'; // Errore da debuggare, utilizzando questo require non funziona il signup.
+
+
 print_r($_POST);
 var_dump($password_hash);
 
