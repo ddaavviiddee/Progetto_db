@@ -1,17 +1,16 @@
 <?php
-	$host = "localhost";
-	$username = "php_docker";
-	$password = "";
-	$dbname = "php_docker";
-	
-	$mysqli = new mysqli(hostname: $host, 
-						 username: $username, 
-						 password: $password,
-						 database: $dbname);
-	
-	if ($mysqli->connect_errno){
-		die("Errore di connessione: ". $mysqli->connect_error);
-	}
-	
-	return $mysqli;
+
+$servername='172.18.0.2';
+$username='php_docker';
+$password='password';
+$dbname='php_docker';
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+
+    die("Connection failed: " . $conn->connect_error);
+
+}
+
 ?>
