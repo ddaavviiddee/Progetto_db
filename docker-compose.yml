@@ -13,6 +13,8 @@ services:
     volumes:
       - "./:/docker-entrypoint-initdb.d"
       - db_data:/var/lib/mysql
+    ports:
+      - 80:80
   www:
     image: php:apache
     volumes:
