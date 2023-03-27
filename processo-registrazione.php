@@ -40,15 +40,23 @@ if (!$stmt->prepare($sql)){
 }
 
 $stmt->bind_param("sssss",
+                  $_POST["email"],
                   $_POST["nome"],
                   $_POST["cognome"],
-                  $_POST["email"],
                   $_POST["ruolo"],
                   $password_hash);
 
-$stmt->execute();
+if ($stmt->execute()){ // Capire perché non da il numero di errore ma si ferma al fatal error
+                        // senza l'error number non possiamo creare la pagina per una email già esistente.
 
-echo "Registrazione effettuata.";
+    header("Location: successo-registrazione.html");
+    exit;
+
+}
+
+
+
+
 
 
 
