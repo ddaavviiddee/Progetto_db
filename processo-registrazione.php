@@ -28,10 +28,30 @@ if($_POST["password"] !== $_POST["conferma_password"]){
 
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
+$connessione = require __DIR__ . '/db_conn.php';
+
+$sql = "INSERT INTO Utente (Email, Nome, Cognome, Ruolo, password_hash)
+        VALUES (?, ?, ?, ?, ?)";
+
+$stmt = $connessione->stmt_init();
+
+if (!$stmt->prepare($sql)){
+    die("Errore SQL: ". $connessione->error);
+}
+
+$stmt->bind_param("sssss",
+                  $_POST["nome"],
+                  $_POST["cognome"],
+                  $_POST["email"],
+                  $_POST["ruolo"],
+                  $password_hash);
+
+$stmt->execute();
+
+echo "Registrazione effettuata.";
 
 
-print_r($_POST);
-var_dump($password_hash);
+
 
 
 
