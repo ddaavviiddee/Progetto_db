@@ -7,6 +7,10 @@
 
 		$sql = "SELECT * FROM Utente
 				WHERE id = {$_SESSION["user_id"]}";
+
+		$result = $connessione->query($sql);
+
+		$user = $result->fetch_assoc();
 	}
 
 ?>
@@ -26,10 +30,10 @@
 
     <h1>Home</h1>
 
-	<?php if (isset($_SESSION["user_id"])): ?>
+	<?php if (isset($user)): ?>
 
 		<p>Sei loggato.</p>
-
+		<p>Ciao <?= htmlspecialchars($user["Nome"]) ?>.</p>
 		<p><a href="logout.php">Log out</a></p>
 
 	<?php else: ?>

@@ -5,6 +5,10 @@ if (empty($_POST["nome"])){
     die("Il nome è richiesto.");
 }
 
+if (empty($_POST["cognome"])){
+    die("Il cognome è richiesto.");
+}
+
 if (empty($_POST["email"])){
     die("L'E-mail è richiesta.");
 }
