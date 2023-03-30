@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
         }
     }
 
-    $is_invalid = true; // Capire perché rimane il warning quando si effettua un login fresco.
+    $is_invalid = true; 
 }
 
 ?>
