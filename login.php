@@ -1,5 +1,7 @@
 <?php
 
+$is_invalid = false;
+
 if ($_SERVER["REQUEST_METHOD"] === "POST"){
 
     $connessione = require __DIR__ . "/db_conn.php";
