@@ -1,4 +1,6 @@
-const validation = new JustValidate("#signup");
+const validation = new JustValidate("#registrazione");
+
+
 
 validation
     .addField("#nome", [
@@ -39,7 +41,7 @@ validation
             rule: "password"
         }
     ])
-    .addField("#password_confirmation", [
+    .addField("#conferma_password", [
         {
             validator: (value, fields) => {
                 return value === fields["#password"].elem.value;

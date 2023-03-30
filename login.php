@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
     $connessione = require __DIR__ . "/db_conn.php";
 
     $sql = sprintf("SELECT * FROM Utente
-                    WHERE email = '%s'", 
+                    WHERE Email = '%s'", 
                     $connessione->real_escape_string($_POST["email"]));
     
     $risultato = $connessione->query($sql);  

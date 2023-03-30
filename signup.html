@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
-    <script src="/js/validazione_aggiuntiva.js" defer></script>
+    <script src="/javascript/validazione_aggiuntiva.js" defer></script>
+    <script>src="/javascript/selezione_ruolo.js"</script>
     <title>Signup</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,7 +16,7 @@
 
     <h1>Registrati su AccaJob!</h1> <!-- Form per la registrazione-->
     
-    <form action="processo-registrazione.php" method="post" id="registrazione" novalidate>
+    <form action="processo-registrazione.php" ruolo="post" id="registrazione" novalidate>
         <div>
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome">
@@ -42,18 +43,21 @@
         </div>
         
         
-        <div>        <!-- Scelta del ruolo-->
-            <fieldset>
-                <legend>Come vuoi registrarti?</legend>
-                <select name="ruolo" >
-                <option value="Studente">Studente </option>
-                <option value="Referente">Referente </option>
-                <option value="Esercente">Esercente </option>
-                </select>
-            </fieldset>
-        </div>
-        
+        <div>      <!-- Selezione ruolo --> 
 
+            <legend>Come vuoi registrarti?</legend>
+            <select id="ruolo" name="ruolo" >
+            <option value="Studente">Studente </option>
+            <option value="Referente">Referente </option>
+            <option value="Esercente">Esercente </option>
+            </select>
+            
+        </div> <!-- fixare il nuovo label che non appare-->
+        
+        <div id="newField" style="display: none;">
+        <label for="newInput">Nuovo Campo:</label>
+        <input type="text" id="ruolo">
+        </div>
 
 
         <button>Registrati</button>

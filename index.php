@@ -6,7 +6,7 @@
 		$connessione = require __DIR__ . "/db_conn.php";
 
 		$sql = "SELECT * FROM Utente
-				WHERE id = {$_SESSION["user_id"]}";
+				WHERE ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);
 
@@ -21,14 +21,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>AccaJob</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <body>
 
-    <h1>Home</h1>
+    <h1>AccaJob</h1>
 
 	<?php if (isset($user)): ?>
 
