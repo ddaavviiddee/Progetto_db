@@ -52,12 +52,27 @@
             <option value="Esercente">Esercente </option>
             </select>
             
-        </div> <!-- fixare il nuovo label che non appare-->
+        </div> <!-- Nuovo label-->
         
-        <div id="newField" style="display: none;">
-        <label for="newInput">Nuovo Campo:</label>
+        <div id="Matricola" style="display: none;">
+        <label for="Matricola">Matricola:</label>
         <input type="text" id="ruolo">
         </div>
+
+        <script>
+        const selectOptions = document.getElementById('ruolo');
+        const newField = document.getElementById('Matricola');
+
+        selectOptions.addEventListener('change', function() {
+        if (selectOptions.value === 'Studente') {
+        newField.style.display = 'block';
+        } else if (selectOptions.value === 'Referente') {
+        newField.style.display = 'none';
+        } else if (selectOptions.value === 'Esercente') {
+        newField.style.display = 'none';
+        }
+    });
+        </script>
 
 
         <button>Registrati</button>
