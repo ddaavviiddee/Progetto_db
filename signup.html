@@ -54,24 +54,43 @@
             
         </div> <!-- Nuovo label-->
         
-        <div id="Matricola" style="display: none;">
-        <label for="Matricola">Matricola:</label>
-        <input type="text" id="ruolo">
-        </div>
+        <div id="campi">
+            <div id="Matricola" style="display: none;">
+                <label for="Matricola">Matricola:</label>
+                <input type="text" id="Matricola" name="Matricola">
+            </div>
+            <div id="id_azienda" style="display: none;">
+                <label for="id_azienda">Codice aziendale:</label>
+                <input type="text" id="id_azienda" name="id_azienda">
+            </div>
+            <div id="id_università" style="display: none;">
+                <label for="id_università">Codice università:</label>
+                <input type="text" id="id_università" name="id_università">
+            </div>
+        </div>    
+            
 
         <script>
         const selectOptions = document.getElementById('ruolo');
-        const newField = document.getElementById('Matricola');
+        const Matricola = document.getElementById('Matricola');
+        const id_azienda = document.getElementById('id_azienda');
+        const id_università = document.getElementById('id_università');
 
         selectOptions.addEventListener('change', function() {
         if (selectOptions.value === 'Studente') {
-        newField.style.display = 'block';
+        Matricola.style.display = 'block';
+        id_azienda.style.display = 'none';
+        id_università.style.display = 'none';
         } else if (selectOptions.value === 'Referente') {
-        newField.style.display = 'none';
+        Matricola.style.display = 'none';
+        id_azienda.style.display = 'none';
+        id_università.style.display = 'block';
         } else if (selectOptions.value === 'Esercente') {
-        newField.style.display = 'none';
+        Matricola.style.display = 'none';
+        id_azienda.style.display = 'block';
+        id_università.style.display = 'none';
         }
-    });
+        });
         </script>
 
 
