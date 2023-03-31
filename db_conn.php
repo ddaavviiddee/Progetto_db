@@ -1,6 +1,6 @@
 <?php
 
-$servername='172.19.0.2'; // Guarda su phpmyadmin che IP inserire
+$servername='172.19.0.2'; // Guarda su phpmyadmin che IP inserire (bug da fixare, ogni volta ci potrebbe essere un IP diverso)
 $username='php_docker';
 $password='password';
 $dbname='php_docker';

@@ -1,4 +1,6 @@
-const validation = new JustValidate("#registrazione");
+const validation = new JustValidate("#registrazione"); // Utilizziamo un drop-in chiamato just_validate, qui vengono apportate le modifiche per la nostra applicazione
+
+// Validazione client-side
 
 validation
     .addField("#nome", [
@@ -22,7 +24,7 @@ validation
             errorMessage: 'Inserire una email valida'
         },
         {
-            validator: (value) => () => {
+            validator: (value) => () => {                                        // Questo validator controlla se una email è già in utilizzo nel DB.
                 return fetch("valida_email.php?email=" + encodeURIComponent(value))
                        .then(function(response) {
                            return response.json();
@@ -52,12 +54,6 @@ validation
             errorMessage: "Le password devono combaciare"
         }
     ])
-    .addField("#campo", [
-        {
-            rule: "required",
-            errorMessage: 'Questo campo deve essere riempito'
-        }
-    ])
     .onSuccess((event) => {
-        document.getElementById("signup").submit();
+        document.getElementById("registrazione").submit();
     });

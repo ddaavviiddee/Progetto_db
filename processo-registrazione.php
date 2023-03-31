@@ -1,17 +1,5 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    
 <?php
-
+// Validazione server-side
 if (empty($_POST["nome"])){
     die("Il nome è richiesto.");
 }
@@ -45,36 +33,54 @@ if($_POST["password"] !== $_POST["conferma_password"]){
     die("Le password devono esssere uguali.");
 }
 
-$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+$matricola = $_POST["matricola"];
+$id_azienda = $_POST["id_azienda"];
+$id_universita = $_POST["id_universita"];
+
+if (empty($matricola)){ // Nel momento in cui viene inserito uno di questi campi, gli altri due vengono impostati a null per essere inseriti nel DB.
+    $matricola = NULL;
+}
+
+if (empty($id_azienda)){
+    $id_azienda = NULL;
+}
+
+if (empty($id_universita)){
+    $id_universita = NULL;
+}
+
+$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);  // Crittografia della password
 
 $connessione = require __DIR__ . '/db_conn.php';
 
-$sql = "INSERT INTO Utente (Email, Nome, Cognome, Ruolo, password_hash)
-        VALUES (?, ?, ?, ?, ?)";
+$sql = "INSERT INTO Utente (Email, Nome, Cognome, Ruolo, Matricola, id_azienda, id_universita, password_hash)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
-$stmt = $connessione->stmt_init();
+$stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
 
 if (!$stmt->prepare($sql)){
-    die("Errore SQL: ". $connessione->error);
+    die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
 }
 
-$stmt->bind_param("sssss",
+$stmt->bind_param("ssssiiis",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                   $_POST["email"],
                   $_POST["nome"],
                   $_POST["cognome"],
                   $_POST["ruolo"],
+                  $matricola,  // Il post viene fatto in precedenza.
+                  $id_azienda,
+                  $id_universita,
                   $password_hash);
 
-if ($stmt->execute()){ // Capire perché non da il numero di errore ma si ferma al fatal error
-                        // senza l'error number non possiamo creare la pagina per una email già esistente.
-
+if ($stmt->execute()){                                   // Questa funzione esegue lo statement, per poi mandare alla pagina di successo-registrazione.html
+                        
     header("Location: successo-registrazione.html");
     exit;
 
 }
 
 
-print_r($_POST);
+
 
 
 

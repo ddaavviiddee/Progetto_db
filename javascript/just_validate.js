@@ -102,7 +102,7 @@ const defaultDictionary = [
   {
     key: Rules.Password,
     dict: {
-      en: "La password deve contenere minimo 8 caratteri e almeno un
+      en: "Password must contain minimum eight characters, at least one letter and one number"
     }
   },
   {

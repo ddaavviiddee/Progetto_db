@@ -8,27 +8,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
 
     $sql = sprintf("SELECT * FROM Utente
                     WHERE Email = '%s'", 
-                    $connessione->real_escape_string($_POST["email"]));
+                    $connessione->real_escape_string($_POST["email"])); // Il real_escape_string prepara $sql in modo che possa essere utilizzato in una query
     
     $risultato = $connessione->query($sql);  
     
-    $user = $risultato->fetch_assoc();
+    $user = $risultato->fetch_assoc(); // Prende un record come un array associativo 
 
     if ($user){
-        if (password_verify($_POST["password"], $user["password_hash"])){
+        if (password_verify($_POST["password"], $user["password_hash"])){ // Controllo del login
             
-            session_start();
+            session_start(); // Entrati nell'account, viene inizializzata o rigenerata la sessione
 
             session_regenerate_id();
 
-            $_SESSION["user_id"] = $user["ID"];
+            $_SESSION["user_id"] = $user["ID"]; // Il session id viene preso dal database utilizzando il campo 'ID'
 
             header("Location: index.php");
             exit;
         }
     }
 
-    $is_invalid = true; 
+    $is_invalid = true; // Se il log in è invalido, questo valore viene riportato in html, dando 'log in invalido' in quanto non è stato effettuato l'exit in riga 27.
 }
 
 ?>

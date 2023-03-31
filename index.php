@@ -1,6 +1,6 @@
 <?php
 	
-	session_start();
+	session_start();  // Inizializzazione della sessione
 	if (isset($_SESSION["user_id"])){
 
 		$connessione = require __DIR__ . "/db_conn.php";
