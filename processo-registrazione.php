@@ -11,7 +11,7 @@
 <body>
     
 <?php
-/*
+
 if (empty($_POST["nome"])){
     die("Il nome è richiesto.");
 }
@@ -73,11 +73,11 @@ if ($stmt->execute()){ // Capire perché non da il numero di errore ma si ferma 
 
 }
 
-*/
-
-
 
 print_r($_POST);
+
+
+
 
 
 

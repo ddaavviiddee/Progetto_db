@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
+    <script src="javascript/validazione_aggiuntiva.js" defer></script>
     <title>Signup</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,7 +15,7 @@
 
     <h1>Registrati su AccaJob!</h1> <!-- Form per la registrazione-->
     
-    <form action="processo-registrazione.php" ruolo="post" id="registrazione">
+    <form action="processo-registrazione.php" method="post" id="registrazione">
         <div>
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" required>
@@ -43,32 +45,32 @@
         <div>      <!-- Selezione ruolo --> 
 
             <legend>Come vuoi registrarti?</legend>
-            <select id="ruolo" name="ruolo">
-            <option value="vuoto" > </option>
+            <select id="ruolo" name="ruolo" >
+            <option value="vuoto"> </option>
             <option value="Studente">Studente </option>
             <option value="Referente">Referente </option>
             <option value="Esercente">Esercente </option>
             </select>
             
         </div> <!-- Nuovo label-->
-        <!--
+        
         <div id="campi">
             
             <div id="matricola" style="display: none;">
                 <label for="matricola">Matricola:</label>
-                <input type="text" id="matricola" name="matricola">
+                <input type="text" id="matricola" name="matricola" >
             </div>
             <div id="id_azienda" style="display: none;">
                 <label for="id_azienda">Codice aziendale:</label>
-                <input type="text" id="id_azienda" name="id_azienda">
+                <input type="text" id="id_azienda" name="id_azienda" >
             </div>
             <div id="id_universita" style="display: none;">
                 <label for="id_universita">Codice università:</label>
-                <input type="text" id="id_universita" name="id_universita">
+                <input type="text" id="id_universita" name="id_universita" >
             </div>
         </div>    
-        -->
-        <!--
+        
+        
         <script>
         const selectOptions = document.getElementById('ruolo');
         const matricola = document.getElementById('matricola');
@@ -91,9 +93,9 @@
         }
         });
         </script>
-        -->
-
+        
         <button>Registrati</button>
+       
     </form>
 </body>
 </html>
