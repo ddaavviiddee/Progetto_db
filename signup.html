@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
     <script src="/javascript/validazione_aggiuntiva.js" defer></script>
-    <script>src="/javascript/selezione_ruolo.js"</script>
     <title>Signup</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -46,7 +45,8 @@
         <div>      <!-- Selezione ruolo --> 
 
             <legend>Come vuoi registrarti?</legend>
-            <select id="ruolo" name="ruolo" >
+            <select id="ruolo" name="ruolo">
+            <option value="vuoto" > </option>
             <option value="Studente">Studente </option>
             <option value="Referente">Referente </option>
             <option value="Esercente">Esercente </option>
@@ -55,40 +55,41 @@
         </div> <!-- Nuovo label-->
         
         <div id="campi">
-            <div id="Matricola" style="display: none;">
-                <label for="Matricola">Matricola:</label>
-                <input type="text" id="Matricola" name="Matricola">
+            
+            <div id="matricola" style="display: none;">
+                <label for="matricola">Matricola:</label>
+                <input type="text" id="matricola" name="matricola">
             </div>
             <div id="id_azienda" style="display: none;">
                 <label for="id_azienda">Codice aziendale:</label>
                 <input type="text" id="id_azienda" name="id_azienda">
             </div>
-            <div id="id_università" style="display: none;">
-                <label for="id_università">Codice università:</label>
-                <input type="text" id="id_università" name="id_università">
+            <div id="id_universita" style="display: none;">
+                <label for="id_universita">Codice università:</label>
+                <input type="text" id="id_universita" name="id_universita">
             </div>
         </div>    
             
 
         <script>
         const selectOptions = document.getElementById('ruolo');
-        const Matricola = document.getElementById('Matricola');
+        const matricola = document.getElementById('matricola');
         const id_azienda = document.getElementById('id_azienda');
-        const id_università = document.getElementById('id_università');
+        const id_universita = document.getElementById('id_universita');
 
         selectOptions.addEventListener('change', function() {
         if (selectOptions.value === 'Studente') {
-        Matricola.style.display = 'block';
+        matricola.style.display = 'block';
         id_azienda.style.display = 'none';
-        id_università.style.display = 'none';
+        id_universita.style.display = 'none';
         } else if (selectOptions.value === 'Referente') {
-        Matricola.style.display = 'none';
+        matricola.style.display = 'none';
         id_azienda.style.display = 'none';
-        id_università.style.display = 'block';
+        id_universita.style.display = 'block';
         } else if (selectOptions.value === 'Esercente') {
-        Matricola.style.display = 'none';
+        matricola.style.display = 'none';
         id_azienda.style.display = 'block';
-        id_università.style.display = 'none';
+        id_universita.style.display = 'none';
         }
         });
         </script>
