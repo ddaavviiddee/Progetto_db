@@ -11,7 +11,7 @@
 <body>
     
 <?php
-
+/*
 if (empty($_POST["nome"])){
     die("Il nome è richiesto.");
 }
@@ -22,6 +22,10 @@ if (empty($_POST["cognome"])){
 
 if (empty($_POST["email"])){
     die("L'E-mail è richiesta.");
+}
+
+if (empty($_POST["ruolo"])){
+    die("Selezionare un ruolo.");
 }
 
 if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
@@ -69,10 +73,11 @@ if ($stmt->execute()){ // Capire perché non da il numero di errore ma si ferma 
 
 }
 
+*/
 
 
 
-
+print_r($_POST);
 
 
 

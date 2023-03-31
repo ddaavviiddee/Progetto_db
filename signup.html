@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
-    <script src="/javascript/validazione_aggiuntiva.js" defer></script>
     <title>Signup</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,29 +13,29 @@
 
     <h1>Registrati su AccaJob!</h1> <!-- Form per la registrazione-->
     
-    <form action="processo-registrazione.php" ruolo="post" id="registrazione" novalidate>
+    <form action="processo-registrazione.php" ruolo="post" id="registrazione">
         <div>
             <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome">
+            <input type="text" id="nome" name="nome" required>
         </div>
 
         <div>
             <label for="cognome">Cognome</label>
-            <input type="text" id="cognome" name="cognome">
+            <input type="text" id="cognome" name="cognome" required>
         </div>
 
         <div>
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" required>
         </div>        
 
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" required>
         </div>
 
         <div>
-            <label for="conferma_password">Ripeti password</label>
+            <label for="conferma_password">Ripeti password</label required>
             <input type="password" id="conferma_password" name="conferma_password">
         </div>
         
@@ -53,7 +51,7 @@
             </select>
             
         </div> <!-- Nuovo label-->
-        
+        <!--
         <div id="campi">
             
             <div id="matricola" style="display: none;">
@@ -69,8 +67,8 @@
                 <input type="text" id="id_universita" name="id_universita">
             </div>
         </div>    
-            
-
+        -->
+        <!--
         <script>
         const selectOptions = document.getElementById('ruolo');
         const matricola = document.getElementById('matricola');
@@ -93,7 +91,7 @@
         }
         });
         </script>
-
+        -->
 
         <button>Registrati</button>
     </form>
