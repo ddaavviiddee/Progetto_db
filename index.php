@@ -34,8 +34,26 @@
 
 		<p>Sei loggato.</p>
 		<p>Ciao <?= htmlspecialchars($user["Nome"]) ?>.</p>
-		<p><a href="logout.php">Log out</a></p>
+		
+		<?php if (htmlspecialchars($user["Ruolo"]) == "Studente"): ?>
+		
+		<p>Accedi alla tua <a href="dashboard-studente.php">dashboard</a></p>
+		<?php endif; ?>
 
+		<?php if (htmlspecialchars($user["Ruolo"]) == "Esercente"): ?>
+		
+		<p>Accedi alla tua <a href="dashboard-esercente.php">dashboard</a></p>
+		<?php endif; ?>
+
+		<?php if (htmlspecialchars($user["Ruolo"]) == "Referente"): ?>
+		
+		<p>Accedi alla tua <a href="dashboard-referente.php">dashboard</a></p>
+		<?php endif; ?>
+
+		
+		
+		<p><a href="logout.php">Log out</a></p>
+		
 	<?php else: ?>
 		<p>Effettua il<a href="login.php"> log in</a> oppure <a href="signup.html"> registrati.</a></p>
 	<?php endif; ?>
