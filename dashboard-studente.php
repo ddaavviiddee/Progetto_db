@@ -34,7 +34,7 @@
     <h1> Benvenuto nella tua dashboard </h1>
     <fieldset>
         <legend>Bacheca Notifiche</legend>
-        <p>Forza juve</p>
+        <p>Ciao belli</p>
     </fieldset>
 
 </body>
