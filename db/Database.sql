@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Apr 27, 2023 alle 10:12
+-- Creato il: Apr 27, 2023 alle 10:35
 -- Versione del server: 8.0.32
 -- Versione PHP: 8.1.17
 
@@ -20,6 +20,43 @@ SET time_zone = "+00:00";
 --
 -- Database: `php_docker`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `Azienda`
+--
+
+CREATE TABLE `Azienda` (
+  `ID_Azienda` int NOT NULL,
+  `Nome_Azienda` varchar(128) NOT NULL,
+  `Indirizzo` varchar(128) NOT NULL,
+  `Tipologia` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `Offerte`
+--
+
+CREATE TABLE `Offerte` (
+  `ID_azienda` int NOT NULL,
+  `Nome_azienda` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Posizione` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Periodo` varchar(128) NOT NULL,
+  `Stipendio` varchar(128) NOT NULL,
+  `Indirizzo` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Ore` int NOT NULL,
+  `Posti_disponibili` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dump dei dati per la tabella `Offerte`
+--
+
+INSERT INTO `Offerte` (`ID_azienda`, `Nome_azienda`, `Posizione`, `Periodo`, `Stipendio`, `Indirizzo`, `Ore`, `Posti_disponibili`) VALUES
+(111111, 'Number One', 'Buttafuori', '6 mesi', '1.200,00-mese', 'Via Basalari 200, Brescia', 10, 3);
 
 -- --------------------------------------------------------
 
@@ -54,6 +91,18 @@ INSERT INTO `Utente` (`Email`, `Nome`, `Cognome`, `Ruolo`, `Matricola`, `id_azie
 --
 -- Indici per le tabelle scaricate
 --
+
+--
+-- Indici per le tabelle `Azienda`
+--
+ALTER TABLE `Azienda`
+  ADD PRIMARY KEY (`ID_Azienda`);
+
+--
+-- Indici per le tabelle `Offerte`
+--
+ALTER TABLE `Offerte`
+  ADD PRIMARY KEY (`ID_azienda`);
 
 --
 -- Indici per le tabelle `Utente`
