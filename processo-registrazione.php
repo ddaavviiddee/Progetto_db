@@ -34,27 +34,94 @@ if($_POST["password"] !== $_POST["conferma_password"]){
 }
 
 $matricola = $_POST["matricola"];
-$id_azienda = $_POST["id_azienda"];
-$id_universita = $_POST["id_universita"];
+$email_az = $_POST["email_az"];
+$dipartimento = $_POST["dipartimento"];
+$connessione = require __DIR__ . '/db_conn.php';
 
 if (empty($matricola)){ // Nel momento in cui viene inserito uno di questi campi, gli altri due vengono impostati a null per essere inseriti nel DB.
     $matricola = NULL;
 }
 
-if (empty($id_azienda)){
-    $id_azienda = NULL;
+if (empty($email_az)){
+    $email_az = NULL;
 }
 
-if (empty($id_universita)){
-    $id_universita = NULL;
+if (empty($dipartimento)){
+    $dipartimento = NULL;
 }
+
+// Query per inserire le varie informazioni ai 3 utenti
+
+if (isset($matricola)){
+    $sql_m = "INSERT INTO Studente (Nome, Cognome, Luogo, Matricola) 
+    VALUES (?, ?, ?, ?)";
+
+    $stmt_m = $connessione->stmt_init();
+
+    if (!$stmt_m->prepare($sql_m)){
+        die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
+    }
+    
+    $stmt_m->bind_param("sssi",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+                      $_POST["nome"],
+                      $_POST["cognome"],
+                      $_POST["luogo"],
+                      $matricola);
+    
+ 
+    $stmt_m->execute();
+    $stmt_m->close();
+}
+
+if (isset($email_az)){
+    $sql_e = "INSERT INTO Esercente (Nome, Cognome, Nome_azienda, Email_aziendale) 
+    VALUES (?, ?, ?, ?)";
+
+    $stmt_e = $connessione->stmt_init();
+
+
+    if (!$stmt_e->prepare($sql_e)){
+        die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
+    }
+    
+    $stmt_e->bind_param("ssss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+                      $_POST["nome"],
+                      $_POST["cognome"],
+                      $_POST["nome_az"],
+                      $email_az);
+    
+    
+    $stmt_e->execute();
+    $stmt_e->close();
+}
+
+if (isset($dipartimento)){
+    $sql_r = "INSERT INTO Referente (Nome, Cognome, Dipartimento) 
+    VALUES (?, ?, ?)";
+
+    $stmt_r = $connessione->stmt_init();
+
+
+    if (!$stmt_r->prepare($sql_r)){
+        die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
+    }
+    
+    $stmt_r->bind_param("sss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+                      $_POST["nome"],
+                      $_POST["cognome"],
+                      $dipartimento);
+    
+    
+    $stmt_r->execute();
+    $stmt_r->close();
+}
+
 
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);  // Crittografia della password
 
-$connessione = require __DIR__ . '/db_conn.php';
 
-$sql = "INSERT INTO Utente (Email, Nome, Cognome, Ruolo, Matricola, id_azienda, id_universita, password_hash)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
+$sql = "INSERT INTO Account (Email, Nome, Cognome, Ruolo, password_hash)
+        VALUES (?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
 $stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
 
@@ -62,14 +129,11 @@ if (!$stmt->prepare($sql)){
     die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
 }
 
-$stmt->bind_param("ssssiiis",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+$stmt->bind_param("sssss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                   $_POST["email"],
                   $_POST["nome"],
                   $_POST["cognome"],
                   $_POST["ruolo"],
-                  $matricola,  // Il post viene fatto in precedenza.
-                  $id_azienda,
-                  $id_universita,
                   $password_hash);
 
 if ($stmt->execute()){                                   // Questa funzione esegue lo statement, per poi mandare alla pagina di successo-registrazione.html
@@ -79,14 +143,6 @@ if ($stmt->execute()){                                   // Questa funzione eseg
 
 }
 
-
-
-
-
-
-
-
-
-
+$stmt->close();
 
 ?>

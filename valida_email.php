@@ -2,7 +2,7 @@
 
 $mysqli = require __DIR__ . "/db_conn.php";
 
-$sql = sprintf("SELECT * FROM Utente
+$sql = sprintf("SELECT * FROM Account
                 WHERE Email = '%s'",
                 $mysqli->real_escape_string($_GET["email"])); // Prepara per la query
                 

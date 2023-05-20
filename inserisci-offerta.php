@@ -4,7 +4,7 @@
 
 		$connessione = require __DIR__ . "/db_conn.php";
 
-		$sql = "SELECT * FROM Utente
+		$sql = "SELECT * FROM Account
 				WHERE ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);

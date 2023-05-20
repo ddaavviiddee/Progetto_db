@@ -1,6 +1,6 @@
 <?php
 
-$servername='progetto_db_db_1';
+$servername='progetto_db-db-1';
 $username='php_docker';
 $password='password';
 $dbname='php_docker';

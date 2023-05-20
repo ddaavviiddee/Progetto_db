@@ -62,13 +62,21 @@
                 <label for="matricola">Matricola:</label>
                 <input type="text" id="matricola" name="matricola" >
             </div>
-            <div id="id_azienda" style="display: none;">
-                <label for="id_azienda">Codice aziendale:</label>
-                <input type="text" id="id_azienda" name="id_azienda" >
+            <div id="luogo" style="display: none;">
+                <label for="luogo">Luogo di nascita:</label>
+                <input type="text" id="luogo" name="luogo" >
             </div>
-            <div id="id_universita" style="display: none;">
-                <label for="id_universita">Codice università:</label>
-                <input type="text" id="id_universita" name="id_universita" >
+            <div id="email_az" style="display: none;">
+                <label for="email_az">E-mail aziendale:</label>
+                <input type="text" id="email_az" name="email_az" >
+            </div>
+            <div id="nome_az" style="display: none;">
+                <label for="nome_az">Nome azienda:</label>
+                <input type="text" id="nome_az" name="nome_az" >
+            </div>
+            <div id="dipartimento" style="display: none;">
+                <label for="dipartimento">Dipartimento università:</label>
+                <input type="text" id="dipartimento" name="dipartimento" >
             </div>
         </div>    
         
@@ -77,23 +85,32 @@
         <script>
         const selectOptions = document.getElementById('ruolo');
         const matricola = document.getElementById('matricola');
-        const id_azienda = document.getElementById('id_azienda');
-        const id_universita = document.getElementById('id_universita');
+        const luogo = document.getElementById('luogo');
+        const email_az = document.getElementById('email_az');
+        const nome_az = document.getElementById('nome_az');
+        const dipartimento = document.getElementById('dipartimento');
 
         selectOptions.addEventListener('change', function() {
         if (selectOptions.value === 'Studente') {
         matricola.style.display = 'block';
-        id_azienda.style.display = 'none';
-        id_universita.style.display = 'none';
+        luogo.style.display = 'block';
+        email_az.style.display = 'none';
+        nome_az.style.display = 'none';
+        dipartimento.style.display = 'none';
         } else if (selectOptions.value === 'Referente') {
         matricola.style.display = 'none';
-        id_azienda.style.display = 'none';
-        id_universita.style.display = 'block';
+        luogo.style.display = 'none';
+        email_az.style.display = 'none';
+        nome_az.style.display = 'none';
+        dipartimento.style.display = 'block';
         } else if (selectOptions.value === 'Esercente') {
         matricola.style.display = 'none';
-        id_azienda.style.display = 'block';
-        id_universita.style.display = 'none';
+        luogo.style.display = 'none';
+        nome_az.style.display = 'block';
+        email_az.style.display = 'block';
+        dipartimento.style.display = 'none';
         }
+        
         });
         </script>
         

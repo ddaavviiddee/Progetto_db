@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
 
     $connessione = require __DIR__ . "/db_conn.php";
 
-    $sql = sprintf("SELECT * FROM Utente
+    $sql = sprintf("SELECT * FROM Account
                     WHERE Email = '%s'", 
                     $connessione->real_escape_string($_POST["email"])); // Il real_escape_string prepara $sql in modo che possa essere utilizzato in una query
     
