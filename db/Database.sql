@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Mag 20, 2023 alle 16:31
+-- Creato il: Mag 22, 2023 alle 18:36
 -- Versione del server: 8.0.33
 -- Versione PHP: 8.1.17
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `php_docker`
 --
-CREATE DATABASE IF NOT EXISTS `php_docker` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `php_docker`;
 
 -- --------------------------------------------------------
 
@@ -43,9 +41,20 @@ CREATE TABLE `Account` (
 --
 
 INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash`) VALUES
-(1, 'davidemento02@gmail.com', 'Davide', 'Mento', 'Studente', '$2y$10$/23NgRLR5.C4vCYzRO7E1eULNuQJp4sMc2m2wj7yFI5tXPw/oZkzu'),
-(2, 'stevenbasalari@gmail.com', 'Steven', 'Basalari', 'Esercente', '$2y$10$FWz9LFnzBssz0mskuZN4EudMDUYoi5Y4UT5HNnyGwmviNwBln.NfK'),
-(3, 'massimovillari0@gmail.com', 'Massimo', 'Villari', 'Referente', '$2y$10$pF6SdpHdNf47V6HTLMH/ZOqPa1Q7k9GSHYJ9aED13ZIjJDMb5ONP.');
+(29, 'silvioberlu@gmail.com', 'Silvio', 'Berlusconi', 'Esercente', '$2y$10$tccglQU4Wd4RnLnuOrgprehgpyukzbMQdZQIDQgWDqwaDvxbecAGG'),
+(31, 'stevenbasalari@gmail.com', 'Steven', 'Basalari', 'Esercente', '$2y$10$A0tt48NYc2.mw62t/AmYF.P2grKyd3uF3Ky9KcU5Vzv.qE4XAiSNi');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `Azienda`
+--
+
+CREATE TABLE `Azienda` (
+  `ID_Azienda` int NOT NULL,
+  `Nome` varchar(128) NOT NULL,
+  `Indirizzo` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -54,18 +63,46 @@ INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash
 --
 
 CREATE TABLE `Esercente` (
-  `Email_aziendale` varchar(128) NOT NULL,
+  `Account_ID` int NOT NULL,
   `Nome` varchar(128) NOT NULL,
   `Cognome` varchar(128) NOT NULL,
-  `Nome_azienda` varchar(128) NOT NULL
+  `Nome_azienda` varchar(128) NOT NULL,
+  `Email_aziendale` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dump dei dati per la tabella `Esercente`
 --
 
-INSERT INTO `Esercente` (`Email_aziendale`, `Nome`, `Cognome`, `Nome_azienda`) VALUES
-('numberone@gmail.com', 'Steven', 'Basalari', 'NumberOne');
+INSERT INTO `Esercente` (`Account_ID`, `Nome`, `Cognome`, `Nome_azienda`, `Email_aziendale`) VALUES
+(29, 'Silvio', 'Berlusconi', 'Mediaset', 'mediaset@gmail.com'),
+(31, 'Steven', 'Basalari', 'Numberone', 'numberone@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `Offerte_di_lavoro`
+--
+
+CREATE TABLE `Offerte_di_lavoro` (
+  `ID_Offerta` int NOT NULL,
+  `Nome_azienda` varchar(128) NOT NULL,
+  `Ore` varchar(128) NOT NULL,
+  `Indirizzo` varchar(128) NOT NULL,
+  `Periodo` varchar(128) NOT NULL,
+  `Stipendio` int NOT NULL,
+  `Posti_disponibili` int NOT NULL,
+  `Posizione` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dump dei dati per la tabella `Offerte_di_lavoro`
+--
+
+INSERT INTO `Offerte_di_lavoro` (`ID_Offerta`, `Nome_azienda`, `Ore`, `Indirizzo`, `Periodo`, `Stipendio`, `Posti_disponibili`, `Posizione`) VALUES
+(1, 'Mediaset', '30/settimana', 'Via Orsini 44', '3 mesi', 1400, 6, 'Cameraman'),
+(2, 'NumberOne', '30', 'Via Brescia 28', '3 mesi', 1200, 3, 'Barista'),
+(3, 'Numberone', '30/settimana', 'Via Brescia 28', '6 mesi', 1200, 3, 'Buttafuori');
 
 -- --------------------------------------------------------
 
@@ -118,10 +155,22 @@ ALTER TABLE `Account`
   ADD UNIQUE KEY `Email` (`Email`);
 
 --
+-- Indici per le tabelle `Azienda`
+--
+ALTER TABLE `Azienda`
+  ADD PRIMARY KEY (`ID_Azienda`);
+
+--
 -- Indici per le tabelle `Esercente`
 --
 ALTER TABLE `Esercente`
-  ADD PRIMARY KEY (`Email_aziendale`);
+  ADD PRIMARY KEY (`Account_ID`);
+
+--
+-- Indici per le tabelle `Offerte_di_lavoro`
+--
+ALTER TABLE `Offerte_di_lavoro`
+  ADD PRIMARY KEY (`ID_Offerta`);
 
 --
 -- Indici per le tabelle `Referente`
@@ -143,7 +192,19 @@ ALTER TABLE `Studente`
 -- AUTO_INCREMENT per la tabella `Account`
 --
 ALTER TABLE `Account`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT per la tabella `Azienda`
+--
+ALTER TABLE `Azienda`
+  MODIFY `ID_Azienda` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `Offerte_di_lavoro`
+--
+ALTER TABLE `Offerte_di_lavoro`
+  MODIFY `ID_Offerta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

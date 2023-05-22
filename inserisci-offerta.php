@@ -31,12 +31,7 @@
 <form action="processo-inserimento.php" method="post" id="inserimento">
 
         <div>
-            <label for="id_azienda">ID_azienda</label>
-            <input type="text" id="id_azienda" name="id_azienda" required>
-        </div>
-
-        <div>
-            <label for="nome_azienda">Nome_azienda</label>
+            <label for="nome_azienda">Nome azienda</label>
             <input type="text" id="nome_azienda" name="nome_azienda" required>
         </div>
 
@@ -66,7 +61,7 @@
         </div>
 
         <div>
-            <label for="posti_disponibili">Posti_disponibil</label required>
+            <label for="posti_disponibili">Posti disponibil</label required>
             <input type="text" id="posti_disponibili" name="posti_disponibili">
         </div>
 

@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
             session_regenerate_id();
 
             $_SESSION["user_id"] = $user["ID"]; // Il session id viene preso dal database utilizzando il campo 'ID'
-
+        
             header("Location: index.php");
             exit;
         }
