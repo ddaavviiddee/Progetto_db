@@ -83,8 +83,8 @@ $stmt->close();
 // Query per inserire le varie informazioni ai 3 utenti
 
 if (isset($matricola)){
-    $sql_m = "INSERT INTO Studente (Nome, Cognome, Luogo, Matricola) 
-    VALUES (?, ?, ?, ?)";
+    $sql_m = "INSERT INTO Studente (Account_ID, Nome, Cognome, Luogo, Matricola) 
+    VALUES (?, ?, ?, ?, ?)";
 
     $stmt_m = $connessione->stmt_init();
 
@@ -92,11 +92,12 @@ if (isset($matricola)){
         die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
     }
     
-    $stmt_m->bind_param("sssi",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
-                      $_POST["nome"],
-                      $_POST["cognome"],
-                      $_POST["luogo"],
-                      $matricola);
+    $stmt_m->bind_param("isssi",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+                        $account_ID,
+                        $_POST["nome"],
+                        $_POST["cognome"],
+                        $_POST["luogo"],
+                        $matricola);
     
  
     $stmt_m->execute();
@@ -128,8 +129,8 @@ if (isset($email_az)){
 }
 
 if (isset($dipartimento)){
-    $sql_r = "INSERT INTO Referente (Nome, Cognome, Dipartimento) 
-    VALUES (?, ?, ?)";
+    $sql_r = "INSERT INTO Referente (Account_ID, Nome, Cognome, Dipartimento) 
+    VALUES (?, ?, ?, ?)";
     $stmt_r = $connessione->stmt_init();
 
 
@@ -137,10 +138,11 @@ if (isset($dipartimento)){
         die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
     }
     
-    $stmt_r->bind_param("sss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
-                      $_POST["nome"],
-                      $_POST["cognome"],
-                      $dipartimento);
+    $stmt_r->bind_param("isss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+                        $account_ID,
+                        $_POST["nome"],
+                        $_POST["cognome"],
+                        $dipartimento);
     
     
     $stmt_r->execute();
