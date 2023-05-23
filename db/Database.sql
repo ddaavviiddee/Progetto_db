@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Mag 22, 2023 alle 18:36
--- Versione del server: 8.0.33
+-- Creato il: Mag 23, 2023 alle 08:00
+-- Versione del server: 8.0.32
 -- Versione PHP: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -42,7 +42,8 @@ CREATE TABLE `Account` (
 
 INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash`) VALUES
 (29, 'silvioberlu@gmail.com', 'Silvio', 'Berlusconi', 'Esercente', '$2y$10$tccglQU4Wd4RnLnuOrgprehgpyukzbMQdZQIDQgWDqwaDvxbecAGG'),
-(31, 'stevenbasalari@gmail.com', 'Steven', 'Basalari', 'Esercente', '$2y$10$A0tt48NYc2.mw62t/AmYF.P2grKyd3uF3Ky9KcU5Vzv.qE4XAiSNi');
+(31, 'stevenbasalari@gmail.com', 'Steven', 'Basalari', 'Esercente', '$2y$10$A0tt48NYc2.mw62t/AmYF.P2grKyd3uF3Ky9KcU5Vzv.qE4XAiSNi'),
+(32, 'erusso@gmail.com', 'Emanuele', 'Russo', 'Studente', '$2y$10$wZnpCgR6sK.TMT.npw6wgeZcP1AXaNeLPD.aoCxt.RgGFZL5280cu');
 
 -- --------------------------------------------------------
 
@@ -111,17 +112,11 @@ INSERT INTO `Offerte_di_lavoro` (`ID_Offerta`, `Nome_azienda`, `Ore`, `Indirizzo
 --
 
 CREATE TABLE `Referente` (
+  `Account_ID` int NOT NULL,
   `Dipartimento` varchar(128) NOT NULL,
   `Nome` varchar(128) NOT NULL,
   `Cognome` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dump dei dati per la tabella `Referente`
---
-
-INSERT INTO `Referente` (`Dipartimento`, `Nome`, `Cognome`) VALUES
-('MIFT', 'Massimo', 'Villari');
 
 -- --------------------------------------------------------
 
@@ -131,6 +126,7 @@ INSERT INTO `Referente` (`Dipartimento`, `Nome`, `Cognome`) VALUES
 
 CREATE TABLE `Studente` (
   `Matricola` int NOT NULL,
+  `Account_ID` int NOT NULL,
   `Nome` varchar(128) NOT NULL,
   `Cognome` varchar(128) NOT NULL,
   `Luogo` varchar(128) NOT NULL
@@ -140,8 +136,8 @@ CREATE TABLE `Studente` (
 -- Dump dei dati per la tabella `Studente`
 --
 
-INSERT INTO `Studente` (`Matricola`, `Nome`, `Cognome`, `Luogo`) VALUES
-(312321, 'Davide', 'Mento', 'Messina');
+INSERT INTO `Studente` (`Matricola`, `Account_ID`, `Nome`, `Cognome`, `Luogo`) VALUES
+(526889, 32, 'Emanuele', 'Russo', 'Messina');
 
 --
 -- Indici per le tabelle scaricate
@@ -176,13 +172,13 @@ ALTER TABLE `Offerte_di_lavoro`
 -- Indici per le tabelle `Referente`
 --
 ALTER TABLE `Referente`
-  ADD PRIMARY KEY (`Dipartimento`);
+  ADD PRIMARY KEY (`Account_ID`);
 
 --
 -- Indici per le tabelle `Studente`
 --
 ALTER TABLE `Studente`
-  ADD PRIMARY KEY (`Matricola`);
+  ADD PRIMARY KEY (`Matricola`,`Account_ID`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -192,7 +188,7 @@ ALTER TABLE `Studente`
 -- AUTO_INCREMENT per la tabella `Account`
 --
 ALTER TABLE `Account`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT per la tabella `Azienda`
