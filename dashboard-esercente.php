@@ -48,8 +48,8 @@
     </thead>
     <tbody>
 <?php
-$query = "SELECT * FROM Offerte_di_lavoro
-		  WHERE Nome_azienda = '$nome_azienda'";
+    $query = "SELECT * FROM Offerte_di_lavoro
+		      WHERE Nome_azienda = '$nome_azienda'";
 	$result2 = mysqli_query($connessione, $query);
 	while($row=mysqli_fetch_assoc($result2)){
 		echo "<tr>";

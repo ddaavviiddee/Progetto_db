@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Mag 23, 2023 alle 08:00
--- Versione del server: 8.0.32
+-- Creato il: Mag 23, 2023 alle 18:12
+-- Versione del server: 8.0.33
 -- Versione PHP: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -43,7 +43,8 @@ CREATE TABLE `Account` (
 INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash`) VALUES
 (29, 'silvioberlu@gmail.com', 'Silvio', 'Berlusconi', 'Esercente', '$2y$10$tccglQU4Wd4RnLnuOrgprehgpyukzbMQdZQIDQgWDqwaDvxbecAGG'),
 (31, 'stevenbasalari@gmail.com', 'Steven', 'Basalari', 'Esercente', '$2y$10$A0tt48NYc2.mw62t/AmYF.P2grKyd3uF3Ky9KcU5Vzv.qE4XAiSNi'),
-(32, 'erusso@gmail.com', 'Emanuele', 'Russo', 'Studente', '$2y$10$wZnpCgR6sK.TMT.npw6wgeZcP1AXaNeLPD.aoCxt.RgGFZL5280cu');
+(32, 'erusso@gmail.com', 'Emanuele', 'Russo', 'Studente', '$2y$10$wZnpCgR6sK.TMT.npw6wgeZcP1AXaNeLPD.aoCxt.RgGFZL5280cu'),
+(33, 'davidemento02@gmail.com', 'Davide', 'Mento', 'Studente', '$2y$10$GlvASvVpOV.ykUuKPfvsJeG2nRfwBOO1xaR3BmTr.ZDu5tYz0kvW2');
 
 -- --------------------------------------------------------
 
@@ -55,6 +56,25 @@ CREATE TABLE `Azienda` (
   `ID_Azienda` int NOT NULL,
   `Nome` varchar(128) NOT NULL,
   `Indirizzo` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `Domande`
+--
+
+CREATE TABLE `Domande` (
+  `ID_Domande` int NOT NULL DEFAULT '0',
+  `Nome_azienda` varchar(128) NOT NULL,
+  `Ore` varchar(128) NOT NULL,
+  `Indirizzo` varchar(128) NOT NULL,
+  `Periodo` varchar(128) NOT NULL,
+  `Stipendio` int NOT NULL,
+  `Posti_disponibili` int NOT NULL,
+  `Posizione` varchar(128) NOT NULL,
+  `Stato` varchar(128) NOT NULL,
+  `Matricola` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -121,6 +141,19 @@ CREATE TABLE `Referente` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `Stato`
+--
+
+CREATE TABLE `Stato` (
+  `ID_Domanda` int NOT NULL,
+  `Nome_azienda` int NOT NULL,
+  `Posti_disponibili` int NOT NULL,
+  `Matricola` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `Studente`
 --
 
@@ -137,7 +170,8 @@ CREATE TABLE `Studente` (
 --
 
 INSERT INTO `Studente` (`Matricola`, `Account_ID`, `Nome`, `Cognome`, `Luogo`) VALUES
-(526889, 32, 'Emanuele', 'Russo', 'Messina');
+(526889, 32, 'Emanuele', 'Russo', 'Messina'),
+(527917, 33, 'Davide', 'Mento', 'Messina');
 
 --
 -- Indici per le tabelle scaricate
@@ -175,6 +209,12 @@ ALTER TABLE `Referente`
   ADD PRIMARY KEY (`Account_ID`);
 
 --
+-- Indici per le tabelle `Stato`
+--
+ALTER TABLE `Stato`
+  ADD PRIMARY KEY (`ID_Domanda`);
+
+--
 -- Indici per le tabelle `Studente`
 --
 ALTER TABLE `Studente`
@@ -188,7 +228,7 @@ ALTER TABLE `Studente`
 -- AUTO_INCREMENT per la tabella `Account`
 --
 ALTER TABLE `Account`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT per la tabella `Azienda`
@@ -201,6 +241,12 @@ ALTER TABLE `Azienda`
 --
 ALTER TABLE `Offerte_di_lavoro`
   MODIFY `ID_Offerta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT per la tabella `Stato`
+--
+ALTER TABLE `Stato`
+  MODIFY `ID_Domanda` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
