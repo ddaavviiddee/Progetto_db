@@ -6,22 +6,23 @@ validation
     .addField("#nome", [
         {
             rule: "required",
-            errorMessage: 'Il nome è richiesto'
+            errorMessage: 'Il nome è richiesto.'
         }
     ])
     .addField("#cognome", [
         {
             rule: "required",
-            errorMessage: 'Il cognome è richiesto'
+            errorMessage: 'Il cognome è richiesto.'
         }
     ])
     .addField("#email", [
         {
-            rule: "required", 
+            rule: "required",
+            errorMessage: 'Questo campo deve essere riempito.' 
         },
         {
             rule: "email",
-            errorMessage: 'Inserire una email valida'
+            errorMessage: 'Inserire una email valida.'
         },
         {
             validator: (value) => () => {                                        // Questo validator controlla se una email è già in utilizzo nel DB.
@@ -39,11 +40,11 @@ validation
     .addField("#password", [
         {
             rule: "required",
-            errorMessage: 'Questo campo deve essere riempito'
+            errorMessage: 'Questo campo deve essere riempito.'
         },
         {
             rule: "password",
-            errorMessage: 'La password deve contenere almeno 8 caratteri e un numero'
+            errorMessage: 'La password deve contenere almeno 8 caratteri e un numero.'
         }
     ])
     .addField("#conferma_password", [
@@ -51,7 +52,7 @@ validation
             validator: (value, fields) => {
                 return value === fields["#password"].elem.value;
             },
-            errorMessage: "Le password devono combaciare"
+            errorMessage: "Le password devono combaciare."
         }
     ])
     .onSuccess((event) => {

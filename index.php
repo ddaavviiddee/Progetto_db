@@ -52,7 +52,7 @@
 
 		
 		
-		<p><a href="logout.php">Log out</a></p>
+		<footer><a href="logout.php">Log out</a></footer>
 		
 	<?php else: ?>
 		<p>Effettua il<a href="login.php"> log in</a> oppure <a href="signup.html"> registrati.</a></p>

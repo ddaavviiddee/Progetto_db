@@ -12,15 +12,7 @@
 		$user = $result->fetch_assoc();
         $matricola = $user['Matricola'];
         
-        
-        $sql_d = "SELECT * FROM Domande
-                  WHERE Matricola = $matricola";
-        $result_d = $connessione->query($sql_d);
-        $domanda = $result_d->fetch_assoc();
-        if (isset($domanda['Matricola'])){
-            $matricola_d = $domanda['Matricola'];
-        }
-        
+       
 	}
 ?>
 
@@ -38,6 +30,20 @@
 
 
 <body>
+<a href="index.php" class="Home"> Home </a>
+<style>
+  .Home {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 8px 12px;
+    background-color: #0076d1;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+</style>
 <h1>Ecco l'offerta</h1>
 <fieldset>
 <div class="riquadro">
@@ -51,6 +57,7 @@
 		<th>Stipendio</th>
         <th>Posti disponibili</th>
 		<th>Posizione</th>
+        <th>Email aziendale</th>
       </tr>
     </thead>
     <tbody>
@@ -60,16 +67,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 
 $query = "SELECT * FROM Offerte_di_lavoro
-          WHERE ID_Offerta = $id_offerta";
+          WHERE ID_Offerta = '$id_offerta'";
 $result2 = mysqli_query($connessione, $query);
 	while($row=mysqli_fetch_assoc($result2)){
-        $nome_azienda=$row['Nome_azienda'];
+        $nome_azienda = $row['Nome_azienda'];
         $ore = $row['Ore'];
         $indirizzo = $row['Indirizzo'];
         $periodo = $row['Periodo'];
         $stipendio=$row['Stipendio'];
         $posti_disponibili = $row['Posti_disponibili'];
-        $posizione = $row['Posizione']; 
+        $posizione = $row['Posizione'];
+ 
+
+        $sql_e = "SELECT Email_aziendale FROM Esercente
+                  WHERE Nome_azienda = '$nome_azienda'";
+        $result_e = $connessione->query($sql_e);
+        $array = $result_e->fetch_assoc();
+        $email_aziendale = $array['Email_aziendale'];
+
 		echo "<tr>";
 		echo "<td>" . $row['Nome_azienda'] . "</td>";
         echo "<td>" . $row['Ore'] . "</td>";
@@ -78,6 +93,7 @@ $result2 = mysqli_query($connessione, $query);
 		echo "<td>" . $row['Stipendio'] . "</td>";
         echo "<td>" . $row['Posti_disponibili'] . "</td>";
 		echo "<td>" . $row['Posizione'] . "</td>";
+        echo "<td>" . $email_aziendale . "</td>";
         echo "</tr>";
 	}
 ?> 
@@ -88,6 +104,14 @@ $result2 = mysqli_query($connessione, $query);
 </fieldset>
 
 <?php
+    $sql_d = "SELECT Matricola FROM Domande
+    WHERE Nome_azienda = '$nome_azienda' AND Posizione = '$posizione'";
+    $result_d = $connessione->query($sql_d);
+    $domanda = $result_d->fetch_assoc();
+    if (isset($domanda['Matricola'])){
+    $matricola_d = $domanda['Matricola'];
+    }
+
     if (isset($matricola_d) && $matricola == $matricola_d){
         echo "<h3>Hai già fatto domanda per questa offerta.<h3>";
     } else {
@@ -99,7 +123,8 @@ $result2 = mysqli_query($connessione, $query);
         <input type='hidden' name='stipendio' value='".$stipendio."'>
         <input type='hidden' name='posti_disponibili' value='".$posti_disponibili."'>
         <input type='hidden' name='posizione' value='".$posizione."'>
-        <input type='hidden' name='matricola' value='".$matricola."'>   
+        <input type='hidden' name='matricola' value='".$matricola."'>
+        <input type='hidden' name='id_offerta' value='".$id_offerta."'>     
         <button type='submit'>Applica</button>
         </form>";
     }

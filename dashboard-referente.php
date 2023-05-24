@@ -24,3 +24,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a href="index.php" class="Home"> Home </a>
+<style>
+  .Home {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 8px 12px;
+    background-color: #0076d1;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+</style>

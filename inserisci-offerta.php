@@ -25,15 +25,24 @@
 </head>
 
 <body>
+<a href="index.php" class="Home"> Home </a>
+<style>
+  .Home {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 8px 12px;
+    background-color: #0076d1;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+</style>
 
 <h2>Inserisci i dati della tua offerta di lavoro</h2>
 
 <form action="processo-inserimento.php" method="post" id="inserimento">
-
-        <div>
-            <label for="nome_azienda">Nome azienda</label>
-            <input type="text" id="nome_azienda" name="nome_azienda" required>
-        </div>
 
         <div>
             <label for="posizione">Posizione</label>
@@ -41,9 +50,14 @@
         </div>
 
         <div>
-            <label for="periodo">Periodo</label>
-            <input type="text" id="periodo" name="periodo" required>
-        </div>        
+        <legend>Periodo:</legend>
+        <select id="periodo" name="periodo" >
+            <option value="3 mesi">3 mesi </option>
+            <option value="6 mesi">6 mesi </option>
+            <option value="9 mesi">9 mesi </option>
+            <option value="12 mesi">12 mesi </option>
+        </select>  
+        </div>
 
         <div>
             <label for="stipendio">Stipendio</label>
@@ -61,7 +75,7 @@
         </div>
 
         <div>
-            <label for="posti_disponibili">Posti disponibil</label required>
+            <label for="posti_disponibili">Posti disponibili</label required>
             <input type="text" id="posti_disponibili" name="posti_disponibili">
         </div>
 

@@ -4,26 +4,28 @@
 
 		$connessione = require __DIR__ . "/db_conn.php";
 
-		$sql = "SELECT * FROM Esercente
+		$sql = "SELECT Matricola FROM Studente
 				WHERE Account_ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);
 
-		$esercente = $result->fetch_assoc();
+		$studente = $result->fetch_assoc();
 
-		$nome_azienda = $esercente["Nome_azienda"];
+		$matricola = $studente["Matricola"];
 
-        $sql2 = "SELECT Nome_azienda FROM Offerte_di_lavoro
-                 WHERE Nome_azienda = '$nome_azienda'";
-        
+        $sql2 ="SELECT * FROM Domande
+                WHERE Matricola = '$matricola'";
         $result2 = $connessione->query($sql2);
-        $offerta_di_lavoro = $result2->fetch_assoc();
+        $studente_d = $result2->fetch_assoc();
 
-        if (isset($offerta_di_lavoro)){
-            $nome_azienda_offerta = $offerta_di_lavoro["Nome_azienda"];
+        if (isset($studente_d)){
+        $matricola_d = $studente_d['Matricola'];
         }
 	}
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -35,9 +37,6 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
-
-
 <body>
 <a href="index.php" class="Home"> Home </a>
 <style>
@@ -53,9 +52,9 @@
     border-radius: 4px;
   }
 </style>
-<h1>La tua dashboard</h1>
-<h2>Le tue offerte</h2>
-<?php if (isset($nome_azienda_offerta)): ?>
+
+<?php if (isset($matricola_d)): ?>
+
 <fieldset>
 <div class="riquadro">
   <table>
@@ -66,17 +65,18 @@
 		<th>Indirizzo</th>
         <th>Periodo</th>
 		<th>Stipendio</th>
-        <th>Posti disponibili</th>
-		<th>Posizione</th>
+        <th>Posizione</th>
+		<th>Stato</th>
       </tr>
     </thead>
     <tbody>
+
 <?php endif; ?>
 
 <?php
-    if (isset($nome_azienda_offerta)){
-        $query = "SELECT * FROM Offerte_di_lavoro
-                  WHERE Nome_azienda = '$nome_azienda'";
+    if (isset($matricola_d)){
+        $query = "SELECT * FROM Domande
+                  WHERE Matricola = '$matricola'";
         $result3 = mysqli_query($connessione, $query);
         while($row=mysqli_fetch_assoc($result3)){
             echo "<tr>";
@@ -85,27 +85,16 @@
             echo "<td>" . $row['Indirizzo'] . "</td>";
             echo "<td>" . $row['Periodo'] . "</td>";
             echo "<td>" . $row['Stipendio'] . "</td>";
-            echo "<td>" . $row['Posti_disponibili'] . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
+            echo "<td>" . $row['Stato'] . "</td>";
             echo "</tr>";
         }
 	}
     else {
-        echo "<h3> Non hai ancora inserito delle offerte di lavoro.</h3>";
+        echo "<h3> Non hai ancora effettuato domande.</h3>";
     }
+
+
+
+
 ?>
-
-</tbody>
-</table>
-</div>
-</fieldset>
-
-
-
-
-
-
-
-<button onclick="location.href='inserisci-offerta.php'" type="button">Inserisci offerta</button>
-
-</body>

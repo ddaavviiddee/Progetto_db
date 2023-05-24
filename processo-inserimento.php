@@ -1,7 +1,4 @@
 <?php
-if (empty($_POST["nome_azienda"])){
-    die("Il nome dell'azienda è richiesto.");
-}
 
 if (empty($_POST["posizione"])){
     die("La posizione è richiesta.");
@@ -29,6 +26,24 @@ if (empty($_POST["posti_disponibili"])){
 
 $connessione = require __DIR__ . '/db_conn.php';
 
+
+session_start();  // Inizializzazione della sessione
+if (isset($_SESSION["user_id"])){
+
+	$connessione = require __DIR__ . "/db_conn.php";
+
+	$sql_na = "SELECT * FROM Esercente
+			WHERE Account_ID = {$_SESSION["user_id"]}";
+
+	$result = $connessione->query($sql_na);
+
+	$esercente = $result->fetch_assoc();
+
+	$nome_azienda = $esercente["Nome_azienda"];
+
+}
+
+
 $sql = "INSERT INTO Offerte_di_lavoro (Nome_azienda, Ore, Indirizzo, Periodo, Stipendio, Posti_disponibili, Posizione)
         VALUES (?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
@@ -39,16 +54,16 @@ if (!$stmt->prepare($sql)){
 }
 
 $stmt->bind_param("ssssiis",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
-                  $_POST["nome_azienda"],
+                  $nome_azienda,
                   $_POST["ore"],
                   $_POST["indirizzo"],
                   $_POST["periodo"],
-                  $_POST["stipendio"],  // Il post viene fatto in precedenza.
+                  $_POST["stipendio"],  
                   $_POST["posti_disponibili"],
                   $_POST["posizione"]);
                   
 
-if ($stmt->execute()){                                   // Questa funzione esegue lo statement, per poi mandare alla pagina di successo-registrazione.html
+if ($stmt->execute()){                                   
                         
     header("Location: dashboard-esercente.php");
     exit;

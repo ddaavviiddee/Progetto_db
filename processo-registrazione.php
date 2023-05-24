@@ -36,6 +36,7 @@ if($_POST["password"] !== $_POST["conferma_password"]){
 $matricola = $_POST["matricola"];
 $email_az = $_POST["email_az"];
 $dipartimento = $_POST["dipartimento"];
+$azienda = $_POST["nome_az"];
 $connessione = require __DIR__ . '/db_conn.php';
 
 if (empty($matricola)){ // Nel momento in cui viene inserito uno di questi campi, gli altri due vengono impostati a null per essere inseriti nel DB.
@@ -148,6 +149,21 @@ if (isset($dipartimento)){
     $stmt_r->execute();
     $stmt_r->close();
 }
+
+if (isset($azienda)){
+    $sql_a = "INSERT INTO Azienda (Nome) VALUES (?)";
+    $stmt_a = $connessione->stmt_init();
+
+    if (!$stmt_a->prepare($sql_a)){
+        die("Errore SQL: ". $connessione->error);
+    }
+    
+    $stmt_a->bind_param("s",
+                        $azienda);
+    $stmt_a->execute();
+    $stmt_a->close();
+}
+
 
                                  // Questa funzione esegue lo statement, per poi mandare alla pagina di successo-registrazione.html
                         
