@@ -62,6 +62,22 @@
                 <label for="matricola">Matricola:</label>
                 <input type="text" id="matricola" name="matricola" >
             </div>
+
+            <div id ="dipartimento" style="display: none;">      
+
+                <legend>Dipartimento</legend>
+                <select id="dipartimento" name="dipartimento" >
+                <option value="vuoto"> </option>
+                <option value="MIFT"> MIFT </option>
+                <option value="DICAM"> DICAM </option>
+                <option value="medicina"> Medicina </option>
+                <option value="economia"> Economia </option>
+                <option value="giurisprudenza"> Giurisprudenza </option>
+                <option value="psicologia"> Psicologia </option>
+                </select>
+                
+            </div> 
+
             <div id="luogo" style="display: none;">
                 <label for="luogo">Luogo di nascita:</label>
                 <input type="text" id="luogo" name="luogo" >
@@ -73,10 +89,6 @@
             <div id="nome_az" style="display: none;">
                 <label for="nome_az">Nome azienda:</label>
                 <input type="text" id="nome_az" name="nome_az" >
-            </div>
-            <div id="dipartimento" style="display: none;">
-                <label for="dipartimento">Dipartimento università:</label>
-                <input type="text" id="dipartimento" name="dipartimento" >
             </div>
         </div>    
         
@@ -96,7 +108,7 @@
         luogo.style.display = 'block';
         email_az.style.display = 'none';
         nome_az.style.display = 'none';
-        dipartimento.style.display = 'none';
+        dipartimento.style.display = 'block';
         } else if (selectOptions.value === 'Referente') {
         matricola.style.display = 'none';
         luogo.style.display = 'none';
@@ -106,8 +118,8 @@
         } else if (selectOptions.value === 'Esercente') {
         matricola.style.display = 'none';
         luogo.style.display = 'none';
-        nome_az.style.display = 'block';
         email_az.style.display = 'block';
+        nome_az.style.display = 'block';
         dipartimento.style.display = 'none';
         }
         

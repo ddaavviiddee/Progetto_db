@@ -56,20 +56,7 @@
 <?php if (isset($matricola_d)): ?>
 
 <fieldset>
-<div class="riquadro">
-  <table>
-    <thead>
-      <tr>
-        <th>Azienda</th>
-        <th>Ore</th>
-		<th>Indirizzo</th>
-        <th>Periodo</th>
-		<th>Stipendio</th>
-        <th>Posizione</th>
-		<th>Stato</th>
-      </tr>
-    </thead>
-    <tbody>
+
 
 <?php endif; ?>
 
@@ -79,6 +66,20 @@
                   WHERE Matricola = '$matricola'";
         $result3 = mysqli_query($connessione, $query);
         while($row=mysqli_fetch_assoc($result3)){
+            echo '<div class="riquadro">
+            <table>
+              <thead>
+                <tr>
+                  <th>Azienda</th>
+                  <th>Ore</th>
+                  <th>Indirizzo</th>
+                  <th>Periodo</th>
+                  <th>Stipendio</th>
+                  <th>Posizione</th>
+                  <th>Stato</th>
+                </tr>
+              </thead>
+              <tbody>';
             echo "<tr>";
             echo "<td>" . $row['Nome_azienda'] . "</td>";
             echo "<td>" . $row['Ore'] . "</td>";

@@ -42,7 +42,12 @@ if (isset($_SESSION["user_id"])){
 	$nome_azienda = $esercente["Nome_azienda"];
 
 }
-
+$nome_azienda = $_POST["nome_az"];
+$nome_azienda = ucwords($nome_azienda);
+$posizione = $_POST["posizione"];
+$posizione = ucwords($posizione);
+$indirizzo = $_POST["indirizzo"];
+$indirizzo = ucwords($indirizzo);
 
 $sql = "INSERT INTO Offerte_di_lavoro (Nome_azienda, Ore, Indirizzo, Periodo, Stipendio, Posti_disponibili, Posizione)
         VALUES (?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
@@ -56,11 +61,11 @@ if (!$stmt->prepare($sql)){
 $stmt->bind_param("ssssiis",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                   $nome_azienda,
                   $_POST["ore"],
-                  $_POST["indirizzo"],
+                  $indirizzo,
                   $_POST["periodo"],
                   $_POST["stipendio"],  
                   $_POST["posti_disponibili"],
-                  $_POST["posizione"]);
+                  $posizione);
                   
 
 if ($stmt->execute()){                                   

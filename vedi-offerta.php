@@ -105,12 +105,13 @@ $result2 = mysqli_query($connessione, $query);
 
 <?php
     $sql_d = "SELECT Matricola FROM Domande
-    WHERE Nome_azienda = '$nome_azienda' AND Posizione = '$posizione'";
+    WHERE Matricola = '$matricola' AND Posizione = '$posizione'";
     $result_d = $connessione->query($sql_d);
     $domanda = $result_d->fetch_assoc();
     if (isset($domanda['Matricola'])){
     $matricola_d = $domanda['Matricola'];
     }
+    
 
     if (isset($matricola_d) && $matricola == $matricola_d){
         echo "<h3>Hai già fatto domanda per questa offerta.<h3>";

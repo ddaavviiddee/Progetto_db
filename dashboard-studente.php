@@ -44,7 +44,7 @@
 </style>
 
 <div>
-    <h1> Benvenuto nella tua dashboard, <?= htmlspecialchars($user["Nome"])?>.</h1>
+    <h1> Benvenuto nella tua dashboard, <?= htmlspecialchars($user["Nome"])?></h1>
 </div>
 </head>
 <title>Filtri</title>
@@ -63,11 +63,11 @@
 <body>
     <h2>Filtri</h2>
 
-    <form>
+    <form action="offerte-filtrate.php" method="post">
         <div class="filter">
             <label for="stipendio">Stipendio:</label>
             <select name="stipendio" id="stipendio">
-                <option value="vuoto"> </option>
+                <option value=""> </option>
                 <option value="crescente">Crescente</option>
                 <option value="decrescente">Decrescente</option>
             </select>
@@ -76,7 +76,7 @@
         <div class="filter">
             <label for="periodo">Periodo:</label>
             <select name="periodo" id="periodo">
-                <option value="vuoto"> </option>
+                <option value=""> </option>
                 <option value="3 mesi">3 mesi</option>
                 <option value="6 mesi">6 mesi</option>
                 <option value="9 mesi">9 mesi</option>
@@ -97,11 +97,9 @@
         <br><br>
         
         <input type="submit" value="Filtra">
+
     </form>
 
-    <div id="risultati">
-        <!-- L'area dei risultati verrà aggiornata dinamicamente -->
-    </div>
 </body>
 </head>
 
@@ -109,30 +107,31 @@
 <body>
 <h1>Offerte</h1>
 <fieldset>
-<legend>Ecco le offerte disponibili</legend>
-<div class="riquadro">
-  <table>
-    <thead>
-      <tr>
-        <th>Azienda</th>
-		<th>Stipendio</th>
-        <th>Periodo</th>
-        <th>Posti disponibili</th>
-		<th>Posizione</th>
-      </tr>  
-    </thead>
-    <tbody>
+<legend>Ecco tutte le offerte disponibili</legend>
+
 <?php
-    $query = "SELECT * FROM Offerte_di_lavoro";
+  $query = "SELECT * FROM Offerte_di_lavoro";
 	$result2 = mysqli_query($connessione, $query);
 	while($row=mysqli_fetch_assoc($result2)){
         if ($row['Posti_disponibili'] > 0){
-		echo "<tr>";
-		echo "<td>" . $row['Nome_azienda'] . "</td>";
-		echo "<td>" . $row['Stipendio'] . "</td>";
+        echo '<div class="riquadro">
+          <table>
+            <thead>
+              <tr>
+                <th>Azienda</th>
+                <th>Stipendio</th>
+                <th>Periodo</th>
+                <th>Posti disponibili</th>
+                <th>Posizione</th>
+              </tr>  
+            </thead>
+            <tbody>';
+	    	echo "<tr>";
+		    echo "<td>" . $row['Nome_azienda'] . "</td>";
+	    	echo "<td>" . $row['Stipendio'] . "</td>";
         echo "<td>" . $row['Periodo'] . "</td>";
         echo "<td>" . $row['Posti_disponibili'] . "</td>";
-		echo "<td>" . $row['Posizione'] . "</td>";
+		    echo "<td>" . $row['Posizione'] . "</td>";
         echo "<td><form action='vedi-offerta.php' method='POST'>          
         <input type='hidden' name='id_offerta' value='".$row['ID_Offerta']."'>
         <button type='submit'>Info</button>
@@ -140,8 +139,8 @@
         echo "</tr>";
         }
 	}
-	
-?>
+
+?>                    
 
 </tbody>
 </table>
@@ -152,64 +151,3 @@
 </body>
 
 
-
-<?php
-/*
-// Connessione al database
-$conn = mysqli_connect("localhost", "username", "password", "nomedatabase");
-
-// Verifica la connessione al database
-if (!$conn) {
-  die("Connessione al database fallita: " . mysqli_connect_error());
-}
-
-// Ricevi i valori dei campi di input
-$stipendio = $_POST['stipendio'];
-$posizione = $_POST['posizione'];
-$azienda = $_POST['azienda'];
-$periodo = $_POST['periodo'];
-
-// Costruisci la query SQL dinamica
-$query = "SELECT * FROM nome_tabella WHERE 1=1"; // Inizia con una clausola WHERE sempre vera
-
-if (!empty($stipendio)) {
-  $query .= " AND stipendio = '$stipendio'";
-}
-
-if (!empty($posizione)) {
-  $query .= " AND posizione = '$posizione'";
-}
-
-if (!empty($azienda)) {
-  $query .= " AND azienda = '$azienda'";
-}
-
-if (!empty($periodo)) {
-  $query .= " AND periodo = '$periodo'";
-}
-
-// Esegui la query nel database
-$result = mysqli_query($conn, $query);
-
-// Visualizza i risultati nella tabella HTML
-if (mysqli_num_rows($result) > 0) {
-  echo "<table>";
-  echo "<tr><th>Colonna 1</th><th>Colonna 2</th><th>Colonna 3</th></tr>";
-
-  while ($row = mysqli_fetch_assoc($result)) {
-    echo "<tr>";
-    echo "<td>" . $row['colonna1'] . "</td>";
-    echo "<td>" . $row['colonna2'] . "</td>";
-    echo "<td>" . $row['colonna3'] . "</td>";
-    echo "</tr>";
-  }
-
-  echo "</table>";
-} else {
-  echo "Nessun risultato trovato.";
-}
-
-// Chiudi la connessione al database
-mysqli_close($conn);
-?>
-*/

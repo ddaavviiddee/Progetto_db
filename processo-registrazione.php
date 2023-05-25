@@ -33,14 +33,29 @@ if($_POST["password"] !== $_POST["conferma_password"]){
     die("Le password devono esssere uguali.");
 }
 
+$connessione = require __DIR__ . '/db_conn.php';
+
 $matricola = $_POST["matricola"];
 $email_az = $_POST["email_az"];
 $dipartimento = $_POST["dipartimento"];
+$dipartimento = ucwords($dipartimento);
+$luogo = $_POST["luogo"];
+$luogo = ucwords($luogo);
+$nome = $_POST["nome"];
+$nome = ucwords($nome);
+$cognome= $_POST["cognome"];
+$cognome = ucwords($cognome);
 $azienda = $_POST["nome_az"];
-$connessione = require __DIR__ . '/db_conn.php';
+$azienda = ucwords($azienda);
+
+
 
 if (empty($matricola)){ // Nel momento in cui viene inserito uno di questi campi, gli altri due vengono impostati a null per essere inseriti nel DB.
     $matricola = NULL;
+}
+
+if (empty($azienda)){
+    $azienda = NULL;
 }
 
 if (empty($email_az)){
@@ -67,8 +82,8 @@ if (!$stmt->prepare($sql)){
 
 $stmt->bind_param("sssss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                   $_POST["email"],
-                  $_POST["nome"],
-                  $_POST["cognome"],
+                  $nome,
+                  $cognome,
                   $_POST["ruolo"],
                   $password_hash);
 
@@ -84,8 +99,8 @@ $stmt->close();
 // Query per inserire le varie informazioni ai 3 utenti
 
 if (isset($matricola)){
-    $sql_m = "INSERT INTO Studente (Account_ID, Nome, Cognome, Luogo, Matricola) 
-    VALUES (?, ?, ?, ?, ?)";
+    $sql_m = "INSERT INTO Studente (Account_ID, Matricola, Nome, Cognome, Luogo, Dipartimento) 
+    VALUES (?, ?, ?, ?, ?, ?)";
 
     $stmt_m = $connessione->stmt_init();
 
@@ -93,12 +108,13 @@ if (isset($matricola)){
         die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
     }
     
-    $stmt_m->bind_param("isssi",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+    $stmt_m->bind_param("iissss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                         $account_ID,
-                        $_POST["nome"],
-                        $_POST["cognome"],
-                        $_POST["luogo"],
-                        $matricola);
+                        $matricola,
+                        $nome,
+                        $cognome,
+                        $luogo,
+                        $dipartimento);
     
  
     $stmt_m->execute();
@@ -119,9 +135,9 @@ if (isset($email_az)){
     
     $stmt_e->bind_param("issss",
                         $account_ID,               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
-                        $_POST["nome"],
-                        $_POST["cognome"],
-                        $_POST["nome_az"],
+                        $nome,
+                        $cognome,
+                        $azienda,
                         $email_az);
     
     
@@ -141,8 +157,8 @@ if (isset($dipartimento)){
     
     $stmt_r->bind_param("isss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                         $account_ID,
-                        $_POST["nome"],
-                        $_POST["cognome"],
+                        $nome,
+                        $cognome,
                         $dipartimento);
     
     
@@ -151,15 +167,16 @@ if (isset($dipartimento)){
 }
 
 if (isset($azienda)){
-    $sql_a = "INSERT INTO Azienda (Nome) VALUES (?)";
+    $sql_a = "INSERT INTO Azienda (Nome, Email_aziendale) VALUES (?, ?)";
     $stmt_a = $connessione->stmt_init();
 
     if (!$stmt_a->prepare($sql_a)){
         die("Errore SQL: ". $connessione->error);
     }
     
-    $stmt_a->bind_param("s",
-                        $azienda);
+    $stmt_a->bind_param("ss",
+                        $azienda,
+                        $email_az);
     $stmt_a->execute();
     $stmt_a->close();
 }

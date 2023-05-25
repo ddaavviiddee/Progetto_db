@@ -4,14 +4,21 @@
 
 		$connessione = require __DIR__ . "/db_conn.php";
 
-		$sql = "SELECT * FROM Account
-				WHERE ID = {$_SESSION["user_id"]}";
+		$sql = "SELECT * FROM Referente
+				WHERE Account_ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);
 
-		$user = $result->fetch_assoc();
+		$referente = $result->fetch_assoc();
+
+    $dipartimento = $referente["Dipartimento"];
+
+    
+
 	}
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -38,3 +45,59 @@
     border-radius: 4px;
   }
 </style>
+
+
+<div>
+    <h1> Benvenuto nella tua dashboard, <?= htmlspecialchars($referente["Nome"])?>.</h1>
+</div>
+</head>
+
+<h2>Domande effettuate dagli studenti del tuo dipartimento</h2>
+<fieldset>
+<legend>Ecco tutte le domande</legend>
+<?php
+
+  $query_e = "SELECT Matricola FROM Studente
+              WHERE Dipartimento = '$dipartimento'";
+
+  $result_e = mysqli_query($connessione, $query_e);
+
+  while ($row_e=mysqli_fetch_assoc($result_e)){
+      $matricola = $row_e['Matricola'];
+      $query = "SELECT * FROM Domande 
+                WHERE Matricola = '$matricola'";
+      $result2 = mysqli_query($connessione, $query);
+      while($row=mysqli_fetch_assoc($result2)){
+            if (!empty($row['Matricola'])){
+            echo '<div class="riquadro">
+            <table>
+              <thead>
+                <tr>
+                  <th>Azienda</th>
+                  <th>Posizione</th>
+                  <th>Matricola</th>
+                  <th>Stato</th>
+                </tr>  
+              </thead>
+              <tbody>';
+            echo "<tr>";
+            echo "<td>" . $row['Nome_azienda'] . "</td>";
+            echo "<td>" . $row['Posizione'] . "</td>";
+            echo "<td>" . $row['Matricola'] . "</td>";
+            echo "<td>" . $row['Stato'] . "</td>";
+            echo "<td><form action='info-studente.php' method='POST'>          
+            <input type='hidden' name='matricola' value='".$row['Matricola']."'>
+            <button type='submit'>Valuta</button>
+            </form></td>"; // Prende la matricola dello studente per chiedergli il colloquio.
+            echo "</tr>";
+            }
+      }
+  }
+
+?>                    
+
+</tbody>
+</table>
+</div>
+</fieldset>
+</body>

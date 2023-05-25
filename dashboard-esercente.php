@@ -57,20 +57,7 @@
 <h2>Le tue offerte</h2>
 <?php if (isset($nome_azienda_offerta)): ?>
 <fieldset>
-<div class="riquadro">
-  <table>
-    <thead>
-      <tr>
-        <th>Azienda</th>
-        <th>Ore</th>
-		<th>Indirizzo</th>
-        <th>Periodo</th>
-		<th>Stipendio</th>
-        <th>Posti disponibili</th>
-		<th>Posizione</th>
-      </tr>
-    </thead>
-    <tbody>
+
 <?php endif; ?>
 
 <?php
@@ -79,6 +66,20 @@
                   WHERE Nome_azienda = '$nome_azienda'";
         $result3 = mysqli_query($connessione, $query);
         while($row=mysqli_fetch_assoc($result3)){
+            echo '<div class="riquadro">
+            <table>
+              <thead>
+                <tr>
+                  <th>Azienda</th>
+                  <th>Ore</th>
+                  <th>Indirizzo</th>
+                  <th>Periodo</th>
+                  <th>Stipendio</th>
+                  <th>Posti disponibili</th>
+                  <th>Posizione</th>
+                </tr>
+              </thead>
+              <tbody>';
             echo "<tr>";
             echo "<td>" . $row['Nome_azienda'] . "</td>";
             echo "<td>" . $row['Ore'] . "</td>";
