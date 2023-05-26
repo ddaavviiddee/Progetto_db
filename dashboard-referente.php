@@ -85,11 +85,13 @@
             echo "<td>" . $row['Posizione'] . "</td>";
             echo "<td>" . $row['Matricola'] . "</td>";
             echo "<td>" . $row['Stato'] . "</td>";
-            echo "<td><form action='info-studente.php' method='POST'>          
-            <input type='hidden' name='matricola' value='".$row['Matricola']."'>
-            <button type='submit'>Valuta</button>
-            </form></td>"; // Prende la matricola dello studente per chiedergli il colloquio.
-            echo "</tr>";
+              if ($row['Stato'] == 'In attesa'){    // Se lo studente è già stato valutato, non sarà possibile ricliccare su valuta.
+              echo "<td><form action='info-studente.php' method='POST'>          
+              <input type='hidden' name='matricola' value='".$row['Matricola']."'>
+              <button type='submit'>Valuta</button>
+              </form></td>"; // Prende la matricola dello studente per chiedergli il colloquio.
+              echo "</tr>";
+              }
             }
       }
   }

@@ -22,6 +22,33 @@
         if (isset($offerta_di_lavoro)){
             $nome_azienda_offerta = $offerta_di_lavoro["Nome_azienda"];
         }
+
+        $sql_check = "SELECT Nome_azienda FROM Domande 
+                 WHERE Nome_azienda = '$nome_azienda'"; // Controlla che ci siano domande
+        
+        $result_check = $connessione->query($sql_check);
+        $domanda = $result_check->fetch_assoc();
+
+        if (isset($domanda)){
+            $nome_azienda_domanda = $domanda["Nome_azienda"];
+        }
+
+        $sql_matricola = "SELECT Matricola FROM Domande
+                          WHERE Nome_azienda = '$nome_azienda'";
+
+        $result_matricola = $connessione->query($sql_matricola);
+        $array_matricola = $result_matricola->fetch_assoc();
+        $matricola = $array_matricola['Matricola'];
+
+        $sql_studente = "SELECT Nome, Cognome, Luogo FROM Studente
+                         WHERE Matricola = '$matricola'";
+
+        $result_studente = $connessione->query($sql_studente);
+        $array_studente = $result_studente->fetch_assoc();
+        $nome_studente = $array_studente['Nome'];
+        $cognome_studente = $array_studente['Cognome'];
+        $luogo_studente = $array_studente['Luogo'];
+
 	}
 ?>
 
@@ -61,10 +88,10 @@
 <?php endif; ?>
 
 <?php
-    if (isset($nome_azienda_offerta)){
-        $query = "SELECT * FROM Offerte_di_lavoro
+    if (isset($nome_azienda_offerta)){ // Printa le domande solo se l'azienda è presente nella tebella domande
+        $sql3 = "SELECT * FROM Offerte_di_lavoro
                   WHERE Nome_azienda = '$nome_azienda'";
-        $result3 = mysqli_query($connessione, $query);
+        $result3 = mysqli_query($connessione, $sql3);
         while($row=mysqli_fetch_assoc($result3)){
             echo '<div class="riquadro">
             <table>
@@ -72,7 +99,6 @@
                 <tr>
                   <th>Azienda</th>
                   <th>Ore</th>
-                  <th>Indirizzo</th>
                   <th>Periodo</th>
                   <th>Stipendio</th>
                   <th>Posti disponibili</th>
@@ -92,21 +118,62 @@
         }
 	}
     else {
-        echo "<h3> Non hai ancora inserito delle offerte di lavoro.</h3>";
+        echo "<h3>Non hai ancora inserito delle offerte di lavoro.</h3>";
     }
 ?>
 
 </tbody>
 </table>
 </div>
+<button onclick="location.href='inserisci-offerta.php'" type="button">Inserisci una nuova offerta</button>
 </fieldset>
+<h2> Le tue domande</h2>
+<fieldset>
+<legend></legend>
+<?php
+    if (isset($nome_azienda_domanda)){
+        $sql4 = "SELECT * FROM Domande
+                  WHERE '$nome_azienda' = Nome_azienda";
+        $result4 = mysqli_query($connessione, $sql4);
+        while($row=mysqli_fetch_assoc($result4)){
+            echo '<div class="riquadro">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Cognome</th>
+                  <th>Posizione</th>
+                  <th>Stato</th>
+                </tr>
+              </thead>
+              <tbody>';
+            echo "<tr>";
+            echo "<td>" . $nome_studente . "</td>";
+            echo "<td>" . $cognome_studente . "</td>";
+            echo "<td>" . $row['Posizione'] . "</td>";
+            echo "<td>" . $row['Stato'] . "</td>";
+            if ($row['Stato'] == 'Accettato dal referente'){
+            echo "<td><form action='valuta-studente.php' method='POST'>
+            <div class='button-container'>
+            <input type='hidden' name='matricola' value='".$row['Matricola']."'>          
+            <button type='submit' name='accetta' value='accetta'>Accetta</button> 
+            <button type='submit' name='rifiuta' value='rifiuta'>Rifiuta</button>
+            </div>
+            </form>
+            </body></td>";
+            echo "</tr>";
+            }
+            else{
+              echo "<td><button hidden='hidden' name='' value=''></button> 
+                    <button hidden='hidden' name='' value=''></button></td>";
 
-
-
-
-
-
-
-<button onclick="location.href='inserisci-offerta.php'" type="button">Inserisci offerta</button>
-
+            }
+        }
+	}
+    else {
+        echo "<h3>Non ci sono domande di lavoro per la tua azienda.</h3>";
+    }
+  
+?>
+</fieldset>
 </body>

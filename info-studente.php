@@ -30,7 +30,7 @@
     margin-left: -80px;
   }
 </style>
-
+<h1>Valutazione:</h1>
 <fieldset>
 <legend>Ecco le informazioni riguardo il tuo studente</legend>
 
@@ -55,7 +55,7 @@ while($row=mysqli_fetch_assoc($result)){
         <th>Nome</th>
         <th>Cognome</th>
         <th>Matricola</th>
-        <th>Luogo</th>
+        <th>Città</th>
       </tr>  
     </thead>
     <tbody>';
@@ -66,7 +66,7 @@ while($row=mysqli_fetch_assoc($result)){
   echo "<td>" . $row['Cognome'] . "</td>";
   echo "<td>" . $row['Matricola'] . "</td>";
   echo "<td>" . $row['Luogo'] . "</td>";
-  echo "<td><form action='info-studente.php' method='POST'>
+  echo "<td><form action='valuta-studente.php' method='POST'>
   <div class='button-container'>
   <input type='hidden' name='matricola' value='".$row['Matricola']."'>          
   <button type='submit' name='accetta' value='accetta'>Accetta</button> 
