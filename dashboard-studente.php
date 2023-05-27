@@ -58,6 +58,9 @@
             margin-right: 5px;
             width: 200px;
         }
+        .info {
+            margin-left: 35px;
+        }
     </style>
 </head>
 <body>
@@ -132,10 +135,10 @@
         echo "<td>" . $row['Periodo'] . "</td>";
         echo "<td>" . $row['Posti_disponibili'] . "</td>";
 		    echo "<td>" . $row['Posizione'] . "</td>";
-        echo "<td><form action='vedi-offerta.php' method='POST'>          
+        echo "<td><div class='info'><form action='vedi-offerta.php' method='POST'>          
         <input type='hidden' name='id_offerta' value='".$row['ID_Offerta']."'>
         <button type='submit'>Info</button>
-        </form></td>"; // Prende l'id offerta, utile nella pagina vedi offerta.
+        </form></div></td>"; // Prende l'id offerta, utile nella pagina vedi offerta.
         echo "</tr>";
         }
 	}

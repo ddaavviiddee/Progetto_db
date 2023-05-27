@@ -133,7 +133,7 @@
             echo "<td><form action='modifica-offerta.php' method='POST'>
             <div class='button-modifica'>
             <input type='hidden' name='id_offerta' value='".$row['ID_Offerta']."'>          
-            <button type='submit' name='id_offerta' value='id_offerta'>Modifica</button> 
+            <button type='submit'>Modifica</button> 
             </div>
             </form>
             </body></td>";

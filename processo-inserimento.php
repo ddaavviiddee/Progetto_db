@@ -47,6 +47,7 @@ if (isset($_SESSION["user_id"])){
     $indirizzo = $_POST["indirizzo"];
     $indirizzo = ucwords($indirizzo);
     $ore = $_POST["ore"];
+    $ore .= ' Settimanali';
     $periodo = $_POST["periodo"];
     $stipendio = $_POST["stipendio"];
 
@@ -58,19 +59,24 @@ if (isset($_SESSION["user_id"])){
 
     if (isset($result_check)){
         $offerta = mysqli_fetch_assoc($result_check);
-        $posti_disponibili_esistenti = $offerta['Posti_disponibili'];
+        if (isset($offerta)){
+            $posti_disponibili_esistenti = $offerta['Posti_disponibili'];
+        }
     }
     else{
         $posti_disponibili_esistenti = 0;
     }
     
     $posti_disponibili = $_POST["posti_disponibili"];
-    $posti_disponibili += $posti_disponibili_esistenti;
+    
+    if (isset($posti_disponibili_esistenti)){
+        $posti_disponibili += $posti_disponibili_esistenti;
+    }
 
     $sql_del = "DELETE FROM Offerte_di_lavoro WHERE Nome_azienda = '$nome_azienda' AND Posizione = '$posizione'
     AND Ore = '$ore' AND Periodo = '$periodo' AND Stipendio = '$stipendio';";
     $result_del = mysqli_query($connessione, $sql_del);
-    
+
 }
 
 

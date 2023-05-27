@@ -38,6 +38,7 @@
     font-weight: bold;
     border-radius: 4px;
   }
+  
 </style>
 
 <h2>Inserisci i dati della tua offerta di lavoro</h2>
@@ -70,7 +71,7 @@
         </div>
 
         <div>
-            <label for="ore">Ore</label required>
+            <label for="ore">Ore settimanali</label required>
             <input type="text" id="ore" name="ore">
         </div>
 
