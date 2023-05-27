@@ -88,9 +88,16 @@
               if ($row['Stato'] == 'In attesa'){    // Se lo studente è già stato valutato, non sarà possibile ricliccare su valuta.
               echo "<td><form action='info-studente.php' method='POST'>          
               <input type='hidden' name='matricola' value='".$row['Matricola']."'>
+              <input type='hidden' name='azienda' value='".$row['Nome_azienda']."'>
+              <input type='hidden' name='posizione' value='".$row['Posizione']."'>
               <button type='submit'>Valuta</button>
               </form></td>"; // Prende la matricola dello studente per chiedergli il colloquio.
               echo "</tr>";
+              }
+              else{
+                echo "<td><button hidden='hidden' name='' value=''></button> 
+                      <button hidden='hidden' name='' value=''></button></td>";
+  
               }
             }
       }

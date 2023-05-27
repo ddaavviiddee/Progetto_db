@@ -79,6 +79,23 @@
     font-weight: bold;
     border-radius: 4px;
   }
+  .button-container {
+    width: 100px;
+    
+  }
+  .button-container button {
+    width: 120px;
+    margin-right: 120px;
+    margin-left: 25px;
+  }
+  .button-modifica {
+    display: flex;
+    
+  }
+  .button-modifica button {
+    margin-right: 90px;
+    margin-left: -20px;
+  }
 </style>
 <h1>La tua dashboard</h1>
 <h2>Le tue offerte</h2>
@@ -97,8 +114,8 @@
             <table>
               <thead>
                 <tr>
-                  <th>Azienda</th>
                   <th>Ore</th>
+                  <th>Indirizzo</th>
                   <th>Periodo</th>
                   <th>Stipendio</th>
                   <th>Posti disponibili</th>
@@ -107,13 +124,19 @@
               </thead>
               <tbody>';
             echo "<tr>";
-            echo "<td>" . $row['Nome_azienda'] . "</td>";
             echo "<td>" . $row['Ore'] . "</td>";
             echo "<td>" . $row['Indirizzo'] . "</td>";
             echo "<td>" . $row['Periodo'] . "</td>";
             echo "<td>" . $row['Stipendio'] . "</td>";
             echo "<td>" . $row['Posti_disponibili'] . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
+            echo "<td><form action='modifica-offerta.php' method='POST'>
+            <div class='button-modifica'>
+            <input type='hidden' name='id_offerta' value='".$row['ID_Offerta']."'>          
+            <button type='submit' name='id_offerta' value='id_offerta'>Modifica</button> 
+            </div>
+            </form>
+            </body></td>";
             echo "</tr>";
         }
 	}
@@ -155,9 +178,10 @@
             if ($row['Stato'] == 'Accettato dal referente'){
             echo "<td><form action='valuta-studente.php' method='POST'>
             <div class='button-container'>
-            <input type='hidden' name='matricola' value='".$row['Matricola']."'>          
-            <button type='submit' name='accetta' value='accetta'>Accetta</button> 
-            <button type='submit' name='rifiuta' value='rifiuta'>Rifiuta</button>
+            <input type='hidden' name='matricola' value='".$row['Matricola']."'>
+            <input type='hidden' name='posizione' value='".$row['Posizione']."'>          
+            <button type='submit' name='accetta_e' value='accetta_e'>Accetta</button> 
+            <button type='submit' name='rifiuta_e' value='rifiuta_e'>Rifiuta</button>
             </div>
             </form>
             </body></td>";

@@ -32,8 +32,7 @@
 
 	<?php if (isset($user)): ?>
 
-		<p>Sei loggato.</p>
-		<p>Ciao <?= htmlspecialchars($user["Nome"]) ?>.</p>
+		<p>Ciao <?= htmlspecialchars($user["Nome"])?></p>
 		
 		<?php if (htmlspecialchars($user["Ruolo"]) == "Studente"): ?>
 		

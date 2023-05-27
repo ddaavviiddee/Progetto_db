@@ -4,22 +4,59 @@
 
 		$connessione = require __DIR__ . "/db_conn.php";
 
-		$sql = "SELECT * FROM Referente
-				WHERE Account_ID = {$_SESSION["user_id"]}";
+		$sql = "SELECT Ruolo FROM Account
+				WHERE ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);
+        $array_ruolo = $result->fetch_assoc();
+        $ruolo = $array_ruolo['Ruolo'];
 
-		$referente = $result->fetch_assoc();
+        if ($ruolo == 'Esercente'){
+        $sql2 = "SELECT * FROM Esercente
+				WHERE Account_ID = {$_SESSION["user_id"]}";
 
-        $dipartimento = $referente["Dipartimento"];
+		$result2 = $connessione->query($sql2);
 
-        if (isset($_POST['accetta'])){
-            $accettato = $_POST['accetta'];
+		$esercente = $result2->fetch_assoc();
+
+        $nome_azienda = $esercente["Nome_azienda"];
         }
-        if (isset($_POST['rifiuta'])){
-            $rifiutato = $_POST['rifiuta'];
+        else{
+            $nome_azienda = $_POST["azienda"];
         }
+
+        if (isset($_POST['accetta_e'])){
+            $accettato_e = $_POST['accetta_e'];
+        }
+        if (isset($_POST['rifiuta_e'])){
+            $rifiutato_e = $_POST['rifiuta_e'];
+        }
+
+        if (isset($_POST['accetta_r'])){
+            $accettato_r = $_POST['accetta_r'];
+        }
+        if (isset($_POST['rifiuta_r'])){
+            $rifiutato_r = $_POST['rifiuta_r'];
+        }
+
         $matricola = $_POST['matricola'];
+        $posizione = $_POST['posizione'];
+
+        $sql3 = "SELECT * FROM Domande
+        WHERE Matricola = '$matricola' AND Nome_azienda = '$nome_azienda'
+        AND Posizione = '$posizione'";
+
+        $result3 = $connessione->query($sql3);
+
+        $domande = $result3->fetch_assoc();
+
+        $ore = $domande["Ore"];
+        $periodo = $domande["Periodo"];
+        $stipendio = $domande["Stipendio"];
+        $id_domanda = $domande["ID_Domanda"];
+
+        
+
 	}
 ?>
 
@@ -32,7 +69,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Valuta-studente</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -53,21 +90,41 @@
 
 <?php
 
-if (isset($accettato)){
+if (isset($accettato_r)){
     echo "<h2> Lo studente è stato accettato.</h2>";
     $sql = "UPDATE Domande
             SET Stato = 'Accettato dal referente'
-            WHERE Matricola = '$matricola';";
+            WHERE ID_Domanda = '$id_domanda';";
     $result = mysqli_query($connessione, $sql);
+
+    
 }
 
-if (isset($rifiutato)){
+if (isset($accettato_e)){
+    echo "<h2> Lo studente è stato accettato.</h2>";
+    $sql = "UPDATE Domande
+            SET Stato = 'Accettato da esercente'
+            WHERE ID_Domanda = $id_domanda;";
+    $result = mysqli_query($connessione, $sql);
+
+    $sql_u = "UPDATE Offerte_di_lavoro 
+              SET Posti_disponibili = Posti_disponibili - 1 
+              WHERE  Nome_azienda = '$nome_azienda' AND Posizione = '$posizione'
+              AND Ore = '$ore' AND Periodo = '$periodo' AND Stipendio = '$stipendio';";
+    $result_u = mysqli_query($connessione, $sql_u);
+}
+
+if (isset($rifiutato_r) || isset($rifiutato_e)){
     echo "<h2> Lo studente è stato rifiutato.</h2>";
     $sql = "DELETE FROM Domande
-            WHERE Matricola = '$matricola';";
+            WHERE ID_Domanda = '$id_domanda';";
     $result = mysqli_query($connessione, $sql);
 }
 
 ?>
-
-<button onclick="dashboard-referente.php"> Torna alla tua dashboard</button>
+<?php if (htmlspecialchars($ruolo) == "Esercente"): ?>
+<button onclick="location.href='dashboard-esercente.php'" type="button">Torna alla tua dashboard</button>
+<?php endif; ?>
+<?php if (htmlspecialchars($ruolo) == "Referente"): ?>
+<button onclick="location.href='dashboard-referente.php'" type="button">Torna alla tua dashboard</button>
+<?php endif; ?>

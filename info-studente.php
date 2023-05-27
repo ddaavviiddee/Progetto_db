@@ -38,10 +38,14 @@
 
 $connessione = require __DIR__ . '/db_conn.php';
 
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $matricola = $_POST['matricola'];
-    
+    $posizione = $_POST['posizione'];
+    $nome_azienda = $_POST['azienda'];
 }
+
+
 
 $sql = "SELECT * FROM Studente
         WHERE Matricola = '$matricola'";
@@ -59,7 +63,7 @@ while($row=mysqli_fetch_assoc($result)){
       </tr>  
     </thead>
     <tbody>';
-
+  
   $matricola = $row['Matricola'];
   echo "<tr>";
   echo "<td>" . $row['Nome'] . "</td>";
@@ -68,9 +72,11 @@ while($row=mysqli_fetch_assoc($result)){
   echo "<td>" . $row['Luogo'] . "</td>";
   echo "<td><form action='valuta-studente.php' method='POST'>
   <div class='button-container'>
-  <input type='hidden' name='matricola' value='".$row['Matricola']."'>          
-  <button type='submit' name='accetta' value='accetta'>Accetta</button> 
-  <button type='submit' name='rifiuta' value='rifiuta'>Rifiuta</button>
+  <input type='hidden' name='matricola' value='".$matricola."'>
+  <input type='hidden' name='posizione' value='$posizione'>   
+  <input type='hidden' name='azienda' value='$nome_azienda'>        
+  <button type='submit' name='accetta_r' value='accetta_r'>Accetta</button> 
+  <button type='submit' name='rifiuta_r' value='rifiuta_r'>Rifiuta</button>
   </div>
   </form>
   </body></td>";

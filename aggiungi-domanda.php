@@ -40,14 +40,6 @@ $stmt->execute();
 $stmt->close();                                
                         
 
-
-$sql2 = "UPDATE Offerte_di_lavoro 
-        SET Posti_disponibili = Posti_disponibili - 1 
-        WHERE ID_Offerta = '$id_offerta'";
-
-$result2 = $connessione->query($sql2);
-
-
 header("Location: dashboard-studente.php");
 exit;
 
