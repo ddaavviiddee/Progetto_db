@@ -134,11 +134,6 @@ $sql3 = "SELECT * FROM Domande
         }
 echo "</fieldset>";
 echo "</legend>";
-  /*$sql = "UPDATE Domande
-          SET Stato = 'Accettato da esercente'
-          WHERE ID_Domanda = $id_domanda;";
-  $result = mysqli_query($connessione, $sql);*/
-
     }
 
 if (isset($rifiutato_e)){
