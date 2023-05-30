@@ -51,6 +51,9 @@
     font-weight: bold;
     border-radius: 4px;
   }
+  .riquadro th{
+    background-color: #080f29;
+  }
 </style>
 
 <?php if (isset($matricola_d)): ?>
@@ -77,6 +80,7 @@
                   <th>Stipendio</th>
                   <th>Posizione</th>
                   <th>Stato</th>
+                  <th>Commento</th>
                 </tr>
               </thead>
               <tbody>';
@@ -88,6 +92,7 @@
             echo "<td>" . $row['Stipendio'] . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
             echo "<td>" . $row['Stato'] . "</td>";
+            echo "<td>" . $row['Commento'] . "</td>";
             echo "</tr>";
         }
 	}

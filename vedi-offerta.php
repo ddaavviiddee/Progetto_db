@@ -43,6 +43,9 @@
     font-weight: bold;
     border-radius: 4px;
   }
+  .riquadro th{
+    background-color: #080f29;
+  }
 </style>
 <h1>Ecco l'offerta</h1>
 <fieldset>

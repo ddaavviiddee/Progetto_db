@@ -4,6 +4,7 @@
 
 		$connessione = require __DIR__ . "/db_conn.php";
 
+
 		$sql = "SELECT Ruolo FROM Account
 				WHERE ID = {$_SESSION["user_id"]}";
 
@@ -92,15 +93,17 @@
 
 if (isset($accettato_r)){
     echo "<h2> Lo studente è stato accettato.</h2>";
+    $commento = $_POST["commento"];
+    $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
     $sql = "UPDATE Domande
-            SET Stato = 'Accettato dal referente'
-            WHERE ID_Domanda = '$id_domanda';";
+            SET Stato = 'Accettato dal referente', Commento = '$commento'
+            WHERE ID_Domanda = $id_domanda;";
     $result = mysqli_query($connessione, $sql);
-
-    
 }
 
 if (isset($accettato_e)){
+    $commento = $_POST["commento"];
+    $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
     echo "<h2> Lo studente è stato accettato.</h2>";
     $sql = "UPDATE Domande
             SET Stato = 'Accettato da esercente'
@@ -114,12 +117,25 @@ if (isset($accettato_e)){
     $result_u = mysqli_query($connessione, $sql_u);
 }
 
-if (isset($rifiutato_r) || isset($rifiutato_e)){
+if (isset($rifiutato_r)){
+    $commento = $_POST["commento"];
+    $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
     echo "<h2> Lo studente è stato rifiutato.</h2>";
-    $sql = "DELETE FROM Domande
+    $sql = "UPDATE  Domande
+            SET Stato = 'Rifiutato da referente', Commento = '$commento'
             WHERE ID_Domanda = '$id_domanda';";
     $result = mysqli_query($connessione, $sql);
 }
+if (isset($rifiutato_e)){
+    $commento = $_POST["commento"];
+    $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
+    echo "<h2> Lo studente è stato rifiutato.</h2>";
+    $sql = "UPDATE  Domande
+            SET Stato = 'Rifiutato da esercente', Commento = '$commento'
+            WHERE ID_Domanda = '$id_domanda';";
+    $result = mysqli_query($connessione, $sql);
+}
+
 
 ?>
 <?php if (htmlspecialchars($ruolo) == "Esercente"): ?>

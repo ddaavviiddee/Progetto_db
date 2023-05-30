@@ -21,6 +21,9 @@
     font-weight: bold;
     border-radius: 4px;
   }
+  .riquadro th{
+    background-color: #080f29;
+  }
 </style>
 
 <?php
@@ -28,7 +31,7 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $id_offerta = $_POST['id_offerta'];
-  
+  $connessione = require __DIR__ . "/db_conn.php";
 
 }
 
@@ -72,4 +75,36 @@ echo "<form action='processo-modifica.php' method='post' id='inserimento'>
     </form>
 
 </body>";
+echo "<legend> Attuale offerta";
+echo "<fieldset>";
+$sql3 = "SELECT * FROM Offerte_di_lavoro
+                  WHERE ID_Offerta = '$id_offerta'";
+        $result3 = mysqli_query($connessione, $sql3);
+        while($row=mysqli_fetch_assoc($result3)){
+            echo '<div class="riquadro">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ore</th>
+                  <th>Indirizzo</th>
+                  <th>Periodo</th>
+                  <th>Stipendio</th>
+                  <th>Posti disponibili</th>
+                  <th>Posizione</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>';
+            echo "<tr>";
+            echo "<td>" . $row['Ore'] . "</td>";
+            echo "<td>" . $row['Indirizzo'] . "</td>";
+            echo "<td>" . $row['Periodo'] . "</td>";
+            echo "<td>" . $row['Stipendio'] . "</td>";
+            echo "<td>" . $row['Posti_disponibili'] . "</td>";
+            echo "<td>" . $row['Posizione'] . "</td>";
+            echo "</tr>";
+        }
+echo "</fieldset>";
+echo "</legend>";
+
 ?>

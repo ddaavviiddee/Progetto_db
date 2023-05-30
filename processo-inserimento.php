@@ -46,6 +46,7 @@ if (isset($_SESSION["user_id"])){
     $posizione = ucwords($posizione);
     $indirizzo = $_POST["indirizzo"];
     $indirizzo = ucwords($indirizzo);
+    $id_esercente = $esercente["Account_ID"];
     $ore = $_POST["ore"];
     $ore .= ' Settimanali';
     $periodo = $_POST["periodo"];
@@ -80,8 +81,8 @@ if (isset($_SESSION["user_id"])){
 }
 
 
-$sql = "INSERT INTO Offerte_di_lavoro (Nome_azienda, Ore, Indirizzo, Periodo, Stipendio, Posti_disponibili, Posizione)
-        VALUES (?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
+$sql = "INSERT INTO Offerte_di_lavoro (ID_Esercente, Nome_azienda, Ore, Indirizzo, Periodo, Stipendio, Posti_disponibili, Posizione)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
 $stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
 
@@ -89,7 +90,8 @@ if (!$stmt->prepare($sql)){
     die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
 }
 
-$stmt->bind_param("ssssiis",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+$stmt->bind_param("issssiis",
+                  $id_esercente,               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                   $nome_azienda,
                   $ore,
                   $indirizzo,

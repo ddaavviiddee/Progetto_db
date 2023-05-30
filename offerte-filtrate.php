@@ -26,7 +26,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     
 }
 ?>
-
+<style>
+  .Home {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 8px 10px;
+    background-color: #0076d1;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+  .riquadro th{
+    background-color: #080f29;
+  }
+  .info {
+    margin-left: 35px;
+  }
+</style>
 </head>
 <body>
 <h1>Offerte</h1>
@@ -73,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                       <th>Periodo</th>
                       <th>Posti disponibili</th>
                       <th>Posizione</th>
+                      <th></th>
                     </tr>  
                   </thead>
                   <tbody>';
@@ -84,10 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             echo "<td>" . $row['Posti_disponibili'] . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
             echo "<td>
-                <form action='vedi-offerta.php' method='POST'>          
+                
+            <div class='info'><form action='vedi-offerta.php' method='POST'>          
                     <input type='hidden' name='id_offerta' value='".$row['ID_Offerta']."'>
                     <button type='submit'>Info</button>
-                </form>
+            </form></div>
             </td>"; 
             echo "</tr>";
         }

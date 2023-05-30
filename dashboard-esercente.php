@@ -38,16 +38,17 @@
 
         $result_matricola = $connessione->query($sql_matricola);
         $array_matricola = $result_matricola->fetch_assoc();
-        $matricola = $array_matricola['Matricola'];
-
-        $sql_studente = "SELECT Nome, Cognome, Luogo FROM Studente
+        if (isset($array_matricola)){
+            $matricola = $array_matricola['Matricola'];
+            $sql_studente = "SELECT Nome, Cognome, Luogo FROM Studente
                          WHERE Matricola = '$matricola'";
 
-        $result_studente = $connessione->query($sql_studente);
-        $array_studente = $result_studente->fetch_assoc();
-        $nome_studente = $array_studente['Nome'];
-        $cognome_studente = $array_studente['Cognome'];
-        $luogo_studente = $array_studente['Luogo'];
+            $result_studente = $connessione->query($sql_studente);
+            $array_studente = $result_studente->fetch_assoc();
+            $nome_studente = $array_studente['Nome'];
+            $cognome_studente = $array_studente['Cognome'];
+            $luogo_studente = $array_studente['Luogo'];
+        }
 
 	}
 ?>
@@ -86,7 +87,7 @@
   .button-container button {
     width: 120px;
     margin-right: 120px;
-    margin-left: 25px;
+    margin-left: 5px;
   }
   .button-modifica {
     display: flex;
@@ -94,7 +95,10 @@
   }
   .button-modifica button {
     margin-right: 90px;
-    margin-left: -20px;
+    margin-left: -15px;
+  }
+  .riquadro th{
+    background-color: #080f29;
   }
 </style>
 <h1>La tua dashboard</h1>
@@ -105,7 +109,7 @@
 <?php endif; ?>
 
 <?php
-    if (isset($nome_azienda_offerta)){ // Printa le domande solo se l'azienda è presente nella tebella domande
+    if (isset($nome_azienda_offerta)){ // Printa le domande solo se l'azienda è presente nella tabella domande
         $sql3 = "SELECT * FROM Offerte_di_lavoro
                   WHERE Nome_azienda = '$nome_azienda'";
         $result3 = mysqli_query($connessione, $sql3);
@@ -120,6 +124,7 @@
                   <th>Stipendio</th>
                   <th>Posti disponibili</th>
                   <th>Posizione</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>';
@@ -167,6 +172,8 @@
                   <th>Cognome</th>
                   <th>Posizione</th>
                   <th>Stato</th>
+                  <th>Commento</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>';
@@ -175,6 +182,7 @@
             echo "<td>" . $cognome_studente . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
             echo "<td>" . $row['Stato'] . "</td>";
+            echo "<td>" . $row['Commento'] . "</td>";
             if ($row['Stato'] == 'Accettato dal referente'){
             echo "<td><form action='valuta-studente.php' method='POST'>
             <div class='button-container'>

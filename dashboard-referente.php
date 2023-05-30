@@ -44,6 +44,9 @@
     font-weight: bold;
     border-radius: 4px;
   }
+  .riquadro th{
+    background-color: #080f29;
+  }
 </style>
 
 
@@ -77,6 +80,7 @@
                   <th>Posizione</th>
                   <th>Matricola</th>
                   <th>Stato</th>
+                  <th></th>
                 </tr>  
               </thead>
               <tbody>';

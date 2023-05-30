@@ -47,6 +47,7 @@ $cognome= $_POST["cognome"];
 $cognome = ucwords($cognome);
 $azienda = $_POST["nome_az"];
 $azienda = ucwords($azienda);
+$ruolo = $_POST["ruolo"];
 
 
 
@@ -84,7 +85,7 @@ $stmt->bind_param("sssss",               // Questa funzione unisce i parametri a
                   $_POST["email"],
                   $nome,
                   $cognome,
-                  $_POST["ruolo"],
+                  $ruolo,
                   $password_hash);
 
 
@@ -98,7 +99,7 @@ $stmt->close();
 
 // Query per inserire le varie informazioni ai 3 utenti
 
-if (isset($matricola)){
+if ($ruolo == 'Studente'){
     $sql_m = "INSERT INTO Studente (Account_ID, Matricola, Nome, Cognome, Luogo, Dipartimento) 
     VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -121,7 +122,7 @@ if (isset($matricola)){
     $stmt_m->close();
 }
 
-if (isset($email_az)){
+if ($ruolo == 'Esercente'){
     $sql_e = "INSERT INTO Esercente (Account_ID, Nome, Cognome, Nome_azienda, Email_aziendale) 
     VALUES (?, ?, ?, ?, ?)";
     
@@ -145,7 +146,7 @@ if (isset($email_az)){
     $stmt_e->close();
 }
 
-if (isset($dipartimento)){
+if ($ruolo == 'Referente'){
     $sql_r = "INSERT INTO Referente (Account_ID, Nome, Cognome, Dipartimento) 
     VALUES (?, ?, ?, ?)";
     $stmt_r = $connessione->stmt_init();

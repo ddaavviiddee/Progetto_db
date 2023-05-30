@@ -29,7 +29,44 @@
     margin-right: 90px;
     margin-left: -80px;
   }
+  .commento {
+    margin-left: -80px;
+    position: relative;
+    height: 150px;
+    margin-top: 0px;
+  }
+  .riquadro{
+    height: auto;
+    overflow: hidden;
+  }
+  label {
+    position: absolute;
+    top: 0;
+  }
+  textarea {
+    resize: none;
+    height: 100%;
+    width: 100%;
+  }
+  .riquadro th{
+    background-color: #080f29;
+  }
 </style>
+<script>
+
+function checkCharacterLimit(textarea) {
+  const maxLength = 100; //Numero massimo di caratteri
+  const label = textarea.previousElementSibling;
+  
+  if (textarea.value.length > maxLength) {
+    textarea.value = textarea.value.slice(0, maxLength); // Ferma l'inserimento di caratteri una volta arrivati al massimo
+  }
+
+  // Permette lo scorrimento del commento
+  label.style.height = textarea.scrollHeight + 'px';
+}
+
+</script>
 <h1>Valutazione:</h1>
 <fieldset>
 <legend>Ecco le informazioni riguardo il tuo studente</legend>
@@ -60,6 +97,7 @@ while($row=mysqli_fetch_assoc($result)){
         <th>Cognome</th>
         <th>Matricola</th>
         <th>Città</th>
+        <th></th>
       </tr>  
     </thead>
     <tbody>';
@@ -77,6 +115,11 @@ while($row=mysqli_fetch_assoc($result)){
   <input type='hidden' name='azienda' value='$nome_azienda'>        
   <button type='submit' name='accetta_r' value='accetta_r'>Accetta</button> 
   <button type='submit' name='rifiuta_r' value='rifiuta_r'>Rifiuta</button>
+  </div>
+  <div class='commento'>
+      <p>Inserisci un commento:</p>
+      <label for='my-textarea'></label required>
+      <textarea input type='text' id='commento' name='commento' oninput='autoResize(this)'></textarea>   
   </div>
   </form>
   </body></td>";

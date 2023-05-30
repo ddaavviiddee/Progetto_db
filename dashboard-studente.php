@@ -61,6 +61,9 @@
         .info {
             margin-left: 35px;
         }
+        .riquadro th{
+        background-color: #080f29;
+        }
     </style>
 </head>
 <body>
@@ -117,8 +120,8 @@
 	$result2 = mysqli_query($connessione, $query);
 	while($row=mysqli_fetch_assoc($result2)){
         if ($row['Posti_disponibili'] > 0){
-        echo '<div class="riquadro">
-          <table>
+            echo '<div class="riquadro">
+            <table>
             <thead>
               <tr>
                 <th>Azienda</th>
@@ -126,20 +129,21 @@
                 <th>Periodo</th>
                 <th>Posti disponibili</th>
                 <th>Posizione</th>
+                <th></th>
               </tr>  
             </thead>
             <tbody>';
 	    	echo "<tr>";
 		    echo "<td>" . $row['Nome_azienda'] . "</td>";
 	    	echo "<td>" . $row['Stipendio'] . "</td>";
-        echo "<td>" . $row['Periodo'] . "</td>";
-        echo "<td>" . $row['Posti_disponibili'] . "</td>";
+            echo "<td>" . $row['Periodo'] . "</td>";
+            echo "<td>" . $row['Posti_disponibili'] . "</td>";
 		    echo "<td>" . $row['Posizione'] . "</td>";
-        echo "<td><div class='info'><form action='vedi-offerta.php' method='POST'>          
-        <input type='hidden' name='id_offerta' value='".$row['ID_Offerta']."'>
-        <button type='submit'>Info</button>
-        </form></div></td>"; // Prende l'id offerta, utile nella pagina vedi offerta.
-        echo "</tr>";
+            echo "<td><div class='info'><form action='vedi-offerta.php' method='POST'>          
+             <input type='hidden' name='id_offerta' value='".$row['ID_Offerta']."'>
+            <button type='submit'>Info</button>
+            </form></div></td>"; // Prende l'id offerta, utile nella pagina vedi offerta.
+            echo "</tr>";
         }
 	}
 
