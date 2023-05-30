@@ -12,6 +12,7 @@
 		$esercente = $result->fetch_assoc();
 
 		$nome_azienda = $esercente["Nome_azienda"];
+    $id_esercente = $esercente["Account_ID"];
 
         $sql2 = "SELECT Nome_azienda FROM Offerte_di_lavoro
                  WHERE Nome_azienda = '$nome_azienda'";
@@ -24,7 +25,7 @@
         }
 
         $sql_check = "SELECT Nome_azienda FROM Domande 
-                 WHERE Nome_azienda = '$nome_azienda'"; // Controlla che ci siano domande
+                      WHERE Nome_azienda = '$nome_azienda'"; // Controlla che ci siano domande
         
         $result_check = $connessione->query($sql_check);
         $domanda = $result_check->fetch_assoc();
@@ -34,10 +35,11 @@
         }
 
         $sql_matricola = "SELECT Matricola FROM Domande
-                          WHERE Nome_azienda = '$nome_azienda'";
+                          WHERE Nome_azienda = '$nome_azienda_domanda'";
 
         $result_matricola = $connessione->query($sql_matricola);
         $array_matricola = $result_matricola->fetch_assoc();
+        
         if (isset($array_matricola)){
             $matricola = $array_matricola['Matricola'];
             $sql_studente = "SELECT Nome, Cognome, Luogo FROM Studente
@@ -50,6 +52,7 @@
             $luogo_studente = $array_studente['Luogo'];
         }
 
+      
 	}
 ?>
 
@@ -100,6 +103,7 @@
   .riquadro th{
     background-color: #080f29;
   }
+
 </style>
 <h1>La tua dashboard</h1>
 <h2>Le tue offerte</h2>
@@ -128,6 +132,7 @@
                 </tr>
               </thead>
               <tbody>';
+              
             echo "<tr>";
             echo "<td>" . $row['Ore'] . "</td>";
             echo "<td>" . $row['Indirizzo'] . "</td>";
@@ -177,17 +182,40 @@
                 </tr>
               </thead>
               <tbody>';
+              $id_domanda = $row['ID_Domanda'];
+              $sql_matricola2 = "SELECT Matricola FROM Domande
+              WHERE ID_Domanda = $id_domanda;";
+              $result_matricola2 = mysqli_query($connessione, $sql_matricola2);
+              $array_matricola2 = mysqli_fetch_assoc($result_matricola2);
+              $matricola2 = $array_matricola2['Matricola'];
+
+              $sql_nomi = "SELECT Nome, Cognome FROM Studente
+                           WHERE Matricola = $matricola2;";
+              $result_nomi = mysqli_query($connessione, $sql_nomi);
+              $array_nomi = mysqli_fetch_assoc($result_nomi);
+              $nome = $array_nomi['Nome'];
+              $cognome = $array_nomi['Cognome'];
             echo "<tr>";
-            echo "<td>" . $nome_studente . "</td>";
-            echo "<td>" . $cognome_studente . "</td>";
+            echo "<td>" . $nome . "</td>";
+            echo "<td>" . $cognome . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
             echo "<td>" . $row['Stato'] . "</td>";
             echo "<td>" . $row['Commento'] . "</td>";
-            if ($row['Stato'] == 'Accettato dal referente'){
-            echo "<td><form action='valuta-studente.php' method='POST'>
+            
+
+            $sql = "SELECT Stato FROM Contratto
+                    WHERE ID_Domanda = '$id_domanda'";
+            $result_stato = mysqli_query($connessione, $sql);
+            $array_stato = mysqli_fetch_assoc($result_stato);
+            $stato_c = '';
+            if (isset($array_stato)){
+            $stato_c = $array_stato['Stato'];
+            }
+            print_r($stato_c);
+            if ($row['Stato'] == 'Accettato dal referente' ){
+            echo "<td><form action='formazione-contratto.php' method='POST'>
             <div class='button-container'>
-            <input type='hidden' name='matricola' value='".$row['Matricola']."'>
-            <input type='hidden' name='posizione' value='".$row['Posizione']."'>          
+            <input type='hidden' name='id_domanda' value='".$row['ID_Domanda']."'>          
             <button type='submit' name='accetta_e' value='accetta_e'>Accetta</button> 
             <button type='submit' name='rifiuta_e' value='rifiuta_e'>Rifiuta</button>
             </div>
@@ -195,7 +223,7 @@
             </body></td>";
             echo "</tr>";
             }
-            else{
+            elseif($stato_c == 'In attesa dello studente'){
               echo "<td><button hidden='hidden' name='' value=''></button> 
                     <button hidden='hidden' name='' value=''></button></td>";
 

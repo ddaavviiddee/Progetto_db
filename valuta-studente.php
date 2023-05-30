@@ -26,13 +26,6 @@
             $nome_azienda = $_POST["azienda"];
         }
 
-        if (isset($_POST['accetta_e'])){
-            $accettato_e = $_POST['accetta_e'];
-        }
-        if (isset($_POST['rifiuta_e'])){
-            $rifiutato_e = $_POST['rifiuta_e'];
-        }
-
         if (isset($_POST['accetta_r'])){
             $accettato_r = $_POST['accetta_r'];
         }
@@ -55,8 +48,6 @@
         $periodo = $domande["Periodo"];
         $stipendio = $domande["Stipendio"];
         $id_domanda = $domande["ID_Domanda"];
-
-        
 
 	}
 ?>
@@ -93,54 +84,32 @@
 
 if (isset($accettato_r)){
     echo "<h2> Lo studente è stato accettato.</h2>";
-    $commento = $_POST["commento"];
-    $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
+    if (isset($_POST["commento"])){
+        $commento = $_POST["commento"];
+        $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
+        }else{
+            $commento = '';
+        }
     $sql = "UPDATE Domande
             SET Stato = 'Accettato dal referente', Commento = '$commento'
             WHERE ID_Domanda = $id_domanda;";
     $result = mysqli_query($connessione, $sql);
 }
 
-if (isset($accettato_e)){
-    $commento = $_POST["commento"];
-    $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
-    echo "<h2> Lo studente è stato accettato.</h2>";
-    $sql = "UPDATE Domande
-            SET Stato = 'Accettato da esercente'
-            WHERE ID_Domanda = $id_domanda;";
-    $result = mysqli_query($connessione, $sql);
-
-    $sql_u = "UPDATE Offerte_di_lavoro 
-              SET Posti_disponibili = Posti_disponibili - 1 
-              WHERE  Nome_azienda = '$nome_azienda' AND Posizione = '$posizione'
-              AND Ore = '$ore' AND Periodo = '$periodo' AND Stipendio = '$stipendio';";
-    $result_u = mysqli_query($connessione, $sql_u);
-}
-
 if (isset($rifiutato_r)){
-    $commento = $_POST["commento"];
-    $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
+    if (isset($_POST["commento"])){
+        $commento = $_POST["commento"];
+        $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
+        }else{
+            $commento = '';
+        }
     echo "<h2> Lo studente è stato rifiutato.</h2>";
     $sql = "UPDATE  Domande
             SET Stato = 'Rifiutato da referente', Commento = '$commento'
             WHERE ID_Domanda = '$id_domanda';";
     $result = mysqli_query($connessione, $sql);
 }
-if (isset($rifiutato_e)){
-    $commento = $_POST["commento"];
-    $commento = mysqli_real_escape_string($connessione, $_POST["commento"]);
-    echo "<h2> Lo studente è stato rifiutato.</h2>";
-    $sql = "UPDATE  Domande
-            SET Stato = 'Rifiutato da esercente', Commento = '$commento'
-            WHERE ID_Domanda = '$id_domanda';";
-    $result = mysqli_query($connessione, $sql);
-}
-
 
 ?>
-<?php if (htmlspecialchars($ruolo) == "Esercente"): ?>
-<button onclick="location.href='dashboard-esercente.php'" type="button">Torna alla tua dashboard</button>
-<?php endif; ?>
-<?php if (htmlspecialchars($ruolo) == "Referente"): ?>
+
 <button onclick="location.href='dashboard-referente.php'" type="button">Torna alla tua dashboard</button>
-<?php endif; ?>

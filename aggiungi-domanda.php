@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $stato = 'In attesa';
 }
 
-
-$sql = "INSERT INTO Domande (Nome_azienda, Ore, Indirizzo, Periodo, Stipendio, Posizione, Stato, Matricola)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
+$commento = '';
+$sql = "INSERT INTO Domande (Nome_azienda, Ore, Indirizzo, Periodo, Stipendio, Posizione, Stato, Matricola, Commento)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
 $stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
 
@@ -25,7 +25,7 @@ if (!$stmt->prepare($sql)){
     die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
 }
 
-$stmt->bind_param("ssssissi",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+$stmt->bind_param("ssssissis",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                   $nome_azienda,
                   $ore,
                   $indirizzo,
@@ -33,7 +33,8 @@ $stmt->bind_param("ssssissi",               // Questa funzione unisce i parametr
                   $stipendio,
                   $posizione,
                   $stato,
-                  $matricola);
+                  $matricola,
+                  $commento);
                   
 
 $stmt->execute();
