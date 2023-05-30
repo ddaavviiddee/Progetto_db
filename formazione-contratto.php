@@ -151,6 +151,7 @@ if (isset($rifiutato_e)){
     $sql1 = "UPDATE Domande
              SET Commento = '' 
              WHERE ID_Domanda = '$id_domanda';";
+    $result1 = mysqli_query($connessione, $sql1);
 }
 
 /*$sql_u = "UPDATE Offerte_di_lavoro 

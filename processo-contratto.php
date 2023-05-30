@@ -17,15 +17,18 @@ if (isset($_SESSION["user_id"])){
     if ($_SERVER["REQUEST_METHOD"] === 'POST'){
 
     $id_domanda = $_POST["id_domanda"];
+    $sql = "UPDATE Domande SET Stato = 'Accettato da esercente'
+            WHERE ID_Domanda = $id_domanda";
+    $result = mysqli_query($connessione, $sql);
     $nome = $_POST["nome"];
     $cognome = $_POST["cognome"];
     $matricola = $_POST["matricola"];
     $posizione = $_POST["posizione"];
 
-    $sql = "SELECT Periodo, Stipendio, Ore FROM Domande
+    $sql2 = "SELECT Periodo, Stipendio, Ore FROM Domande
             WHERE ID_Domanda = $id_domanda";
-    $result = mysqli_query($connessione, $sql);
-    $array_domanda = mysqli_fetch_assoc($result);
+    $result2 = mysqli_query($connessione, $sql2);
+    $array_domanda = mysqli_fetch_assoc($result2);
     $periodo = $array_domanda['Periodo'];
     $stipendio = $array_domanda['Stipendio'];
     $ore = $array_domanda['Ore'];

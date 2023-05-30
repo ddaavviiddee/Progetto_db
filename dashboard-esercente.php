@@ -39,18 +39,6 @@
 
         $result_matricola = $connessione->query($sql_matricola);
         $array_matricola = $result_matricola->fetch_assoc();
-        
-        if (isset($array_matricola)){
-            $matricola = $array_matricola['Matricola'];
-            $sql_studente = "SELECT Nome, Cognome, Luogo FROM Studente
-                         WHERE Matricola = '$matricola'";
-
-            $result_studente = $connessione->query($sql_studente);
-            $array_studente = $result_studente->fetch_assoc();
-            $nome_studente = $array_studente['Nome'];
-            $cognome_studente = $array_studente['Cognome'];
-            $luogo_studente = $array_studente['Luogo'];
-        }
 
       
 	}
@@ -211,7 +199,6 @@
             if (isset($array_stato)){
             $stato_c = $array_stato['Stato'];
             }
-            print_r($stato_c);
             if ($row['Stato'] == 'Accettato dal referente' ){
             echo "<td><form action='formazione-contratto.php' method='POST'>
             <div class='button-container'>
