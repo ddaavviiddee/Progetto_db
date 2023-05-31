@@ -11,6 +11,10 @@
 		$result = $connessione->query($sql);
 
 		$user = $result->fetch_assoc();
+		if (isset($user['Flag'])){
+			$flag = $user['Flag'];
+		}
+
 	}
 
 ?>
@@ -30,9 +34,19 @@
 
     <h1>AccaJob</h1>
 
-	<?php if (isset($user)): ?>
+		<?php if (isset($user) && $flag == 0) : ?>
 
-		<p>Ciao <?= htmlspecialchars($user["Nome"])?></p>
+		<h3>Ciao <?= htmlspecialchars($user["Nome"])?></h3>
+
+		<?php if (htmlspecialchars($user["Ruolo"]) == "Amministratore"): ?>
+		
+		<p>Accedi alla tua <a href="dashboard-amministratore.php">dashboard</a></p>
+		<?php endif; ?>
+
+		<?php if (htmlspecialchars($user["Ruolo"]) == "Moderatore"): ?>
+		
+		<p>Accedi alla tua <a href="dashboard-moderatore.php">dashboard</a></p>
+		<?php endif; ?>
 		
 		<?php if (htmlspecialchars($user["Ruolo"]) == "Studente"): ?>
 		
@@ -52,11 +66,15 @@
 		
 		
 		<footer><a href="logout.php">Log out</a></footer>
+	
+	<?php elseif(isset($flag) && $flag == 1): ?>
+		<h2>Ci dispiace, ma il tuo account è stato sospeso.</h2>
 		
 	<?php else: ?>
 		<p>Effettua il<a href="login.php"> log in</a> oppure <a href="signup.html"> registrati.</a></p>
 	<?php endif; ?>
-
+	
+	
 
 
 </body>

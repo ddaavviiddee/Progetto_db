@@ -80,6 +80,16 @@
         .riquadro th{
         background-color: #080f29;
         }
+        .button-container {
+            display: flex;
+            margin-left: 200px;
+            justify-content: flex-end;
+        }
+        .commento {
+        margin-right: 410px;
+        margin-left: 20px;
+        }
+       
     </style>
 </head>
 
@@ -130,7 +140,16 @@
 
 </head>
 <body>
-<h1>Offerte</h1>
+<div class='button-container'>
+<h1 class='commento'>Offerte</h1> 
+<form action='vedi-domande.php' >
+<button>Vedi le tue domande</button>
+</form>
+<form action='vedi-contratti.php' >
+<button >Vedi i contratti proposti</button>
+</form>
+</div>
+
 <fieldset>
 <legend>Ecco tutte le offerte disponibili</legend>
 
@@ -172,12 +191,7 @@
 </table>
 </div>
 </fieldset>
-<form action='vedi-domande.php' >
-<button>Vedi le tue domande</button>
-</form>
-<form action='vedi-contratti.php' >
-<button>Vedi i contratti proposti</button>
-</form>
+
 </body>
 
 

@@ -48,7 +48,9 @@ if (isset($_POST['accetta_s'])){
 }
 
 if (isset($_POST['rifiuta_s'])){
-    echo "rifiutato";
+    $sql_s = "UPDATE Contratto SET Stato = 'Rifiutato dallo studente' 
+              WHERE ID_Contratto = $id_contratto";
+    $result_s = mysqli_query($connessione, $sql_s);
 }
 
 header("Location: vedi-contratti.php");

@@ -71,9 +71,10 @@ if (empty($dipartimento)){
 
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);  // Crittografia della password
 
+$flag = 0;
 
-$sql = "INSERT INTO Account (Email, Nome, Cognome, Ruolo, password_hash)
-        VALUES (?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
+$sql = "INSERT INTO Account (Email, Nome, Cognome, Ruolo, password_hash, Flag)
+        VALUES (?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
 $stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
 
@@ -81,12 +82,13 @@ if (!$stmt->prepare($sql)){
     die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
 }
 
-$stmt->bind_param("sssss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+$stmt->bind_param("sssssi",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                   $_POST["email"],
                   $nome,
                   $cognome,
                   $ruolo,
-                  $password_hash);
+                  $password_hash,
+                  $flag);
 
 
 $stmt->execute();
