@@ -93,3 +93,47 @@
         }
 ?>
 </fieldset>
+
+<h3>Gestisci contratti obsoleti: </h3>
+
+<fieldset>
+<?php
+        $sql3 = "SELECT * FROM Contratto
+                 WHERE Stato = 'Rifiutato dallo studente'";
+        $result3 = mysqli_query($connessione, $sql3);
+        if (isset($result3)){
+            while($row=mysqli_fetch_assoc($result3)){
+                echo '<div class="riquadro">
+                <table>
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Periodo</th>
+                    <th>Stipendio</th>
+                    <th>Posizione</th>
+                    <th></th>
+                    </tr>
+                </thead>
+                <tbody>';
+                
+                echo "<tr>";
+                echo "<td>" . $row['ID_Contratto'] . "</td>";
+                echo "<td>" . $row['Nome'] . "</td>";
+                echo "<td>" . $row['Cognome'] . "</td>";
+                echo "<td>" . $row['Periodo'] . "</td>";
+                echo "<td>" . $row['Stipendio'] . "</td>";
+                echo "<td>" . $row['Posizione'] . "</td>";
+                echo "<td><form action='aggiornamenti-sito.php' method='POST'>
+                <input type='hidden' name='rimosso_c' value='rimosso_c'>
+                <input type='hidden' name='id_contratto' value='".$row['ID_Contratto']."'>
+                <div class='button-elimina'>
+                <button type='submit'>Elimina</button>
+                </form>
+                </body></td>";
+                echo "</tr>";
+            }
+        }
+?>
+</fieldset>
