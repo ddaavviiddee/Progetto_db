@@ -149,10 +149,6 @@ if (isset($rifiutato_e)){
     $result1 = mysqli_query($connessione, $sql1);
 }
 
-/*$sql_u = "UPDATE Offerte_di_lavoro 
-            SET Posti_disponibili = Posti_disponibili - 1 
-            WHERE  Nome_azienda = '$nome_azienda' AND Posizione = '$posizione'
-            AND Ore = '$ore' AND Periodo = '$periodo' AND Stipendio = '$stipendio';";
-  $result_u = mysqli_query($connessione, $sql_u);*/
+
 ?>
 

@@ -114,3 +114,5 @@
 </div>
 </fieldset>
 </body>
+
+<button onclick="location.href='contratti-studenti.php'" type="button"> Vedi i contratti dei tuoi studenti</button>

@@ -10,7 +10,22 @@
 		$result = $connessione->query($sql);
 
 		$user = $result->fetch_assoc();
-	}
+        $dipartimento = $user['Dipartimento'];
+
+        $sql_r = "SELECT Account_ID, Nome, Cognome FROM Referente
+                 WHERE  Dipartimento = '$dipartimento';";
+        $result_r = mysqli_query($connessione, $sql_r);
+        $array_referente = mysqli_fetch_assoc($result_r);
+        $nome_r = $array_referente['Nome'];
+        $cognome_r = $array_referente['Cognome'];
+        $account_id = $array_referente['Account_ID'];
+
+        $sql_e = "SELECT Email FROM Account
+                  WHERE ID = $account_id";
+        $result_e = mysqli_query($connessione, $sql_e);
+        $array_email = mysqli_fetch_assoc($result_e);
+        $email = $array_email['Email'];
+    }
 ?>
 
 
@@ -47,6 +62,7 @@
     <h1> Benvenuto nella tua dashboard, <?= htmlspecialchars($user["Nome"])?></h1>
 </div>
 </head>
+
 <title>Filtri</title>
     <style>
         .filter-container {
@@ -66,6 +82,9 @@
         }
     </style>
 </head>
+
+<h3> Il tuo referente è <?= htmlspecialchars($nome_r)?> <?= htmlspecialchars($cognome_r)?>, per contattarlo utilizza questa e-mail: <?= htmlspecialchars($email)?></h3>
+
 <body>
     <h2>Filtri</h2>
 
@@ -155,6 +174,11 @@
 </fieldset>
 <form action='vedi-domande.php' >
 <button>Vedi le tue domande</button>
+</form>
+<form action='vedi-contratti.php' >
+<button>Vedi i contratti proposti</button>
+</form>
 </body>
+
 
 

@@ -55,11 +55,11 @@
       <tr>
         <th>Azienda</th>
         <th>Ore</th>
-		<th>Indirizzo</th>
+		    <th>Indirizzo</th>
         <th>Periodo</th>
-		<th>Stipendio</th>
+		    <th>Stipendio</th>
         <th>Posti disponibili</th>
-		<th>Posizione</th>
+		    <th>Posizione</th>
         <th>Email aziendale</th>
       </tr>
     </thead>
@@ -88,14 +88,14 @@ $result2 = mysqli_query($connessione, $query);
         $array = $result_e->fetch_assoc();
         $email_aziendale = $array['Email_aziendale'];
 
-		echo "<tr>";
-		echo "<td>" . $row['Nome_azienda'] . "</td>";
+		    echo "<tr>";
+		    echo "<td>" . $row['Nome_azienda'] . "</td>";
         echo "<td>" . $row['Ore'] . "</td>";
-		echo "<td>" . $row['Indirizzo'] . "</td>";
+		    echo "<td>" . $row['Indirizzo'] . "</td>";
         echo "<td>" . $row['Periodo'] . "</td>";
-		echo "<td>" . $row['Stipendio'] . "</td>";
+		    echo "<td>" . $row['Stipendio'] . "</td>";
         echo "<td>" . $row['Posti_disponibili'] . "</td>";
-		echo "<td>" . $row['Posizione'] . "</td>";
+		    echo "<td>" . $row['Posizione'] . "</td>";
         echo "<td>" . $email_aziendale . "</td>";
         echo "</tr>";
 	}

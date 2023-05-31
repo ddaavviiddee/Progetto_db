@@ -32,6 +32,7 @@ if (isset($_SESSION["user_id"])){
     $periodo = $array_domanda['Periodo'];
     $stipendio = $array_domanda['Stipendio'];
     $ore = $array_domanda['Ore'];
+    $ore .= ' Settimanali';
     }
 }
 

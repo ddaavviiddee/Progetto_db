@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Mag 30, 2023 alle 17:49
+-- Creato il: Mag 31, 2023 alle 11:09
 -- Versione del server: 8.0.33
 -- Versione PHP: 8.1.17
 
@@ -102,8 +102,10 @@ CREATE TABLE `Contratto` (
 --
 
 INSERT INTO `Contratto` (`ID_Contratto`, `ID_Esercente`, `ID_Domanda`, `Matricola`, `Nome`, `Cognome`, `Periodo`, `Ore`, `Stipendio`, `Posizione`, `Stato`) VALUES
-(8, 46, 0, 527917, 'Davide', 'Mento', '6 mesi', 30, 1400, 'Accounting', 'In attesa dello studente'),
-(11, 46, 17, 526889, 'Emanuele', 'Russo', '6 mesi', 40, 1600, 'Meccanico', 'In attesa dello studente');
+(12, 46, 18, 527917, 'Davide', 'Mento', '12 mesi', 50, 2300, 'Macchinista', 'Accettato dallo studente'),
+(13, 36, 19, 527917, 'Davide', 'Mento', '3 mesi', 30, 800, 'Parcheggiatore', 'In attesa dello studente'),
+(15, 35, 7, 526889, 'Emanuele', 'Russo', '3 mesi', 30, 1000, 'Spazzino', 'In attesa dello studente'),
+(16, 35, 21, 526889, 'Emanuele', 'Russo', '3 mesi', 30, 1200, 'Barista', 'Accettato dallo studente');
 
 -- --------------------------------------------------------
 
@@ -113,6 +115,7 @@ INSERT INTO `Contratto` (`ID_Contratto`, `ID_Esercente`, `ID_Domanda`, `Matricol
 
 CREATE TABLE `Domande` (
   `ID_Domanda` int NOT NULL,
+  `ID_Offerta` int NOT NULL,
   `Nome_azienda` varchar(128) NOT NULL,
   `Ore` varchar(128) NOT NULL,
   `Indirizzo` varchar(128) NOT NULL,
@@ -128,20 +131,24 @@ CREATE TABLE `Domande` (
 -- Dump dei dati per la tabella `Domande`
 --
 
-INSERT INTO `Domande` (`ID_Domanda`, `Nome_azienda`, `Ore`, `Indirizzo`, `Periodo`, `Stipendio`, `Posizione`, `Stato`, `Matricola`, `Commento`) VALUES
-(1, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1300, 'Assistente cameraman', 'Rifiutato da esercente', 527917, ''),
-(2, 'NumberOne', '10 / settimana', 'Via Brescia 20', '3 mesi', 1200, 'Buttafuori', 'Accettato da esercente', 527917, ''),
-(3, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1000, 'Spazzino', 'Accettato dal referente', 527917, ''),
-(6, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1200, 'Barista', 'In attesa', 312321, ''),
-(7, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1000, 'Spazzino', 'Accettato dal referente', 526889, ''),
-(8, 'NumberOne', '30 / settimana', 'Via Brescia 20', '3 mesi', 1200, 'Barista', 'Accettato da esercente', 527917, ''),
-(9, 'NumberOne', '30 Settimanali', 'Via Brescia 20', '3 mesi', 1800, 'DJ', 'Accettato da esercente', 527917, 'Lo studente mi sembra valido per l\'offerta di lavoro'),
-(10, 'Ferrari', '40 Settimanali', 'Via Maranello 20', '6 mesi', 1600, 'Meccanico', 'Accettato da esercente', 527917, ''),
-(13, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1400, 'Accounting', 'Rifiutato da esercente', 527917, 'Lo studente sembra valido'),
-(14, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1400, 'Accounting', 'In attesa', 312321, ''),
-(15, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1400, 'Accounting', 'Accettato da esercente', 526889, 'Ottime capacità'),
-(16, 'Ferrari', '50 Settimanali', 'Via Maranello 20', '12 mesi', 2300, 'Macchinista', 'Rifiutato da esercente', 526889, 'Sei bello'),
-(17, 'Ferrari', '40 Settimanali', 'Via Maranello 20', '6 mesi', 1600, 'Meccanico', 'Accettato da esercente', 526889, 'Wow');
+INSERT INTO `Domande` (`ID_Domanda`, `ID_Offerta`, `Nome_azienda`, `Ore`, `Indirizzo`, `Periodo`, `Stipendio`, `Posizione`, `Stato`, `Matricola`, `Commento`) VALUES
+(1, 0, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1300, 'Assistente cameraman', 'Rifiutato da esercente', 527917, ''),
+(2, 0, 'NumberOne', '10 / settimana', 'Via Brescia 20', '3 mesi', 1200, 'Buttafuori', 'Accettato da esercente', 527917, ''),
+(3, 0, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1000, 'Spazzino', 'Accettato dal referente', 527917, ''),
+(6, 0, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1200, 'Barista', 'In attesa', 312321, ''),
+(7, 0, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1000, 'Spazzino', 'Accettato da esercente', 526889, ''),
+(8, 0, 'NumberOne', '30 / settimana', 'Via Brescia 20', '3 mesi', 1200, 'Barista', 'Accettato da esercente', 527917, ''),
+(9, 0, 'NumberOne', '30 Settimanali', 'Via Brescia 20', '3 mesi', 1800, 'DJ', 'Accettato da esercente', 527917, 'Lo studente mi sembra valido per l\'offerta di lavoro'),
+(10, 0, 'Ferrari', '40 Settimanali', 'Via Maranello 20', '6 mesi', 1600, 'Meccanico', 'Accettato da esercente', 527917, ''),
+(13, 0, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1400, 'Accounting', 'Rifiutato da esercente', 527917, 'Lo studente sembra valido'),
+(14, 0, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1400, 'Accounting', 'In attesa', 312321, ''),
+(15, 0, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1400, 'Accounting', 'Accettato da esercente', 526889, 'Ottime capacità'),
+(16, 0, 'Ferrari', '50 Settimanali', 'Via Maranello 20', '12 mesi', 2300, 'Macchinista', 'Rifiutato da esercente', 526889, 'Sei bello'),
+(17, 0, 'Ferrari', '40 Settimanali', 'Via Maranello 20', '6 mesi', 1600, 'Meccanico', 'Accettato da esercente', 526889, 'Wow'),
+(18, 28, 'Ferrari', '50 Settimanali', 'Via Maranello 20', '12 mesi', 2300, 'Macchinista', 'Accettato da esercente', 527917, 'Che sei bello'),
+(19, 26, 'NumberOne', '30 Settimanali', 'Via Brescia 20', '3 mesi', 800, 'Parcheggiatore', 'Accettato da esercente', 527917, 'Ottimo parcheggiatore\r\n'),
+(20, 25, 'Amazon', '50 Settimanali', 'Via Nuova 20', '9 mesi', 1100, 'Magazziniere', 'Accettato da esercente', 526889, 'ma wow'),
+(21, 8, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1200, 'Barista', 'Accettato da esercente', 526889, 'wow oh mio dio');
 
 -- --------------------------------------------------------
 
@@ -192,7 +199,7 @@ CREATE TABLE `Offerte_di_lavoro` (
 INSERT INTO `Offerte_di_lavoro` (`ID_Offerta`, `ID_Esercente`, `Nome_azienda`, `Ore`, `Indirizzo`, `Periodo`, `Stipendio`, `Posti_disponibili`, `Posizione`) VALUES
 (5, 0, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1300, 0, 'Assistente cameraman'),
 (7, 0, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1000, 0, 'Spazzino'),
-(8, 0, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1200, 1, 'Barista'),
+(8, 0, 'Mediaset', '30 / settimana', 'Via Milano 20', '3 mesi', 1200, 0, 'Barista'),
 (16, 0, 'NumberOne', '10 / settimana', 'Via Brescia 20', '6 mesi', 1400, 4, 'Buttafuori'),
 (18, 0, 'NumberOne', '30 / settimana', 'Via Brescia 20', '3 mesi', 1200, 5, 'Barista'),
 (23, 0, 'NumberOne', '30 Settimanali', 'Via Brescia 20', '3 mesi', 1800, 3, 'DJ'),
@@ -200,7 +207,7 @@ INSERT INTO `Offerte_di_lavoro` (`ID_Offerta`, `ID_Esercente`, `Nome_azienda`, `
 (25, 0, 'Amazon', '50 Settimanali', 'Via Nuova 20', '9 mesi', 1100, 3, 'Magazziniere'),
 (26, 36, 'NumberOne', '30 Settimanali', 'Via Brescia 20', '3 mesi', 800, 2, 'Parcheggiatore'),
 (27, 46, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1400, 2, 'Accounting'),
-(28, 46, 'Ferrari', '50 Settimanali', 'Via Maranello 20', '12 mesi', 2300, 2, 'Macchinista');
+(28, 46, 'Ferrari', '50 Settimanali', 'Via Maranello 20', '12 mesi', 2300, 1, 'Macchinista');
 
 -- --------------------------------------------------------
 
@@ -326,13 +333,13 @@ ALTER TABLE `Azienda`
 -- AUTO_INCREMENT per la tabella `Contratto`
 --
 ALTER TABLE `Contratto`
-  MODIFY `ID_Contratto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_Contratto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT per la tabella `Domande`
 --
 ALTER TABLE `Domande`
-  MODIFY `ID_Domanda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ID_Domanda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT per la tabella `Offerte_di_lavoro`
