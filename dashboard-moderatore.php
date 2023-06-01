@@ -111,7 +111,6 @@
                     <th>Nome</th>
                     <th>Cognome</th>
                     <th>Periodo</th>
-                    <th>Stipendio</th>
                     <th>Posizione</th>
                     <th></th>
                     </tr>
@@ -123,7 +122,6 @@
                 echo "<td>" . $row['Nome'] . "</td>";
                 echo "<td>" . $row['Cognome'] . "</td>";
                 echo "<td>" . $row['Periodo'] . "</td>";
-                echo "<td>" . $row['Stipendio'] . "</td>";
                 echo "<td>" . $row['Posizione'] . "</td>";
                 echo "<td><form action='aggiornamenti-sito.php' method='POST'>
                 <input type='hidden' name='rimosso_c' value='rimosso_c'>

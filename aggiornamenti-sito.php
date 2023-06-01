@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 
     if (isset($_POST['rimosso_c'])){
-        $id_domanda = $_POST['id_contratto'];
+        $id_contratto = $_POST['id_contratto'];
         $sql = "DELETE FROM Contratto 
                 WHERE ID_Contratto = $id_contratto;";
         $result = mysqli_query($connessione,$sql);
@@ -72,14 +72,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       }
 
 }
-
-
-
-  
-
-
-  
-
-
 ?>
 

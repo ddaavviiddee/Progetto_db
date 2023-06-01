@@ -73,6 +73,7 @@ if (isset($_POST['modificato'])){
         } 
         if (!empty($_POST['ore'])){
         $ore = $_POST['ore'];
+        $ore .= ' Settimanali';
         }
         $sql = "INSERT INTO Contratto (Matricola, ID_Esercente, ID_Domanda, Nome, Cognome, Periodo, Ore, Stipendio, Posizione, Stato)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
