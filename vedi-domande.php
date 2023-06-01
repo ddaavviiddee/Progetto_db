@@ -58,49 +58,60 @@
 
 <?php if (isset($matricola_d)): ?>
 
-<fieldset>
+<h1>Ecco le tue domande: </h1>
 
+<fieldset>
 
 <?php endif; ?>
 
 <?php
     if (isset($matricola_d)){
+
         $query = "SELECT * FROM Domande
                   WHERE Matricola = '$matricola'";
         $result3 = mysqli_query($connessione, $query);
-        while($row=mysqli_fetch_assoc($result3)){
-            echo '<div class="riquadro">
-            <table>
-              <thead>
-                <tr>
-                  <th>Azienda</th>
-                  <th>Ore</th>
-                  <th>Indirizzo</th>
-                  <th>Periodo</th>
-                  <th>Stipendio</th>
-                  <th>Posizione</th>
-                  <th>Stato</th>
-                  <th>Commento</th>
-                </tr>
-              </thead>
-              <tbody>';
-            echo "<tr>";
-            echo "<td>" . $row['Nome_azienda'] . "</td>";
-            echo "<td>" . $row['Ore'] . "</td>";
-            echo "<td>" . $row['Indirizzo'] . "</td>";
-            echo "<td>" . $row['Periodo'] . "</td>";
-            echo "<td>" . $row['Stipendio'] . "</td>";
-            echo "<td>" . $row['Posizione'] . "</td>";
-            echo "<td>" . $row['Stato'] . "</td>";
-            echo "<td>" . $row['Commento'] . "</td>";
-            echo "</tr>";
-        }
-	}
+
+        while($row_d = mysqli_fetch_assoc($result3)){
+
+          $id_offerta = $row_d['ID_Offerta'];
+          $query2 = "SELECT * FROM Offerte_di_lavoro
+                  WHERE ID_Offerta = $id_offerta";
+          $result4 = mysqli_query($connessione, $query2);
+        
+          while($row = mysqli_fetch_assoc($result4)){
+              echo '<div class="riquadro">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Azienda</th>
+                    <th>Ore</th>
+                    <th>Indirizzo</th>
+                    <th>Periodo</th>
+                    <th>Stipendio</th>
+                    <th>Posizione</th>
+                    <th>Stato</th>
+                    <th>Commento</th>
+                  </tr>
+                </thead>
+                <tbody>';
+              echo "<tr>";
+              echo "<td>" . $row['Nome_azienda'] . "</td>";
+              echo "<td>" . $row['Ore'] . "</td>";
+              echo "<td>" . $row['Indirizzo'] . "</td>";
+              echo "<td>" . $row['Periodo'] . "</td>";
+              echo "<td>" . $row['Stipendio'] . "</td>";
+              echo "<td>" . $row['Posizione'] . "</td>";
+              echo "<td>" . $row_d['Stato'] . "</td>";
+              echo "<td>" . $row_d['Commento'] . "</td>";
+              echo "</tr>";
+            }
+          }
+      }
     else {
         echo "<h3> Non hai ancora effettuato domande.</h3>";
     }
 
 
-
+  
 
 ?>

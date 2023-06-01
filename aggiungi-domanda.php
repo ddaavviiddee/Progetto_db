@@ -12,12 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $posizione = $_POST['posizione'];
     $matricola = $_POST['matricola'];
     $id_offerta = $_POST['id_offerta'];
+    $id_esercente = $_POST['id_esercente'];
     $stato = 'In attesa';
+
 }
 
 $commento = '';
-$sql = "INSERT INTO Domande (ID_Offerta, Nome_azienda, Ore, Indirizzo, Periodo, Stipendio, Posizione, Stato, Matricola, Commento)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
+$sql = "INSERT INTO Domande (ID_Offerta, ID_Esercente, Stato, Matricola, Commento)
+        VALUES (?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
 $stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
 
@@ -25,14 +27,9 @@ if (!$stmt->prepare($sql)){
     die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
 }
 
-$stmt->bind_param("issssissis",
+$stmt->bind_param("iisis",
                   $id_offerta,               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
-                  $nome_azienda,
-                  $ore,
-                  $indirizzo,
-                  $periodo,
-                  $stipendio,
-                  $posizione,
+                  $id_esercente,
                   $stato,
                   $matricola,
                   $commento);

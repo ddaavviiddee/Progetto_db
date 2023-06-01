@@ -80,6 +80,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $matricola = $_POST['matricola'];
     $posizione = $_POST['posizione'];
     $nome_azienda = $_POST['azienda'];
+    $id_domanda = $_POST['id_domanda'];
 }
 
 
@@ -111,8 +112,7 @@ while($row=mysqli_fetch_assoc($result)){
   echo "<td><form action='valuta-studente.php' method='POST'>
   <div class='button-container'>
   <input type='hidden' name='matricola' value='".$matricola."'>
-  <input type='hidden' name='posizione' value='$posizione'>   
-  <input type='hidden' name='azienda' value='$nome_azienda'>        
+  <input type='hidden' name='id_domanda' value='$id_domanda'>           
   <button type='submit' name='accetta_r' value='accetta_r'>Accetta</button> 
   <button type='submit' name='rifiuta_r' value='rifiuta_r'>Rifiuta</button>
   </div>

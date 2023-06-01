@@ -16,23 +16,26 @@ if (isset($_SESSION["user_id"])){
 
     if ($_SERVER["REQUEST_METHOD"] === 'POST'){
 
-    $id_domanda = $_POST["id_domanda"];
-    $sql = "UPDATE Domande SET Stato = 'Accettato da esercente'
-            WHERE ID_Domanda = $id_domanda";
-    $result = mysqli_query($connessione, $sql);
-    $nome = $_POST["nome"];
-    $cognome = $_POST["cognome"];
-    $matricola = $_POST["matricola"];
-    $posizione = $_POST["posizione"];
+            $id_domanda = $_POST["id_domanda"];
+            $id_offerta = $_POST["id_offerta"];
+            $nome = $_POST["nome"];
+            $cognome = $_POST["cognome"];
+            $matricola = $_POST["matricola"];
+            $posizione = $_POST["posizione"];
 
-    $sql2 = "SELECT Periodo, Stipendio, Ore FROM Domande
-            WHERE ID_Domanda = $id_domanda";
-    $result2 = mysqli_query($connessione, $sql2);
-    $array_domanda = mysqli_fetch_assoc($result2);
-    $periodo = $array_domanda['Periodo'];
-    $stipendio = $array_domanda['Stipendio'];
-    $ore = $array_domanda['Ore'];
-    $ore .= ' Settimanali';
+            $sql = "UPDATE Domande SET Stato = 'Accettato da esercente'
+                    WHERE ID_Domanda = $id_domanda";
+            $result = mysqli_query($connessione, $sql);
+
+            $sql2 = "SELECT * FROM Offerte_di_lavoro
+                    WHERE ID_Offerta = $id_offerta";
+            $result2 = mysqli_query($connessione, $sql2);
+            $array_offerta = mysqli_fetch_assoc($result2);
+            
+            $periodo = $array_offerta['Periodo'];
+            $stipendio = $array_offerta['Stipendio'];
+            $ore = $array_offerta['Ore'];
+            $ore .= ' Settimanali';
     }
 }
 

@@ -14,34 +14,24 @@
 		$nome_azienda = $esercente["Nome_azienda"];
     $id_esercente = $esercente["Account_ID"];
 
-        $sql2 = "SELECT Nome_azienda FROM Offerte_di_lavoro
-                 WHERE Nome_azienda = '$nome_azienda'";
+    $sql2 = "SELECT Nome_azienda FROM Offerte_di_lavoro
+             WHERE Nome_azienda = '$nome_azienda'";
         
-        $result2 = $connessione->query($sql2);
-        $offerta_di_lavoro = $result2->fetch_assoc();
+    $result2 = $connessione->query($sql2);
+    $offerta_di_lavoro = $result2->fetch_assoc();
 
-        if (isset($offerta_di_lavoro)){
-            $nome_azienda_offerta = $offerta_di_lavoro["Nome_azienda"];
-        }
+    if (isset($offerta_di_lavoro)){
+        $nome_azienda_offerta = $offerta_di_lavoro["Nome_azienda"];     
+    }
 
-        $sql_check = "SELECT Nome_azienda FROM Domande 
-                      WHERE Nome_azienda = '$nome_azienda'"; // Controlla che ci siano domande
-        
-        $result_check = $connessione->query($sql_check);
-        $domanda = $result_check->fetch_assoc();
+    $sql3 = "SELECT ID_Esercente FROM Domande
+             WHERE ID_Esercente = $id_esercente;";
+    $result3 = mysqli_query($connessione, $sql3);
+    $array_id_esercente = mysqli_fetch_assoc($result3);
+    if (isset($array_id_esercente)){
+        $id_esercente_domanda = $array_id_esercente['ID_Esercente'];
+    }
 
-        if (isset($domanda)){
-            $nome_azienda_domanda = $domanda["Nome_azienda"];
-            $sql_matricola = "SELECT Matricola FROM Domande
-                          WHERE Nome_azienda = '$nome_azienda_domanda'";
-
-          $result_matricola = $connessione->query($sql_matricola);
-          $array_matricola = $result_matricola->fetch_assoc();
-        }
-
-        
-
-      
 	}
 ?>
 
@@ -96,15 +86,18 @@
 </style>
 <h1>La tua dashboard</h1>
 <h2>Le tue offerte</h2>
+
 <?php if (isset($nome_azienda_offerta)): ?>
+
 <fieldset>
 
 <?php endif; ?>
 
 <?php
-    if (isset($nome_azienda_offerta)){ // Printa le domande solo se l'azienda è presente nella tabella domande
+    if (isset($nome_azienda_offerta)){ // Printa le domande solo se l'ID_Esercente è presente nelle domande
         $sql3 = "SELECT * FROM Offerte_di_lavoro
-                  WHERE Nome_azienda = '$nome_azienda'";
+                 WHERE ID_Esercente = $id_esercente;";
+        
         $result3 = mysqli_query($connessione, $sql3);
         while($row=mysqli_fetch_assoc($result3)){
             echo '<div class="riquadro">
@@ -153,67 +146,76 @@
 <fieldset>
 <legend></legend>
 <?php
-    if (isset($nome_azienda_domanda)){
+    if (isset($id_esercente_domanda)){
         $sql4 = "SELECT * FROM Domande
-                  WHERE '$nome_azienda' = Nome_azienda";
+                  WHERE ID_Esercente = $id_esercente;";
         $result4 = mysqli_query($connessione, $sql4);
-        while($row=mysqli_fetch_assoc($result4)){
-            echo '<div class="riquadro">
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Cognome</th>
-                  <th>Posizione</th>
-                  <th>Stato</th>
-                  <th>Commento</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>';
-              $id_domanda = $row['ID_Domanda'];
-              $sql_matricola2 = "SELECT Matricola FROM Domande
-              WHERE ID_Domanda = $id_domanda;";
-              $result_matricola2 = mysqli_query($connessione, $sql_matricola2);
-              $array_matricola2 = mysqli_fetch_assoc($result_matricola2);
-              $matricola2 = $array_matricola2['Matricola'];
+        
+        while ($row_d = mysqli_fetch_assoc($result4)){
+              $id_offerta = $row_d['ID_Offerta'];
+              $sql5 = "SELECT * FROM Offerte_di_lavoro
+                      WHERE ID_Offerta = $id_offerta";
+              $result5 = mysqli_query($connessione, $sql5);
 
-              $sql_nomi = "SELECT Nome, Cognome FROM Studente
-                           WHERE Matricola = $matricola2;";
-              $result_nomi = mysqli_query($connessione, $sql_nomi);
-              $array_nomi = mysqli_fetch_assoc($result_nomi);
-              $nome = $array_nomi['Nome'];
-              $cognome = $array_nomi['Cognome'];
-              echo "<tr>";
-              echo "<td>" . $nome . "</td>";
-              echo "<td>" . $cognome . "</td>";
-              echo "<td>" . $row['Posizione'] . "</td>";
-              echo "<td>" . $row['Stato'] . "</td>";
-              echo "<td>" . $row['Commento'] . "</td>";
-              
-              $sql = "SELECT Stato FROM Contratto
-                      WHERE ID_Domanda = '$id_domanda'";
-              $result_stato = mysqli_query($connessione, $sql);
-              $array_stato = mysqli_fetch_assoc($result_stato);
-              $stato_c = '';
-              if (isset($array_stato)){
-              $stato_c = $array_stato['Stato'];
-              }
-              if ($row['Stato'] == 'Accettato dal referente' ){
-              echo "<td><form action='formazione-contratto.php' method='POST'>
-              <div class='button-container'>
-              <input type='hidden' name='id_domanda' value='".$row['ID_Domanda']."'>          
-              <button type='submit' name='accetta_e' value='accetta_e'>Accetta</button> 
-              <button type='submit' name='rifiuta_e' value='rifiuta_e'>Rifiuta</button>
-              </div>
-              </form>
-              </body></td>";
-              echo "</tr>";
-              }
-              elseif($stato_c == 'In attesa dello studente'){
-                echo "<td><button hidden='hidden' name='' value=''></button> 
-                      <button hidden='hidden' name='' value=''></button></td>";
+        
+            while($row=mysqli_fetch_assoc($result5)){
+                echo '<div class="riquadro">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Cognome</th>
+                      <th>Posizione</th>
+                      <th>Stato</th>
+                      <th>Commento</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>';
+                  $id_domanda = $row_d['ID_Domanda'];
+                  $sql_matricola2 = "SELECT Matricola FROM Domande
+                  WHERE ID_Domanda = $id_domanda;";
+                  $result_matricola2 = mysqli_query($connessione, $sql_matricola2);
+                  $array_matricola2 = mysqli_fetch_assoc($result_matricola2);
+                  $matricola2 = $array_matricola2['Matricola'];
 
+                  $sql_nomi = "SELECT Nome, Cognome FROM Studente
+                              WHERE Matricola = $matricola2;";
+                  $result_nomi = mysqli_query($connessione, $sql_nomi);
+                  $array_nomi = mysqli_fetch_assoc($result_nomi);
+                  $nome = $array_nomi['Nome'];
+                  $cognome = $array_nomi['Cognome'];
+                  echo "<tr>";
+                  echo "<td>" . $nome . "</td>";
+                  echo "<td>" . $cognome . "</td>";
+                  echo "<td>" . $row['Posizione'] . "</td>";
+                  echo "<td>" . $row_d['Stato'] . "</td>";
+                  echo "<td>" . $row_d['Commento'] . "</td>";
+                  
+                  $sql = "SELECT Stato FROM Contratto
+                          WHERE ID_Domanda = '$id_domanda'";
+                  $result_stato = mysqli_query($connessione, $sql);
+                  $array_stato = mysqli_fetch_assoc($result_stato);
+                  $stato_c = '';
+                  if (isset($array_stato)){
+                  $stato_c = $array_stato['Stato'];
+                  }
+                  if ($row_d['Stato'] == 'Accettato dal referente' ){
+                  echo "<td><form action='formazione-contratto.php' method='POST'>
+                  <div class='button-container'>
+                  <input type='hidden' name='id_domanda' value='".$row_d['ID_Domanda']."'>          
+                  <button type='submit' name='accetta_e' value='accetta_e'>Accetta</button> 
+                  <button type='submit' name='rifiuta_e' value='rifiuta_e'>Rifiuta</button>
+                  </div>
+                  </form>
+                  </body></td>";
+                  echo "</tr>";
+                  }
+                  elseif($stato_c == 'In attesa dello studente'){
+                    echo "<td><button hidden='hidden' name='' value=''></button> 
+                          <button hidden='hidden' name='' value=''></button></td>";
+
+                }
             }
         }
 	}

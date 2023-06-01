@@ -10,7 +10,7 @@
 		$result = $connessione->query($sql);
 
 		$user = $result->fetch_assoc();
-        $matricola = $user['Matricola'];
+    $matricola = $user['Matricola'];
         
        
 	}
@@ -80,6 +80,7 @@ $result2 = mysqli_query($connessione, $query);
         $stipendio=$row['Stipendio'];
         $posti_disponibili = $row['Posti_disponibili'];
         $posizione = $row['Posizione'];
+        $id_esercente = $row['ID_Esercente'];
  
 
         $sql_e = "SELECT Email_aziendale FROM Esercente
@@ -108,9 +109,10 @@ $result2 = mysqli_query($connessione, $query);
 
 <?php
     $sql_d = "SELECT Matricola FROM Domande
-    WHERE Matricola = '$matricola' AND Posizione = '$posizione'";
+    WHERE Matricola = '$matricola' AND ID_Offerta = $id_offerta";
     $result_d = $connessione->query($sql_d);
     $domanda = $result_d->fetch_assoc();
+
     if (isset($domanda['Matricola'])){
     $matricola_d = $domanda['Matricola'];
     }
@@ -128,7 +130,8 @@ $result2 = mysqli_query($connessione, $query);
         <input type='hidden' name='posti_disponibili' value='".$posti_disponibili."'>
         <input type='hidden' name='posizione' value='".$posizione."'>
         <input type='hidden' name='matricola' value='".$matricola."'>
-        <input type='hidden' name='id_offerta' value='".$id_offerta."'>     
+        <input type='hidden' name='id_offerta' value='".$id_offerta."'>
+        <input type='hidden' name='id_esercente' value='".$id_esercente."'>      
         <button type='submit'>Applica</button>
         </form>";
     }

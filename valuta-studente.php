@@ -9,22 +9,6 @@
 				WHERE ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);
-        $array_ruolo = $result->fetch_assoc();
-        $ruolo = $array_ruolo['Ruolo'];
-
-        if ($ruolo == 'Esercente'){
-        $sql2 = "SELECT * FROM Esercente
-				WHERE Account_ID = {$_SESSION["user_id"]}";
-
-		$result2 = $connessione->query($sql2);
-
-		$esercente = $result2->fetch_assoc();
-
-        $nome_azienda = $esercente["Nome_azienda"];
-        }
-        else{
-            $nome_azienda = $_POST["azienda"];
-        }
 
         if (isset($_POST['accetta_r'])){
             $accettato_r = $_POST['accetta_r'];
@@ -34,20 +18,7 @@
         }
 
         $matricola = $_POST['matricola'];
-        $posizione = $_POST['posizione'];
-
-        $sql3 = "SELECT * FROM Domande
-        WHERE Matricola = '$matricola' AND Nome_azienda = '$nome_azienda'
-        AND Posizione = '$posizione'";
-
-        $result3 = $connessione->query($sql3);
-
-        $domande = $result3->fetch_assoc();
-
-        $ore = $domande["Ore"];
-        $periodo = $domande["Periodo"];
-        $stipendio = $domande["Stipendio"];
-        $id_domanda = $domande["ID_Domanda"];
+        $id_domanda = $_POST['id_domanda'];
 
 	}
 ?>
@@ -106,7 +77,7 @@ if (isset($rifiutato_r)){
     echo "<h2> Lo studente è stato rifiutato.</h2>";
     $sql = "UPDATE  Domande
             SET Stato = 'Rifiutato da referente', Commento = '$commento'
-            WHERE ID_Domanda = '$id_domanda';";
+            WHERE ID_Domanda = $id_domanda;";
     $result = mysqli_query($connessione, $sql);
 }
 

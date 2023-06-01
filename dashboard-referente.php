@@ -47,6 +47,9 @@
   .riquadro th{
     background-color: #080f29;
   }
+  .button{
+    margin-left: 20px;
+  }
 </style>
 
 
@@ -65,45 +68,57 @@
 
   $result_e = mysqli_query($connessione, $query_e);
 
-  while ($row_e=mysqli_fetch_assoc($result_e)){
+  while ($row_e = mysqli_fetch_assoc($result_e)){
       $matricola = $row_e['Matricola'];
       $query = "SELECT * FROM Domande 
                 WHERE Matricola = '$matricola'";
       $result2 = mysqli_query($connessione, $query);
-      while($row=mysqli_fetch_assoc($result2)){
-            if (!empty($row['Matricola'])){
-            echo '<div class="riquadro">
-            <table>
-              <thead>
-                <tr>
-                  <th>Azienda</th>
-                  <th>Posizione</th>
-                  <th>Matricola</th>
-                  <th>Stato</th>
-                  <th></th>
-                </tr>  
-              </thead>
-              <tbody>';
-            echo "<tr>";
-            echo "<td>" . $row['Nome_azienda'] . "</td>";
-            echo "<td>" . $row['Posizione'] . "</td>";
-            echo "<td>" . $row['Matricola'] . "</td>";
-            echo "<td>" . $row['Stato'] . "</td>";
-              if ($row['Stato'] == 'In attesa'){    // Se lo studente è già stato valutato, non sarà possibile ricliccare su valuta.
-              echo "<td><form action='info-studente.php' method='POST'>          
-              <input type='hidden' name='matricola' value='".$row['Matricola']."'>
-              <input type='hidden' name='azienda' value='".$row['Nome_azienda']."'>
-              <input type='hidden' name='posizione' value='".$row['Posizione']."'>
-              <button type='submit'>Valuta</button>
-              </form></td>"; // Prende la matricola dello studente per chiedergli il colloquio.
-              echo "</tr>";
+
+      while($row_d = mysqli_fetch_assoc($result2)){
+            $id_offerta = $row_d['ID_Offerta'];
+
+            $query2 = "SELECT * FROM Offerte_di_lavoro
+                       WHERE ID_offerta = $id_offerta";
+            $result3 = mysqli_query($connessione, $query2);
+            while($row_o = mysqli_fetch_assoc($result3)){
+
+                if (!empty($row_d['Matricola'])){
+                echo '<div class="riquadro">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Azienda</th>
+                      <th>Posizione</th>
+                      <th>Matricola</th>
+                      <th>Stato</th>
+                      <th>Commento</th>
+                      <th></th>
+                    </tr>  
+                  </thead>
+                  <tbody>';
+                echo "<tr>";
+                echo "<td>" . $row_o['Nome_azienda'] . "</td>";
+                echo "<td>" . $row_o['Posizione'] . "</td>";
+                echo "<td>" . $row_d['Matricola'] . "</td>";
+                echo "<td>" . $row_d['Stato'] . "</td>";
+                echo "<td>" . $row_d['Commento'] . "</td>";
+                  if ($row_d['Stato'] == 'In attesa'){    // Se lo studente è già stato valutato, non sarà possibile ricliccare su valuta.
+                  echo "<td><form action='info-studente.php' method='POST'>          
+                  <input type='hidden' name='matricola' value='".$row_d['Matricola']."'>
+                  <input type='hidden' name='azienda' value='".$row_o['Nome_azienda']."'>
+                  <input type='hidden' name='posizione' value='".$row_o['Posizione']."'>
+                  <input type='hidden' name='id_domanda' value='".$row_d['ID_Domanda']."'>
+                  <button class='button' type='submit'>Valuta</button>
+                  </form></td>"; // Prende la matricola dello studente per chiedergli il colloquio.
+                  echo "</tr>";
+                  }
+                  else{
+                    echo "<td><button hidden='hidden' name='' value=''></button> 
+                          <button hidden='hidden' name='' value=''></button></td>";
+      
+                  }
+                }
               }
-              else{
-                echo "<td><button hidden='hidden' name='' value=''></button> 
-                      <button hidden='hidden' name='' value=''></button></td>";
-  
-              }
-            }
       }
   }
 
