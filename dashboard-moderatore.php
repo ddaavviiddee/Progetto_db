@@ -53,12 +53,22 @@
 <h3>Gestisci domande obsolete: </h3>
 
 <fieldset>
-<?php
+<?php    
         $sql3 = "SELECT * FROM Domande
                 WHERE Stato = 'Rifiutato da esercente' OR Stato = 'Rifiutato da referente'";
         $result3 = mysqli_query($connessione, $sql3);
+
         if (isset($result3)){
-            while($row=mysqli_fetch_assoc($result3)){
+        
+            while($row_d=mysqli_fetch_assoc($result3)){
+
+            $id_offerta = $row_d['ID_Offerta'];
+
+            $query2 = "SELECT * FROM Offerte_di_lavoro
+                       WHERE ID_Offerta = $id_offerta";
+            $result4 = mysqli_query($connessione, $query2);
+
+            while($row=mysqli_fetch_assoc($result4)){
                 echo '<div class="riquadro">
                 <table>
                 <thead>
@@ -75,7 +85,7 @@
                 <tbody>';
                 
                 echo "<tr>";
-                echo "<td>" . $row['ID_Domanda'] . "</td>";
+                echo "<td>" . $row_d['ID_Domanda'] . "</td>";
                 echo "<td>" . $row['Nome_azienda'] . "</td>";
                 echo "<td>" . $row['Ore'] . "</td>";
                 echo "<td>" . $row['Periodo'] . "</td>";
@@ -83,7 +93,7 @@
                 echo "<td>" . $row['Posizione'] . "</td>";
                 echo "<td><form action='aggiornamenti-sito.php' method='POST'>
                 <input type='hidden' name='rimosso_d' value='rimosso_d'>
-                <input type='hidden' name='id_domanda' value='".$row['ID_Domanda']."'>
+                <input type='hidden' name='id_domanda' value='".$row_d['ID_Domanda']."'>
                 <div class='button-elimina'>
                 <button type='submit'>Elimina</button>
                 </form>
@@ -91,6 +101,7 @@
                 echo "</tr>";
             }
         }
+    }
 ?>
 </fieldset>
 
