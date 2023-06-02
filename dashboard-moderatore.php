@@ -50,6 +50,7 @@
     <h1> Benvenuto nella tua dashboard, <?= htmlspecialchars($user["Nome"])?></h1>
 </div>
 </head>
+
 <h3>Gestisci domande obsolete: </h3>
 
 <fieldset>
@@ -68,46 +69,49 @@
                        WHERE ID_Offerta = $id_offerta";
             $result4 = mysqli_query($connessione, $query2);
 
-            while($row=mysqli_fetch_assoc($result4)){
-                echo '<div class="riquadro">
-                <table>
-                <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>Nome_azienda</th>
-                    <th>Ore</th>
-                    <th>Periodo</th>
-                    <th>Stipendio</th>
-                    <th>Posizione</th>
-                    <th></th>
-                    </tr>
-                </thead>
-                <tbody>';
-                
-                echo "<tr>";
-                echo "<td>" . $row_d['ID_Domanda'] . "</td>";
-                echo "<td>" . $row['Nome_azienda'] . "</td>";
-                echo "<td>" . $row['Ore'] . "</td>";
-                echo "<td>" . $row['Periodo'] . "</td>";
-                echo "<td>" . $row['Stipendio'] . "</td>";
-                echo "<td>" . $row['Posizione'] . "</td>";
-                echo "<td><form action='aggiornamenti-sito.php' method='POST'>
-                <input type='hidden' name='rimosso_d' value='rimosso_d'>
-                <input type='hidden' name='id_domanda' value='".$row_d['ID_Domanda']."'>
-                <div class='button-elimina'>
-                <button type='submit'>Elimina</button>
-                </form>
-                </body></td>";
-                echo "</tr>";
+                while($row=mysqli_fetch_assoc($result4)){
+                    echo '<div class="riquadro">
+                    <table>
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Nome_azienda</th>
+                        <th>Ore</th>
+                        <th>Periodo</th>
+                        <th>Stipendio</th>
+                        <th>Posizione</th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+                    
+                    echo "<tr>";
+                    echo "<td>" . $row_d['ID_Domanda'] . "</td>";
+                    echo "<td>" . $row['Nome_azienda'] . "</td>";
+                    echo "<td>" . $row['Ore'] . "</td>";
+                    echo "<td>" . $row['Periodo'] . "</td>";
+                    echo "<td>" . $row['Stipendio'] . "</td>";
+                    echo "<td>" . $row['Posizione'] . "</td>";
+                    echo "<td><form action='aggiornamenti-sito.php' method='POST'>
+                    <input type='hidden' name='rimosso_d' value='rimosso_d'>
+                    <input type='hidden' name='id_domanda' value='".$row_d['ID_Domanda']."'>
+                    <div class='button-elimina'>
+                    <button type='submit'>Elimina</button>
+                    </form>
+                    </body></td>";
+                    echo "</tr>";
+                }
             }
         }
-    }
 ?>
+</tbody>
+</table>
 </fieldset>
 
 <h3>Gestisci contratti obsoleti: </h3>
 
 <fieldset>
+    <legend></legend>
 <?php
         $sql3 = "SELECT * FROM Contratto
                  WHERE Stato = 'Rifiutato dallo studente'";
@@ -145,4 +149,6 @@
             }
         }
 ?>
+</tbody>
+</table>
 </fieldset>
