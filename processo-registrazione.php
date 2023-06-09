@@ -184,6 +184,20 @@ if (isset($azienda)){
     $stmt_a->close();
 }
 
+if (isset($dipartimento)){
+    $sql_d = "INSERT INTO Dipartimento (Nome) VALUES (?)";
+    $stmt_d = $connessione->stmt_init();
+
+    if (!$stmt_d->prepare($sql_d)){
+        die("Errore SQL: ". $connessione->error);
+    }
+    
+    $stmt_a->bind_param("s",
+                        $dipartimento);
+    $stmt_a->execute();
+    $stmt_a->close();
+}
+
 
                                  // Questa funzione esegue lo statement, per poi mandare alla pagina di successo-registrazione.html
                         

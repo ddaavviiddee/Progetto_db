@@ -36,14 +36,15 @@ if (isset($_SESSION["user_id"])){
             $stipendio = $array_offerta['Stipendio'];
             $ore = $array_offerta['Ore'];
             $ore .= ' Settimanali';
+            $data_inizio = date("Y-m-d H:i:s");
     }
 }
 
 $stato = 'In attesa dello studente';
 
 if (isset($_POST['confermato'])){
-    $sql = "INSERT INTO Contratto (Matricola, ID_Esercente, ID_Domanda, Nome, Cognome, Periodo, Ore, Stipendio, Posizione, Stato)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
+    $sql = "INSERT INTO Contratto (Matricola, ID_Esercente, ID_Domanda, Nome, Cognome, Data_Inizio, Periodo, Ore, Stipendio, Posizione, Stato)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
     $stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
 
@@ -51,12 +52,13 @@ if (isset($_POST['confermato'])){
             die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
         }
 
-        $stmt->bind_param("iiisssiiss",
+        $stmt->bind_param("iiissssiiss",
                         $matricola,
                         $id_esercente,
                         $id_domanda,               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                         $nome,
                         $cognome,
+                        $data_inizio,
                         $periodo,
                         $ore,
                         $stipendio,
@@ -78,8 +80,8 @@ if (isset($_POST['modificato'])){
         $ore = $_POST['ore'];
         $ore .= ' Settimanali';
         }
-        $sql = "INSERT INTO Contratto (Matricola, ID_Esercente, ID_Domanda, Nome, Cognome, Periodo, Ore, Stipendio, Posizione, Stato)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
+        $sql = "INSERT INTO Contratto (Matricola, ID_Esercente, ID_Domanda, Nome, Cognome, Data_Inizio, Periodo, Ore, Stipendio, Posizione, Stato)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
         $stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
 
@@ -87,12 +89,13 @@ if (isset($_POST['modificato'])){
             die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
         }
 
-        $stmt->bind_param("iiisssiiss",
+        $stmt->bind_param("iiissssiiss",
                         $matricola,               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                         $id_esercente,
                         $id_domanda,
                         $nome,
                         $cognome,
+                        $data_inizio,
                         $periodo,
                         $ore,
                         $stipendio,
