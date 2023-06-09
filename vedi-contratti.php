@@ -75,6 +75,7 @@
             $array_azienda = mysqli_fetch_assoc($result3);
             $nome_azienda = $array_azienda['Nome_azienda'];
             $email_aziendale = $array_azienda['Email_aziendale'];
+            if ($row['Stato'] == 'In attesa dello studente' ){
             echo '<div class="riquadro">
             <table>
             <thead>
@@ -99,7 +100,7 @@
             echo "<td>" . $row['Stipendio'] . "</td>";
             echo "<td>" . $row['Stato'] . "</td>";
 
-            if ($row['Stato'] == 'In attesa dello studente' ){
+            
             echo "<td><form action='firma-contratto.php' method='POST'>
             <div class='button-container'>
             <input type='hidden' name='id_domanda' value='".$row['ID_Domanda']."'>
@@ -116,14 +117,66 @@
             </body></td>";
             echo "</tr>";
             }
-            elseif($row['Stato'] == 'Accettato dallo studente'){
-            echo "<td><button hidden='hidden' name='' value=''></button> 
-                    <button hidden='hidden' name='' value=''></button></td>";
 
-            }
         }
     }
     
 ?>
+</tbody>
+</table>
 </fieldset>
 
+<div>
+<h2> Ecco i contratti attivi: </h2>
+</div>
+</head>
+
+<fieldset>
+<?php 
+$sql2 = "SELECT * FROM Contratto
+         WHERE '$matricola' = Matricola";
+$result2 = mysqli_query($connessione, $sql2);
+
+if (isset($result2)){
+    while($row=mysqli_fetch_assoc($result2)){
+        $id_esercente = $row['ID_Esercente'];
+        $sql3 = "SELECT Nome_azienda, Email_aziendale FROM Esercente
+                WHERE Account_ID = '$id_esercente'";
+        $result3 = mysqli_query($connessione, $sql3);
+        $array_azienda = mysqli_fetch_assoc($result3);
+        $nome_azienda = $array_azienda['Nome_azienda'];
+        $email_aziendale = $array_azienda['Email_aziendale'];
+        if ($row['Stato'] == 'Accettato dallo studente' ){
+          
+            echo '<div class="riquadro">
+            <table>
+            <thead>
+                <tr>
+                <th>Azienda</th>
+                <th>Email aziendale</th>
+                <th>Posizione</th>
+                <th>Ore</th>
+                <th>Periodo</th>
+                <th>Stipendio</th>
+                <th>Data inizio</th>
+                </tr>
+            </thead>
+            <tbody>';
+            echo "<tr>";
+            echo "<td>" . $nome_azienda . "</td>";
+            echo "<td>" . $email_aziendale . "</td>";
+            echo "<td>" . $row['Posizione'] . "</td>";
+            echo "<td>" . $row['Ore'] . "</td>";
+            echo "<td>" . $row['Periodo'] . "</td>";
+            echo "<td>" . $row['Stipendio'] . "</td>";
+            echo "<td>" . $row['Data_Inizio'] . "</td>";
+
+        }
+    }
+}
+
+?>
+
+</tbody>
+</table>
+</fieldset>

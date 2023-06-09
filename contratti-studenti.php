@@ -10,8 +10,14 @@
 		$result = $connessione->query($sql);
 
 		$referente = $result->fetch_assoc();
+        $id_referente = $referente['Account_ID'];
 
-		$dipartimento = $referente["Dipartimento"];
+        $sql2 = "SELECT Nome FROM Dipartimento
+                 WHERE Account_ID = $id_referente";
+        $result2 = mysqli_query($connessione, $sql2);
+        $array_referente = mysqli_fetch_assoc($result2);
+        
+		$dipartimento = $array_referente["Nome"];
 
 	}
 ?>
@@ -53,59 +59,66 @@
 <fieldset>
 <?php 
 
-    $query_e = "SELECT Matricola FROM Studente
-    WHERE Dipartimento = '$dipartimento'";
-
+    $query_e = "SELECT Matricola FROM Dipartimento
+                WHERE Nome = '$dipartimento'";
+    
     $result_e = mysqli_query($connessione, $query_e);
 
     while ($row_e=mysqli_fetch_assoc($result_e)){
+
         $matricola = $row_e['Matricola'];
-        $query = "SELECT * FROM Contratto 
-            WHERE Matricola = '$matricola'";
-        $result2 = mysqli_query($connessione, $query);
 
-        $sql_id = "SELECT Account_ID FROM Studente
-                   WHERE Matricola = $matricola;";
-        $result_id = mysqli_query($connessione, $sql_id);
-        $array_id = mysqli_fetch_assoc($result_id);
-        $account_id = $array_id['Account_ID'];
-        
-        $sql_mail = "SELECT Email FROM Account
-                     WHERE ID = $account_id;";
-        $result_mail = mysqli_query($connessione, $sql_mail);
-        $array_mail = mysqli_fetch_assoc($result_mail);
-        $email = $array_mail['Email'];
+        if (isset($matricola)){       
+                $query = "SELECT * FROM Contratto 
+                        WHERE Matricola = '$matricola'";
+                $result2 = mysqli_query($connessione, $query);
 
-    while($row=mysqli_fetch_assoc($result2)){
-        if (!empty($row['Matricola']) && $row['Stato'] == 'Accettato dallo studente'){
-                    echo '<div class="riquadro">
-                    <table>
-                    <thead>
-                        <tr>
-                        <th>Nome studente</th>
-                        <th>Cognome studente</th>
-                        <th>Matricola</th>
-                        <th>Posizione</th>
-                        <th>Ore</th>
-                        <th>Periodo</th>
-                        <th>Stato</th>
-                        <th>E-mail studente</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-                    echo "<tr>";
-                    echo "<td>" . $row['Nome'] . "</td>";
-                    echo "<td>" . $row['Cognome'] . "</td>";
-                    echo "<td>" . $row['Matricola'] . "</td>";
-                    echo "<td>" . $row['Posizione'] . "</td>";
-                    echo "<td>" . $row['Ore'] . "</td>";
-                    echo "<td>" . $row['Periodo'] . "</td>";
-                    echo "<td>" . $row['Stato'] . "</td>";
-                    echo "<td>" . $email . "</td>";
-                    echo "</tr></table></td>";
+                $sql_id = "SELECT Account_ID FROM Studente
+                        WHERE Matricola = $matricola;";
+                $result_id = mysqli_query($connessione, $sql_id);
+                $array_id = mysqli_fetch_assoc($result_id);
+                $account_id = $array_id['Account_ID'];
+                
+                $sql_mail = "SELECT Email FROM Account
+                            WHERE ID = $account_id;";
+                $result_mail = mysqli_query($connessione, $sql_mail);
+                $array_mail = mysqli_fetch_assoc($result_mail);
+                $email = $array_mail['Email'];
+
+            while($row=mysqli_fetch_assoc($result2)){
+
+                if (!empty($row['Matricola']) && $row['Stato'] == 'Accettato dallo studente'){
+                            echo '<div class="riquadro">
+                            <table>
+                            <thead>
+                                <tr>
+                                <th>Nome studente</th>
+                                <th>Cognome studente</th>
+                                <th>Matricola</th>
+                                <th>Posizione</th>
+                                <th>Ore</th>
+                                <th>Periodo</th>
+                                <th>Stato</th>
+                                <th>Data inizio</th>
+                                <th>E-mail studente</th>
+                                </tr>
+                            </thead>
+                            <tbody>';
+                            echo "<tr>";
+                            echo "<td>" . $row['Nome'] . "</td>";
+                            echo "<td>" . $row['Cognome'] . "</td>";
+                            echo "<td>" . $row['Matricola'] . "</td>";
+                            echo "<td>" . $row['Posizione'] . "</td>";
+                            echo "<td>" . $row['Ore'] . "</td>";
+                            echo "<td>" . $row['Periodo'] . "</td>";
+                            echo "<td>" . $row['Stato'] . "</td>";
+                            echo "<td>" . $row['Data_Inizio'] . "</td>";
+                            echo "<td>" . $email . "</td>";
+                            echo "</tr></table></td>";
                 }
+            }
         }
-}    
+    }
 ?>
 </fieldset> 
 

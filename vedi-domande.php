@@ -75,7 +75,7 @@
 
           $id_offerta = $row_d['ID_Offerta'];
           $query2 = "SELECT * FROM Offerte_di_lavoro
-                  WHERE ID_Offerta = $id_offerta";
+                     WHERE ID_Offerta = $id_offerta";
           $result4 = mysqli_query($connessione, $query2);
         
           while($row = mysqli_fetch_assoc($result4)){

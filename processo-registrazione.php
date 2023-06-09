@@ -102,8 +102,8 @@ $stmt->close();
 // Query per inserire le varie informazioni ai 3 utenti
 
 if ($ruolo == 'Studente'){
-    $sql_m = "INSERT INTO Studente (Account_ID, Matricola, Nome, Cognome, Luogo, Dipartimento) 
-    VALUES (?, ?, ?, ?, ?, ?)";
+    $sql_m = "INSERT INTO Studente (Account_ID, Matricola, Nome, Cognome, Luogo) 
+    VALUES (?, ?, ?, ?, ?)";
 
     $stmt_m = $connessione->stmt_init();
 
@@ -111,13 +111,12 @@ if ($ruolo == 'Studente'){
         die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
     }
     
-    $stmt_m->bind_param("iissss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+    $stmt_m->bind_param("iisss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                         $account_ID,
                         $matricola,
                         $nome,
                         $cognome,
-                        $luogo,
-                        $dipartimento);
+                        $luogo);
     
  
     $stmt_m->execute();
@@ -149,8 +148,8 @@ if ($ruolo == 'Esercente'){
 }
 
 if ($ruolo == 'Referente'){
-    $sql_r = "INSERT INTO Referente (Account_ID, Nome, Cognome, Dipartimento) 
-    VALUES (?, ?, ?, ?)";
+    $sql_r = "INSERT INTO Referente (Account_ID, Nome, Cognome) 
+    VALUES (?, ?, ?)";
     $stmt_r = $connessione->stmt_init();
 
 
@@ -158,11 +157,10 @@ if ($ruolo == 'Referente'){
         die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
     }
     
-    $stmt_r->bind_param("isss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+    $stmt_r->bind_param("iss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                         $account_ID,
                         $nome,
-                        $cognome,
-                        $dipartimento);
+                        $cognome);
     
     
     $stmt_r->execute();
@@ -185,17 +183,20 @@ if (isset($azienda)){
 }
 
 if (isset($dipartimento)){
-    $sql_d = "INSERT INTO Dipartimento (Nome) VALUES (?)";
+    $sql_d = "INSERT INTO Dipartimento (Account_ID, Nome, Ruolo, Matricola) VALUES (?, ?, ?, ?)";
     $stmt_d = $connessione->stmt_init();
 
     if (!$stmt_d->prepare($sql_d)){
         die("Errore SQL: ". $connessione->error);
     }
     
-    $stmt_a->bind_param("s",
-                        $dipartimento);
-    $stmt_a->execute();
-    $stmt_a->close();
+    $stmt_d->bind_param("issi",
+                        $account_ID,
+                        $dipartimento,
+                        $ruolo, 
+                        $matricola);
+    $stmt_d->execute();
+    $stmt_d->close();
 }
 
 

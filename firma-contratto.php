@@ -33,14 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST'){
 
 
 if (isset($_POST['accetta_s'])){
-
+    $data_inizio = date("Y-m-d H:i:s");
     $sql_u = "UPDATE Offerte_di_lavoro 
           SET Posti_disponibili = Posti_disponibili - 1 
           WHERE  ID_Offerta = $id_offerta;";
           
     $result_u = mysqli_query($connessione, $sql_u);
 
-    $sql_s = "UPDATE Contratto SET Stato = 'Accettato dallo studente' 
+    $sql_s = "UPDATE Contratto SET Stato = 'Accettato dallo studente', Data_Inizio = '$data_inizio'
               WHERE ID_Contratto = $id_contratto";
     $result_s = mysqli_query($connessione, $sql_s);
 

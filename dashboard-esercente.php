@@ -13,6 +13,7 @@
 
 		$nome_azienda = $esercente["Nome_azienda"];
     $id_esercente = $esercente["Account_ID"];
+    $nome_esercente = $esercente["Nome"];
 
     $sql2 = "SELECT Nome_azienda FROM Offerte_di_lavoro
              WHERE Nome_azienda = '$nome_azienda'";
@@ -84,7 +85,9 @@
   }
 
 </style>
-<h1>La tua dashboard</h1>
+<div>
+    <h1> Benvenuto nella tua dashboard, <?= htmlspecialchars($nome_esercente)?>.</h1>
+</div>
 <h2>Le tue offerte</h2>
 
 <?php if (isset($nome_azienda_offerta)): ?>

@@ -4,17 +4,22 @@
 
 		$connessione = require __DIR__ . "/db_conn.php";
 
-		$sql = "SELECT * FROM Referente
-				WHERE Account_ID = {$_SESSION["user_id"]}";
+		$sql = "SELECT * FROM Dipartimento
+				    WHERE Account_ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);
 
 		$referente = $result->fetch_assoc();
 
-    $dipartimento = $referente["Dipartimento"];
+    $dipartimento = $referente["Nome"];
+
+    $sql2 = "SELECT Nome FROM Account
+             WHERE ID = {$_SESSION["user_id"]}";
+    $result2 = mysqli_query($connessione, $sql2);
+    $array_referente = mysqli_fetch_assoc($result2);
+    $nome_referente = $array_referente['Nome'];
 
     
-
 	}
 ?>
 
@@ -54,7 +59,7 @@
 
 
 <div>
-    <h1> Benvenuto nella tua dashboard, <?= htmlspecialchars($referente["Nome"])?>.</h1>
+    <h1> Benvenuto nella tua dashboard, <?= htmlspecialchars($nome_referente)?>.</h1>
 </div>
 </head>
 
@@ -63,8 +68,9 @@
 <legend>Ecco tutte le domande</legend>
 <?php
 
-  $query_e = "SELECT Matricola FROM Studente
-              WHERE Dipartimento = '$dipartimento'";
+
+  $query_e = "SELECT Matricola FROM Dipartimento
+              WHERE Nome = '$dipartimento'";
 
   $result_e = mysqli_query($connessione, $query_e);
 

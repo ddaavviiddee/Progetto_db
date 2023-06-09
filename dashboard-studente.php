@@ -10,18 +10,29 @@
 		$result = $connessione->query($sql);
 
 		$user = $result->fetch_assoc();
-        $dipartimento = $user['Dipartimento'];
+        $account_id_studente = $user['Account_ID'];
 
-        $sql_r = "SELECT Account_ID, Nome, Cognome FROM Referente
-                 WHERE  Dipartimento = '$dipartimento';";
+        $sql_s = "SELECT Nome FROM Dipartimento
+                  WHERE Account_ID = $account_id_studente";
+        $result_s = mysqli_query($connessione, $sql_s);
+        $array_s = mysqli_fetch_assoc($result_s);
+        $dipartimento_studente = $array_s['Nome'];
+
+        $sql_r = "SELECT Account_ID FROM Dipartimento
+                 WHERE  Nome = '$dipartimento_studente' AND Ruolo = 'Referente';";
         $result_r = mysqli_query($connessione, $sql_r);
         $array_referente = mysqli_fetch_assoc($result_r);
-        $nome_r = $array_referente['Nome'];
-        $cognome_r = $array_referente['Cognome'];
-        $account_id = $array_referente['Account_ID'];
+        $account_id_referente = $array_referente['Account_ID'];
+        
+        $sql_n = "SELECT Nome, Cognome FROM Referente
+                  WHERE Account_ID = $account_id_referente;";
+        $result_n = mysqli_query($connessione, $sql_n);
+        $array_n = mysqli_fetch_assoc($result_n);
+        $nome_n = $array_n['Nome'];
+        $cognome_n = $array_n['Cognome'];
 
         $sql_e = "SELECT Email FROM Account
-                  WHERE ID = $account_id";
+                  WHERE ID = $account_id_referente";
         $result_e = mysqli_query($connessione, $sql_e);
         $array_email = mysqli_fetch_assoc($result_e);
         $email = $array_email['Email'];
@@ -93,7 +104,7 @@
     </style>
 </head>
 
-<h3> Il tuo referente è <?= htmlspecialchars($nome_r)?> <?= htmlspecialchars($cognome_r)?>, per contattarlo utilizza questa e-mail: <?= htmlspecialchars($email)?></h3>
+<h3> Il tuo referente è <?= htmlspecialchars($nome_n)?> <?= htmlspecialchars($cognome_n)?>, per contattarlo utilizza questa e-mail: <?= htmlspecialchars($email)?></h3>
 
 <body>
     <h2>Filtri</h2>
