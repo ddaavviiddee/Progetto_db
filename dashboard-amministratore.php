@@ -10,7 +10,7 @@
 		$result = $connessione->query($sql);
 
 		$user = $result->fetch_assoc();
-        $ruolo = $user['Ruolo_operatore'];
+        $ruolo = $user['Tipologia'];
     }
 ?>
 

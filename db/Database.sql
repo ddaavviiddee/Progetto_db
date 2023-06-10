@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Giu 09, 2023 alle 16:03
+-- Creato il: Giu 10, 2023 alle 15:58
 -- Versione del server: 8.0.33
 -- Versione PHP: 8.1.17
 
@@ -34,14 +34,14 @@ CREATE TABLE `Account` (
   `Cognome` varchar(128) NOT NULL,
   `Ruolo` varchar(128) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
-  `Flag` tinyint(1) NOT NULL
+  `Delete_status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dump dei dati per la tabella `Account`
 --
 
-INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash`, `Flag`) VALUES
+INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash`, `Delete_status`) VALUES
 (60, 'admin@gmail.com', 'Admin', 'Admin', 'Amministratore', '$2y$10$zyI0xzJUx8KQN7j/hmjrpO.CjNmDVR7y6QKZC4ZrfX0IIKp27GRfa', 0),
 (62, 'mod@gmail.com', 'Mod', 'Mod', 'Moderatore', '$2y$10$.QAQF5XGmKRzmjFZubY8ZeWfFr/Vm6TzP2ff43vqwXT91FuHDXq/q', 0),
 (75, 'davidemento02@gmail.com', 'Davide', 'Mento', 'Studente', '$2y$10$NPFGgT1YWz/m.VokRKhfe.fOCnPrpXNT2ddW.V17mX3nf98AV79pi', 0),
@@ -49,7 +49,11 @@ INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash
 (77, 'massimovillari@gmail.com', 'Massimo', 'Villari', 'Referente', '$2y$10$aoadY0dEJvtvE6m7kAyb.OtvD2nDj3xTzD62zcwQu9lmA9wTFjyLu', 0),
 (79, 'pietrosciotto@gmail.com', 'Pietro', 'Sciotto', 'Esercente', '$2y$10$9vqqvLMiunTpDzWhdmGzMukKFtGeemogJuK90GNkMhTE5dqsHttDy', 0),
 (80, 'alessandrobarbero@gmail.com', 'Alessandro', 'Barbero', 'Referente', '$2y$10$Y/Rq8HdBp33KKj4ESWqx3esm0wKMxN.KI8k0QiwFpQj8sdwD1LJda', 0),
-(81, 'mariorossi@gmail.com', 'Mario', 'Rossi', 'Studente', '$2y$10$I2Fn9b0Kwt9lhvTtVYBrpOdfqvQAOqD7ptbHKfr9Juhn9FZsUi6La', 0);
+(81, 'mariorossi@gmail.com', 'Mario', 'Rossi', 'Studente', '$2y$10$I2Fn9b0Kwt9lhvTtVYBrpOdfqvQAOqD7ptbHKfr9Juhn9FZsUi6La', 0),
+(84, 'stevenbasalari@gmail.com', 'Steven', 'Basalari', 'Esercente', '$2y$10$MY/HjQFW3bVLHc3/fSbCWe32dqMVVWb6RKqD88NguNZgqQbpweWie', 0),
+(85, 'lauracosta@gmail.com', 'Laura', 'Costa', 'Referente', '$2y$10$.WETyHbKwLRr2tpv1wUAO.kDCSizOneZ2h7PduFC08Zg/Prh69R/a', 0),
+(86, 'arturocilia@gmail.com', 'Arturo', 'Cilia', 'Studente', '$2y$10$maGI9Yr9b5Tlpk0L8Gqo5e0r6ZV5NJsZ4k/66ZRaqWXXG.e4r9Xb6', 0),
+(87, 'enzoferrari@gmail.com', 'Enzo', 'Ferrari', 'Esercente', '$2y$10$y1Whz/QmwTre4WbXykoDw.DRPuuredx98TL5uu1BRX.cIdIZNfWu6', 0);
 
 -- --------------------------------------------------------
 
@@ -60,21 +64,9 @@ INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash
 CREATE TABLE `Aggiornamenti_sito` (
   `ID_Aggiornamento` int NOT NULL,
   `Modifica` varchar(256) NOT NULL,
-  `Operatore_modifica` varchar(128) NOT NULL,
+  `ID_Operatore` int NOT NULL,
   `Data_modifica` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dump dei dati per la tabella `Aggiornamenti_sito`
---
-
-INSERT INTO `Aggiornamenti_sito` (`ID_Aggiornamento`, `Modifica`, `Operatore_modifica`, `Data_modifica`) VALUES
-(1, 'Sospeso account con ID = 61', 'Amministratore', '2023-05-31'),
-(3, 'Ripristinato account con ID = 61', 'Amministratore', '2023-05-31'),
-(4, 'Eliminata domanda con ID = 23', 'Moderatore', '2023-05-31'),
-(5, 'Eliminato contratto con ID = 18', 'Moderatore', '2023-06-01'),
-(6, 'Eliminato contratto con ID = 13', 'Moderatore', '2023-06-02'),
-(7, 'Eliminata domanda con ID = 28', 'Moderatore', '2023-06-02');
 
 -- --------------------------------------------------------
 
@@ -93,7 +85,9 @@ CREATE TABLE `Azienda` (
 --
 
 INSERT INTO `Azienda` (`ID_Azienda`, `Nome`, `Email_aziendale`) VALUES
-(9, 'Sciotto Automobili', 'sciottoautomobili@gmail.com');
+(9, 'Sciotto Automobili', 'sciottoautomobili@gmail.com'),
+(10, 'NumberOne', 'numberone@gmail.com'),
+(11, 'Ferrari', 'ferrari@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -105,6 +99,7 @@ CREATE TABLE `Contratto` (
   `ID_Contratto` int NOT NULL,
   `ID_Esercente` int NOT NULL,
   `ID_Domanda` int NOT NULL,
+  `ID_Referente` int NOT NULL,
   `Matricola` int NOT NULL,
   `Nome` varchar(128) NOT NULL,
   `Cognome` varchar(128) NOT NULL,
@@ -120,10 +115,11 @@ CREATE TABLE `Contratto` (
 -- Dump dei dati per la tabella `Contratto`
 --
 
-INSERT INTO `Contratto` (`ID_Contratto`, `ID_Esercente`, `ID_Domanda`, `Matricola`, `Nome`, `Cognome`, `Data_Inizio`, `Periodo`, `Ore`, `Stipendio`, `Posizione`, `Stato`) VALUES
-(25, 79, 34, 527917, 'Davide', 'Mento', '2023-06-09', '6 mesi', 30, 1300, 'Segretario', 'Accettato dallo studente'),
-(26, 79, 35, 312312, 'Mario', 'Rossi', '2023-06-09', '6 mesi', 30, 1300, 'Segretario', 'Accettato dallo studente'),
-(27, 79, 36, 312312, 'Mario', 'Rossi', '2023-06-09', '3 mesi', 30, 800, 'Addetto Alle Pulizie', 'Accettato dallo studente');
+INSERT INTO `Contratto` (`ID_Contratto`, `ID_Esercente`, `ID_Domanda`, `ID_Referente`, `Matricola`, `Nome`, `Cognome`, `Data_Inizio`, `Periodo`, `Ore`, `Stipendio`, `Posizione`, `Stato`) VALUES
+(26, 79, 35, 80, 312312, 'Mario', 'Rossi', '2023-06-09', '6 mesi', 30, 1300, 'Segretario', 'Accettato dallo studente'),
+(27, 79, 36, 80, 312312, 'Mario', 'Rossi', '2023-06-09', '3 mesi', 30, 800, 'Addetto Alle Pulizie', 'Accettato dallo studente'),
+(28, 84, 37, 77, 527917, 'Davide', 'Mento', '2023-06-10', '3 mesi', 30, 1200, 'Barista', 'Accettato dallo studente'),
+(29, 84, 39, 85, 526381, 'Arturo', 'Cilia', NULL, '9 mesi', 30, 1300, 'Barista', 'Rifiutato dallo studente');
 
 -- --------------------------------------------------------
 
@@ -132,23 +128,21 @@ INSERT INTO `Contratto` (`ID_Contratto`, `ID_Esercente`, `ID_Domanda`, `Matricol
 --
 
 CREATE TABLE `Dipartimento` (
-  `Account_ID` int NOT NULL,
-  `Nome` varchar(128) NOT NULL,
-  `Ruolo` varchar(128) NOT NULL,
-  `Matricola` int DEFAULT NULL
-) ;
+  `ID` int NOT NULL,
+  `Nome` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dump dei dati per la tabella `Dipartimento`
 --
 
-INSERT INTO `Dipartimento` (`Account_ID`, `Nome`, `Ruolo`, `Matricola`) VALUES
-(75, 'MIFT', 'Studente', 527917),
-(76, 'MIFT', 'Studente', 526889),
-(77, 'MIFT', 'Referente', NULL),
-(79, 'MIFT', 'Esercente', NULL),
-(80, 'DICAM', 'Referente', NULL),
-(81, 'DICAM', 'Studente', 312312);
+INSERT INTO `Dipartimento` (`ID`, `Nome`) VALUES
+(2, 'DICAM'),
+(4, 'Economia'),
+(5, 'Giurisprudenza'),
+(3, 'Medicina'),
+(1, 'MIFT'),
+(6, 'Psicologia');
 
 -- --------------------------------------------------------
 
@@ -170,9 +164,11 @@ CREATE TABLE `Domande` (
 --
 
 INSERT INTO `Domande` (`ID_Domanda`, `ID_Offerta`, `ID_Esercente`, `Stato`, `Matricola`, `Commento`) VALUES
-(34, 33, 79, 'Accettato da esercente', 527917, 'Un ragazzo molto abile'),
 (35, 33, 79, 'Accettato da esercente', 312312, 'Bravo'),
-(36, 34, 79, 'Accettato da esercente', 312312, '');
+(36, 34, 79, 'Accettato da esercente', 312312, ''),
+(37, 35, 84, 'Accettato da esercente', 527917, 'Ottime capacità'),
+(38, 36, 87, 'Rifiutato da esercente', 526381, ''),
+(39, 35, 84, 'Accettato da esercente', 526381, 'Ottime abilità nel fare i drink');
 
 -- --------------------------------------------------------
 
@@ -193,7 +189,9 @@ CREATE TABLE `Esercente` (
 --
 
 INSERT INTO `Esercente` (`Account_ID`, `Nome`, `Cognome`, `Nome_azienda`, `Email_aziendale`) VALUES
-(79, 'Pietro', 'Sciotto', 'Sciotto Automobili', 'sciottoautomobili@gmail.com');
+(79, 'Pietro', 'Sciotto', 'Sciotto Automobili', 'sciottoautomobili@gmail.com'),
+(84, 'Steven', 'Basalari', 'NumberOne', 'numberone@gmail.com'),
+(87, 'Enzo', 'Ferrari', 'Ferrari', 'ferrari@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -219,7 +217,9 @@ CREATE TABLE `Offerte_di_lavoro` (
 
 INSERT INTO `Offerte_di_lavoro` (`ID_Offerta`, `ID_Esercente`, `Nome_azienda`, `Ore`, `Indirizzo`, `Periodo`, `Stipendio`, `Posti_disponibili`, `Posizione`) VALUES
 (33, 79, 'Sciotto Automobili', '30 Settimanali', 'Via Messina 20', '6 mesi', 1300, 0, 'Segretario'),
-(34, 79, 'Sciotto Automobili', '30 Settimanali', 'Via Messina 20', '3 mesi', 800, 1, 'Addetto Alle Pulizie');
+(34, 79, 'Sciotto Automobili', '30 Settimanali', 'Via Messina 20', '3 mesi', 800, 1, 'Addetto Alle Pulizie'),
+(35, 84, 'NumberOne', '30 Settimanali', 'Via Brescia 20', '3 mesi', 1200, 1, 'Barista'),
+(36, 87, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1100, 2, 'Spazzino');
 
 -- --------------------------------------------------------
 
@@ -231,14 +231,14 @@ CREATE TABLE `Operatori` (
   `Account_ID` int NOT NULL,
   `Nome` varchar(128) NOT NULL,
   `Cognome` varchar(128) NOT NULL,
-  `Ruolo_operatore` varchar(128) NOT NULL
+  `Tipologia` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dump dei dati per la tabella `Operatori`
 --
 
-INSERT INTO `Operatori` (`Account_ID`, `Nome`, `Cognome`, `Ruolo_operatore`) VALUES
+INSERT INTO `Operatori` (`Account_ID`, `Nome`, `Cognome`, `Tipologia`) VALUES
 (60, 'Admin', 'Admin', 'Amministratore'),
 (62, 'Mod', 'Mod', 'Moderatore');
 
@@ -250,6 +250,7 @@ INSERT INTO `Operatori` (`Account_ID`, `Nome`, `Cognome`, `Ruolo_operatore`) VAL
 
 CREATE TABLE `Referente` (
   `Account_ID` int NOT NULL,
+  `Dipartimento` varchar(128) NOT NULL,
   `Nome` varchar(128) NOT NULL,
   `Cognome` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -258,9 +259,10 @@ CREATE TABLE `Referente` (
 -- Dump dei dati per la tabella `Referente`
 --
 
-INSERT INTO `Referente` (`Account_ID`, `Nome`, `Cognome`) VALUES
-(77, 'Massimo', 'Villari'),
-(80, 'Alessandro', 'Barbero');
+INSERT INTO `Referente` (`Account_ID`, `Dipartimento`, `Nome`, `Cognome`) VALUES
+(77, 'MIFT', 'Massimo', 'Villari'),
+(80, 'DICAM', 'Alessandro', 'Barbero'),
+(85, 'Medicina', 'Laura', 'Costa');
 
 -- --------------------------------------------------------
 
@@ -271,6 +273,7 @@ INSERT INTO `Referente` (`Account_ID`, `Nome`, `Cognome`) VALUES
 CREATE TABLE `Studente` (
   `Matricola` int NOT NULL,
   `Account_ID` int NOT NULL,
+  `Dipartimento` varchar(128) NOT NULL,
   `Nome` varchar(128) NOT NULL,
   `Cognome` varchar(128) NOT NULL,
   `Luogo` varchar(128) NOT NULL
@@ -280,10 +283,11 @@ CREATE TABLE `Studente` (
 -- Dump dei dati per la tabella `Studente`
 --
 
-INSERT INTO `Studente` (`Matricola`, `Account_ID`, `Nome`, `Cognome`, `Luogo`) VALUES
-(312312, 81, 'Mario', 'Rossi', 'Catania'),
-(526889, 76, 'Emanuele', 'Russo', 'Messina'),
-(527917, 75, 'Davide', 'Mento', 'Messina');
+INSERT INTO `Studente` (`Matricola`, `Account_ID`, `Dipartimento`, `Nome`, `Cognome`, `Luogo`) VALUES
+(312312, 81, 'DICAM', 'Mario', 'Rossi', 'Catania'),
+(526381, 86, 'Medicina', 'Arturo', 'Cilia', 'Messina'),
+(526889, 76, 'MIFT', 'Emanuele', 'Russo', 'Messina'),
+(527917, 75, 'MIFT', 'Davide', 'Mento', 'Messina');
 
 --
 -- Indici per le tabelle scaricate
@@ -314,14 +318,16 @@ ALTER TABLE `Azienda`
 ALTER TABLE `Contratto`
   ADD PRIMARY KEY (`ID_Contratto`),
   ADD UNIQUE KEY `ID_Domanda` (`ID_Domanda`),
-  ADD KEY `FK_Contratto_Esercente` (`ID_Esercente`);
+  ADD KEY `FK_Contratto_Esercente` (`ID_Esercente`),
+  ADD KEY `FK_Contratto_Matricola` (`Matricola`),
+  ADD KEY `FK_Contratto_Referente` (`ID_Referente`);
 
 --
 -- Indici per le tabelle `Dipartimento`
 --
 ALTER TABLE `Dipartimento`
-  ADD PRIMARY KEY (`Account_ID`),
-  ADD UNIQUE KEY `unique_nome_referente` (`Nome`,`end`(Referente));
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `Nome` (`Nome`);
 
 --
 -- Indici per le tabelle `Domande`
@@ -342,7 +348,8 @@ ALTER TABLE `Esercente`
 -- Indici per le tabelle `Offerte_di_lavoro`
 --
 ALTER TABLE `Offerte_di_lavoro`
-  ADD PRIMARY KEY (`ID_Offerta`);
+  ADD PRIMARY KEY (`ID_Offerta`),
+  ADD KEY `FK_Offerta_ID_Esercente` (`ID_Esercente`);
 
 --
 -- Indici per le tabelle `Operatori`
@@ -354,14 +361,16 @@ ALTER TABLE `Operatori`
 -- Indici per le tabelle `Referente`
 --
 ALTER TABLE `Referente`
-  ADD PRIMARY KEY (`Account_ID`);
+  ADD PRIMARY KEY (`Account_ID`),
+  ADD KEY `FK_Referente_Dipartimento` (`Dipartimento`);
 
 --
 -- Indici per le tabelle `Studente`
 --
 ALTER TABLE `Studente`
-  ADD PRIMARY KEY (`Matricola`,`Account_ID`),
-  ADD KEY `FK_Studente_ID` (`Account_ID`);
+  ADD PRIMARY KEY (`Matricola`) USING BTREE,
+  ADD UNIQUE KEY `FK_Studente_ID` (`Account_ID`) USING BTREE,
+  ADD KEY `FK_Studente_Dipartimento` (`Dipartimento`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -371,7 +380,7 @@ ALTER TABLE `Studente`
 -- AUTO_INCREMENT per la tabella `Account`
 --
 ALTER TABLE `Account`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT per la tabella `Aggiornamenti_sito`
@@ -383,25 +392,25 @@ ALTER TABLE `Aggiornamenti_sito`
 -- AUTO_INCREMENT per la tabella `Azienda`
 --
 ALTER TABLE `Azienda`
-  MODIFY `ID_Azienda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_Azienda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT per la tabella `Contratto`
 --
 ALTER TABLE `Contratto`
-  MODIFY `ID_Contratto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ID_Contratto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT per la tabella `Domande`
 --
 ALTER TABLE `Domande`
-  MODIFY `ID_Domanda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `ID_Domanda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT per la tabella `Offerte_di_lavoro`
 --
 ALTER TABLE `Offerte_di_lavoro`
-  MODIFY `ID_Offerta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `ID_Offerta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Limiti per le tabelle scaricate
@@ -412,7 +421,9 @@ ALTER TABLE `Offerte_di_lavoro`
 --
 ALTER TABLE `Contratto`
   ADD CONSTRAINT `FK_Contratto_Domanda` FOREIGN KEY (`ID_Domanda`) REFERENCES `Domande` (`ID_Domanda`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `FK_Contratto_Esercente` FOREIGN KEY (`ID_Esercente`) REFERENCES `Esercente` (`Account_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `FK_Contratto_Esercente` FOREIGN KEY (`ID_Esercente`) REFERENCES `Esercente` (`Account_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `FK_Contratto_Matricola` FOREIGN KEY (`Matricola`) REFERENCES `Studente` (`Matricola`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `FK_Contratto_Referente` FOREIGN KEY (`ID_Referente`) REFERENCES `Referente` (`Account_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `Domande`
@@ -429,6 +440,12 @@ ALTER TABLE `Esercente`
   ADD CONSTRAINT `FK_Esercente_ID` FOREIGN KEY (`Account_ID`) REFERENCES `Account` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Limiti per la tabella `Offerte_di_lavoro`
+--
+ALTER TABLE `Offerte_di_lavoro`
+  ADD CONSTRAINT `FK_Offerta_ID_Esercente` FOREIGN KEY (`ID_Esercente`) REFERENCES `Esercente` (`Account_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Limiti per la tabella `Operatori`
 --
 ALTER TABLE `Operatori`
@@ -438,12 +455,14 @@ ALTER TABLE `Operatori`
 -- Limiti per la tabella `Referente`
 --
 ALTER TABLE `Referente`
+  ADD CONSTRAINT `FK_Referente_Dipartimento` FOREIGN KEY (`Dipartimento`) REFERENCES `Dipartimento` (`Nome`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `FK_Referente_ID` FOREIGN KEY (`Account_ID`) REFERENCES `Account` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `Studente`
 --
 ALTER TABLE `Studente`
+  ADD CONSTRAINT `FK_Studente_Dipartimento` FOREIGN KEY (`Dipartimento`) REFERENCES `Dipartimento` (`Nome`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `FK_Studente_ID` FOREIGN KEY (`Account_ID`) REFERENCES `Account` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 

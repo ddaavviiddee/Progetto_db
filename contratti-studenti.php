@@ -9,15 +9,8 @@
 
 		$result = $connessione->query($sql);
 
-		$referente = $result->fetch_assoc();
-        $id_referente = $referente['Account_ID'];
-
-        $sql2 = "SELECT Nome FROM Dipartimento
-                 WHERE Account_ID = $id_referente";
-        $result2 = mysqli_query($connessione, $sql2);
-        $array_referente = mysqli_fetch_assoc($result2);
-        
-		$dipartimento = $array_referente["Nome"];
+		$array_referente = $result->fetch_assoc(); 
+		$dipartimento = $array_referente["Dipartimento"];
 
 	}
 ?>
@@ -59,8 +52,8 @@
 <fieldset>
 <?php 
 
-    $query_e = "SELECT Matricola FROM Dipartimento
-                WHERE Nome = '$dipartimento'";
+    $query_e = "SELECT Matricola FROM Studente
+                WHERE Dipartimento = '$dipartimento'";
     
     $result_e = mysqli_query($connessione, $query_e);
 

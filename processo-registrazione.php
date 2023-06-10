@@ -73,7 +73,7 @@ $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);  // Critto
 
 $flag = 0;
 
-$sql = "INSERT INTO Account (Email, Nome, Cognome, Ruolo, password_hash, Flag)
+$sql = "INSERT INTO Account (Email, Nome, Cognome, Ruolo, password_hash, Delete_status)
         VALUES (?, ?, ?, ?, ?, ?)";  // Utilizziamo i ? in modo da evitare SQL injection.
 
 $stmt = $connessione->stmt_init();  // Inizializza uno statement e ritorna un oggetto utile al prepare()
@@ -102,8 +102,8 @@ $stmt->close();
 // Query per inserire le varie informazioni ai 3 utenti
 
 if ($ruolo == 'Studente'){
-    $sql_m = "INSERT INTO Studente (Account_ID, Matricola, Nome, Cognome, Luogo) 
-    VALUES (?, ?, ?, ?, ?)";
+    $sql_m = "INSERT INTO Studente (Account_ID, Matricola, DIpartimento, Nome, Cognome, Luogo) 
+    VALUES (?, ?, ?, ?, ?, ?)";
 
     $stmt_m = $connessione->stmt_init();
 
@@ -111,9 +111,10 @@ if ($ruolo == 'Studente'){
         die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
     }
     
-    $stmt_m->bind_param("iisss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+    $stmt_m->bind_param("iissss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                         $account_ID,
                         $matricola,
+                        $dipartimento,
                         $nome,
                         $cognome,
                         $luogo);
@@ -148,8 +149,8 @@ if ($ruolo == 'Esercente'){
 }
 
 if ($ruolo == 'Referente'){
-    $sql_r = "INSERT INTO Referente (Account_ID, Nome, Cognome) 
-    VALUES (?, ?, ?)";
+    $sql_r = "INSERT INTO Referente (Account_ID, Dipartimento, Nome, Cognome) 
+    VALUES (?, ?, ?, ?)";
     $stmt_r = $connessione->stmt_init();
 
 
@@ -157,8 +158,9 @@ if ($ruolo == 'Referente'){
         die("Errore SQL: ". $connessione->error);  // Utilizziamo dei prepared statement per una maggiore efficienza e per proteggere da SQL injection.
     }
     
-    $stmt_r->bind_param("iss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
+    $stmt_r->bind_param("isss",               // Questa funzione unisce i parametri alla query, qui la s indica una stringa, la i dei numeri interi.
                         $account_ID,
+                        $dipartimento,
                         $nome,
                         $cognome);
     
@@ -181,27 +183,7 @@ if (isset($azienda)){
     $stmt_a->execute();
     $stmt_a->close();
 }
-
-if (isset($dipartimento)){
-    $sql_d = "INSERT INTO Dipartimento (Account_ID, Nome, Ruolo, Matricola) VALUES (?, ?, ?, ?)";
-    $stmt_d = $connessione->stmt_init();
-
-    if (!$stmt_d->prepare($sql_d)){
-        die("Errore SQL: ". $connessione->error);
-    }
-    
-    $stmt_d->bind_param("issi",
-                        $account_ID,
-                        $dipartimento,
-                        $ruolo, 
-                        $matricola);
-    $stmt_d->execute();
-    $stmt_d->close();
-}
-
-
-                                 // Questa funzione esegue lo statement, per poi mandare alla pagina di successo-registrazione.html
-                        
+                     
     header("Location: successo-registrazione.html");
     exit;
 

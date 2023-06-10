@@ -11,15 +11,11 @@
 
 		$user = $result->fetch_assoc();
         $account_id_studente = $user['Account_ID'];
+        $dipartimento_studente = $user['Dipartimento'];
+        
 
-        $sql_s = "SELECT Nome FROM Dipartimento
-                  WHERE Account_ID = $account_id_studente";
-        $result_s = mysqli_query($connessione, $sql_s);
-        $array_s = mysqli_fetch_assoc($result_s);
-        $dipartimento_studente = $array_s['Nome'];
-
-        $sql_r = "SELECT Account_ID FROM Dipartimento
-                 WHERE  Nome = '$dipartimento_studente' AND Ruolo = 'Referente';";
+        $sql_r = "SELECT Account_ID FROM Referente
+                  WHERE  Dipartimento = '$dipartimento_studente';";
         $result_r = mysqli_query($connessione, $sql_r);
         $array_referente = mysqli_fetch_assoc($result_r);
         $account_id_referente = $array_referente['Account_ID'];

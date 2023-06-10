@@ -11,8 +11,8 @@
 		$result = $connessione->query($sql);
 
 		$user = $result->fetch_assoc();
-		if (isset($user['Flag'])){
-			$flag = $user['Flag'];
+		if (isset($user['Delete_status'])){
+			$flag = $user['Delete_status'];
 		}
 
 	}

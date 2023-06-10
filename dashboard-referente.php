@@ -4,14 +4,14 @@
 
 		$connessione = require __DIR__ . "/db_conn.php";
 
-		$sql = "SELECT * FROM Dipartimento
+		$sql = "SELECT * FROM Referente
 				    WHERE Account_ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);
 
 		$referente = $result->fetch_assoc();
 
-    $dipartimento = $referente["Nome"];
+    $dipartimento = $referente["Dipartimento"];
 
     $sql2 = "SELECT Nome FROM Account
              WHERE ID = {$_SESSION["user_id"]}";
@@ -69,8 +69,8 @@
 <?php
 
 
-  $query_e = "SELECT Matricola FROM Dipartimento
-              WHERE Nome = '$dipartimento'";
+  $query_e = "SELECT Matricola FROM Studente
+              WHERE Dipartimento = '$dipartimento'";
 
   $result_e = mysqli_query($connessione, $query_e);
 

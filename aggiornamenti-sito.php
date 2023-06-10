@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (isset($_POST['rimosso'])){
         $id = $_POST['id'];
         $sql = "UPDATE Account 
-                SET Flag = 1
+                SET Delete_status = 1
                 WHERE ID = $id;";
         $result = mysqli_query($connessione,$sql);
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $ripristinato = $_POST['ripristinato'];
         $id = $_POST['id'];
         $sql = "UPDATE Account 
-                SET Flag = 0
+                SET Delete_status = 0
                 WHERE ID = $id;";
         $result = mysqli_query($connessione,$sql);
 
