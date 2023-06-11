@@ -5,7 +5,7 @@
 		$connessione = require __DIR__ . "/db_conn.php";
 
 		$sql = "SELECT * FROM Operatori
-				WHERE Account_ID = {$_SESSION["user_id"]}";
+				    WHERE Account_ID = {$_SESSION["user_id"]}";
 
 		$result = $connessione->query($sql);
 
@@ -57,7 +57,7 @@
 
 <fieldset>
 <?php
-        $sql3 = "SELECT Nome, Cognome, Email, Ruolo, Flag, ID FROM Account";
+        $sql3 = "SELECT Nome, Cognome, Email, Ruolo, Delete_status, ID FROM Account";
         $result3 = mysqli_query($connessione, $sql3);
         while($row=mysqli_fetch_assoc($result3)){
             echo '<div class="riquadro">
@@ -80,14 +80,14 @@
             echo "<td>" . $row['Cognome'] . "</td>";
             echo "<td>" . $row['Email'] . "</td>";
             echo "<td>" . $row['Ruolo'] . "</td>";
-            if ($row['Flag'] == 0){
+            if ($row['Delete_status'] == 0){
             echo "<td><form action='aggiornamenti-sito.php' method='POST'>
             <input type='hidden' name='rimosso' value='rimosso'>
             <input type='hidden' name='id' value='".$row['ID']."'>
             <div class='button-elimina'>
             <button type='submit'>Elimina</button>";
             }
-            if ($row['Flag'] == 1){
+            if ($row['Delete_status'] == 1){
                 echo "<td><form action='aggiornamenti-sito.php' method='POST'>
                 <input type='hidden' name='ripristinato' value='ripristinato'>
                 <input type='hidden' name='id' value='".$row['ID']."'>

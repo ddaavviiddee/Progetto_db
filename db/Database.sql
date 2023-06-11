@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Giu 10, 2023 alle 15:58
--- Versione del server: 8.0.33
+-- Creato il: Giu 11, 2023 alle 09:26
+-- Versione del server: 8.0.32
 -- Versione PHP: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -67,6 +67,14 @@ CREATE TABLE `Aggiornamenti_sito` (
   `ID_Operatore` int NOT NULL,
   `Data_modifica` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dump dei dati per la tabella `Aggiornamenti_sito`
+--
+
+INSERT INTO `Aggiornamenti_sito` (`ID_Aggiornamento`, `Modifica`, `ID_Operatore`, `Data_modifica`) VALUES
+(8, 'Sospeso account con ID = 85', 60, '2023-06-11'),
+(9, 'Ripristinato account con ID = 85', 60, '2023-06-11');
 
 -- --------------------------------------------------------
 
@@ -304,7 +312,8 @@ ALTER TABLE `Account`
 -- Indici per le tabelle `Aggiornamenti_sito`
 --
 ALTER TABLE `Aggiornamenti_sito`
-  ADD PRIMARY KEY (`ID_Aggiornamento`);
+  ADD PRIMARY KEY (`ID_Aggiornamento`),
+  ADD KEY `FK_ID_Operatore` (`ID_Operatore`);
 
 --
 -- Indici per le tabelle `Azienda`
@@ -386,7 +395,7 @@ ALTER TABLE `Account`
 -- AUTO_INCREMENT per la tabella `Aggiornamenti_sito`
 --
 ALTER TABLE `Aggiornamenti_sito`
-  MODIFY `ID_Aggiornamento` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_Aggiornamento` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la tabella `Azienda`
@@ -415,6 +424,12 @@ ALTER TABLE `Offerte_di_lavoro`
 --
 -- Limiti per le tabelle scaricate
 --
+
+--
+-- Limiti per la tabella `Aggiornamenti_sito`
+--
+ALTER TABLE `Aggiornamenti_sito`
+  ADD CONSTRAINT `FK_ID_Operatore` FOREIGN KEY (`ID_Operatore`) REFERENCES `Operatori` (`Account_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `Contratto`

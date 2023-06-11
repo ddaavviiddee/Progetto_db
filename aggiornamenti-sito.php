@@ -1,6 +1,14 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $connessione = require __DIR__ . "/db_conn.php";
+  session_start();
+  $sql = "SELECT * FROM Operatori
+          WHERE Account_ID = {$_SESSION["user_id"]}";
+
+  $result = mysqli_query($connessione, $sql);
+  $result_array = mysqli_fetch_assoc($result);
+  $id_operatore = $result_array['Account_ID'];
+
 
     if (isset($_POST['rimosso'])){
         $id = $_POST['id'];
@@ -11,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $data = date("Y-m-d H:i:s");
         $modifica = 'Sospeso account con ID = '.$id;
-        $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, Operatore_modifica, Data_modifica)
-                 VALUES ('$modifica', 'Amministratore', '$data');";
+        $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, ID_Operatore, Data_modifica)
+                 VALUES ('$modifica', $id_operatore, '$data');";
         $resul2 = mysqli_query($connessione, $sql2);
 
         header("Location: dashboard-amministratore.php");
@@ -29,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $data = date("Y-m-d H:i:s");
         $modifica = 'Ripristinato account con ID = '.$id;
-        $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, Operatore_modifica, Data_modifica)
-                 VALUES ('$modifica', 'Amministratore', '$data');";
+        $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, ID_Operatore, Data_modifica)
+                 VALUES ('$modifica', $id_operatore, '$data');";
         $resul2 = mysqli_query($connessione, $sql2);
 
         header("Location: dashboard-amministratore.php");
@@ -45,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
       $data = date("Y-m-d H:i:s");
       $modifica = 'Eliminata domanda con ID = '.$id_domanda;
-      $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, Operatore_modifica, Data_modifica)
-               VALUES ('$modifica', 'Moderatore', '$data');";
+      $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, ID_Operatore, Data_modifica)
+               VALUES ('$modifica', $id_operatore, '$data');";
       $result2 = mysqli_query($connessione, $sql2);
       
       header("Location: dashboard-moderatore.php");
@@ -63,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $data = date("Y-m-d H:i:s");
         $modifica = 'Eliminato contratto con ID = '.$id_contratto;
         $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, Operatore_modifica, Data_modifica)
-                 VALUES ('$modifica', 'Moderatore', '$data');";
+                 VALUES ('$modifica', $id_operatore, '$data');";
         $result2 = mysqli_query($connessione, $sql2);
         
         header("Location: dashboard-moderatore.php");
