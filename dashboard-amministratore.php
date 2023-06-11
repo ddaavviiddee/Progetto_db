@@ -80,14 +80,14 @@
             echo "<td>" . $row['Cognome'] . "</td>";
             echo "<td>" . $row['Email'] . "</td>";
             echo "<td>" . $row['Ruolo'] . "</td>";
-            if ($row['Delete_status'] == 0){
+            if ($row['Delete_status'] == 0 && $row['ID'] != 60){
             echo "<td><form action='aggiornamenti-sito.php' method='POST'>
             <input type='hidden' name='rimosso' value='rimosso'>
             <input type='hidden' name='id' value='".$row['ID']."'>
             <div class='button-elimina'>
             <button type='submit'>Elimina</button>";
             }
-            if ($row['Delete_status'] == 1){
+            if ($row['Delete_status'] == 1 && $row['ID'] != 60){
                 echo "<td><form action='aggiornamenti-sito.php' method='POST'>
                 <input type='hidden' name='ripristinato' value='ripristinato'>
                 <input type='hidden' name='id' value='".$row['ID']."'>

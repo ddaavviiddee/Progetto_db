@@ -125,6 +125,22 @@ if ($ruolo == 'Studente'){
 }
 
 if ($ruolo == 'Esercente'){
+
+    if (isset($azienda)){
+        $sql_a = "INSERT INTO Azienda (Nome, Email_aziendale) VALUES (?, ?)";
+        $stmt_a = $connessione->stmt_init();
+    
+        if (!$stmt_a->prepare($sql_a)){
+            die("Errore SQL: ". $connessione->error);
+        }
+        
+        $stmt_a->bind_param("ss",
+                            $azienda,
+                            $email_az);
+        $stmt_a->execute();
+        $stmt_a->close();
+    }
+    
     $sql_e = "INSERT INTO Esercente (Account_ID, Nome, Cognome, Nome_azienda, Email_aziendale) 
     VALUES (?, ?, ?, ?, ?)";
     
@@ -169,20 +185,7 @@ if ($ruolo == 'Referente'){
     $stmt_r->close();
 }
 
-if (isset($azienda)){
-    $sql_a = "INSERT INTO Azienda (Nome, Email_aziendale) VALUES (?, ?)";
-    $stmt_a = $connessione->stmt_init();
 
-    if (!$stmt_a->prepare($sql_a)){
-        die("Errore SQL: ". $connessione->error);
-    }
-    
-    $stmt_a->bind_param("ss",
-                        $azienda,
-                        $email_az);
-    $stmt_a->execute();
-    $stmt_a->close();
-}
                      
     header("Location: successo-registrazione.html");
     exit;

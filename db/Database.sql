@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Giu 11, 2023 alle 09:26
+-- Creato il: Giu 11, 2023 alle 09:43
 -- Versione del server: 8.0.32
 -- Versione PHP: 8.1.17
 
@@ -53,7 +53,8 @@ INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash
 (84, 'stevenbasalari@gmail.com', 'Steven', 'Basalari', 'Esercente', '$2y$10$MY/HjQFW3bVLHc3/fSbCWe32dqMVVWb6RKqD88NguNZgqQbpweWie', 0),
 (85, 'lauracosta@gmail.com', 'Laura', 'Costa', 'Referente', '$2y$10$.WETyHbKwLRr2tpv1wUAO.kDCSizOneZ2h7PduFC08Zg/Prh69R/a', 0),
 (86, 'arturocilia@gmail.com', 'Arturo', 'Cilia', 'Studente', '$2y$10$maGI9Yr9b5Tlpk0L8Gqo5e0r6ZV5NJsZ4k/66ZRaqWXXG.e4r9Xb6', 0),
-(87, 'enzoferrari@gmail.com', 'Enzo', 'Ferrari', 'Esercente', '$2y$10$y1Whz/QmwTre4WbXykoDw.DRPuuredx98TL5uu1BRX.cIdIZNfWu6', 0);
+(87, 'enzoferrari@gmail.com', 'Enzo', 'Ferrari', 'Esercente', '$2y$10$y1Whz/QmwTre4WbXykoDw.DRPuuredx98TL5uu1BRX.cIdIZNfWu6', 0),
+(88, 'silvioberlusconi@gmail.com', 'Silvio', 'Berlusconi', 'Esercente', '$2y$10$S8KhEAS7yGuLuTXD1.9MaueBYUNg/ZVCEIiPJ2.yTX2ZKYoWtqZpq', 0);
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,8 @@ CREATE TABLE `Azienda` (
 INSERT INTO `Azienda` (`ID_Azienda`, `Nome`, `Email_aziendale`) VALUES
 (9, 'Sciotto Automobili', 'sciottoautomobili@gmail.com'),
 (10, 'NumberOne', 'numberone@gmail.com'),
-(11, 'Ferrari', 'ferrari@gmail.com');
+(11, 'Ferrari', 'ferrari@gmail.com'),
+(12, 'Mediaset', 'mediaset@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -199,7 +201,8 @@ CREATE TABLE `Esercente` (
 INSERT INTO `Esercente` (`Account_ID`, `Nome`, `Cognome`, `Nome_azienda`, `Email_aziendale`) VALUES
 (79, 'Pietro', 'Sciotto', 'Sciotto Automobili', 'sciottoautomobili@gmail.com'),
 (84, 'Steven', 'Basalari', 'NumberOne', 'numberone@gmail.com'),
-(87, 'Enzo', 'Ferrari', 'Ferrari', 'ferrari@gmail.com');
+(87, 'Enzo', 'Ferrari', 'Ferrari', 'ferrari@gmail.com'),
+(88, 'Silvio', 'Berlusconi', 'Mediaset', 'mediaset@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -319,7 +322,8 @@ ALTER TABLE `Aggiornamenti_sito`
 -- Indici per le tabelle `Azienda`
 --
 ALTER TABLE `Azienda`
-  ADD PRIMARY KEY (`ID_Azienda`);
+  ADD PRIMARY KEY (`ID_Azienda`),
+  ADD UNIQUE KEY `Nome` (`Nome`);
 
 --
 -- Indici per le tabelle `Contratto`
@@ -351,7 +355,8 @@ ALTER TABLE `Domande`
 -- Indici per le tabelle `Esercente`
 --
 ALTER TABLE `Esercente`
-  ADD PRIMARY KEY (`Account_ID`);
+  ADD PRIMARY KEY (`Account_ID`),
+  ADD KEY `FK_Esercente_Azienda` (`Nome_azienda`);
 
 --
 -- Indici per le tabelle `Offerte_di_lavoro`
@@ -389,7 +394,7 @@ ALTER TABLE `Studente`
 -- AUTO_INCREMENT per la tabella `Account`
 --
 ALTER TABLE `Account`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT per la tabella `Aggiornamenti_sito`
@@ -401,7 +406,7 @@ ALTER TABLE `Aggiornamenti_sito`
 -- AUTO_INCREMENT per la tabella `Azienda`
 --
 ALTER TABLE `Azienda`
-  MODIFY `ID_Azienda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_Azienda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT per la tabella `Contratto`
@@ -452,6 +457,7 @@ ALTER TABLE `Domande`
 -- Limiti per la tabella `Esercente`
 --
 ALTER TABLE `Esercente`
+  ADD CONSTRAINT `FK_Esercente_Azienda` FOREIGN KEY (`Nome_azienda`) REFERENCES `Azienda` (`Nome`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `FK_Esercente_ID` FOREIGN KEY (`Account_ID`) REFERENCES `Account` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
