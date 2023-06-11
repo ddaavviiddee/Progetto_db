@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Giu 11, 2023 alle 09:43
+-- Creato il: Giu 11, 2023 alle 10:40
 -- Versione del server: 8.0.32
 -- Versione PHP: 8.1.17
 
@@ -323,7 +323,8 @@ ALTER TABLE `Aggiornamenti_sito`
 --
 ALTER TABLE `Azienda`
   ADD PRIMARY KEY (`ID_Azienda`),
-  ADD UNIQUE KEY `Nome` (`Nome`);
+  ADD UNIQUE KEY `Nome` (`Nome`),
+  ADD UNIQUE KEY `Email_aziendale` (`Email_aziendale`);
 
 --
 -- Indici per le tabelle `Contratto`
@@ -356,14 +357,16 @@ ALTER TABLE `Domande`
 --
 ALTER TABLE `Esercente`
   ADD PRIMARY KEY (`Account_ID`),
-  ADD KEY `FK_Esercente_Azienda` (`Nome_azienda`);
+  ADD KEY `FK_Esercente_Azienda` (`Nome_azienda`),
+  ADD KEY `FK_Esercente_Email_Azienda` (`Email_aziendale`);
 
 --
 -- Indici per le tabelle `Offerte_di_lavoro`
 --
 ALTER TABLE `Offerte_di_lavoro`
   ADD PRIMARY KEY (`ID_Offerta`),
-  ADD KEY `FK_Offerta_ID_Esercente` (`ID_Esercente`);
+  ADD KEY `FK_Offerta_ID_Esercente` (`ID_Esercente`),
+  ADD KEY `FK_Offerta_Nome_Azienda` (`Nome_azienda`);
 
 --
 -- Indici per le tabelle `Operatori`
@@ -458,13 +461,15 @@ ALTER TABLE `Domande`
 --
 ALTER TABLE `Esercente`
   ADD CONSTRAINT `FK_Esercente_Azienda` FOREIGN KEY (`Nome_azienda`) REFERENCES `Azienda` (`Nome`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `FK_Esercente_Email_Azienda` FOREIGN KEY (`Email_aziendale`) REFERENCES `Azienda` (`Email_aziendale`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `FK_Esercente_ID` FOREIGN KEY (`Account_ID`) REFERENCES `Account` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `Offerte_di_lavoro`
 --
 ALTER TABLE `Offerte_di_lavoro`
-  ADD CONSTRAINT `FK_Offerta_ID_Esercente` FOREIGN KEY (`ID_Esercente`) REFERENCES `Esercente` (`Account_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `FK_Offerta_ID_Esercente` FOREIGN KEY (`ID_Esercente`) REFERENCES `Esercente` (`Account_ID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `FK_Offerta_Nome_Azienda` FOREIGN KEY (`Nome_azienda`) REFERENCES `Esercente` (`Nome_azienda`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `Operatori`
