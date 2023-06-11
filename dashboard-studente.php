@@ -13,6 +13,7 @@
         $account_id_studente = $user['Account_ID'];
         $dipartimento_studente = $user['Dipartimento'];
         
+        // Queste sono query utile a dire allo studente chi è il suo referente
 
         $sql_r = "SELECT Account_ID FROM Referente
                   WHERE  Dipartimento = '$dipartimento_studente';";
@@ -161,7 +162,7 @@
 <legend>Ecco tutte le offerte disponibili</legend>
 
 <?php
-  $query = "SELECT * FROM Offerte_di_lavoro";
+  $query = "SELECT * FROM Offerte_di_lavoro";               // Qui vengono printate tutte le offerte di lavoro
 	$result2 = mysqli_query($connessione, $query);
 	while($row=mysqli_fetch_assoc($result2)){
         if ($row['Posti_disponibili'] > 0){

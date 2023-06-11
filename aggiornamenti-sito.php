@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $id_operatore = $result_array['Account_ID'];
 
 
-    if (isset($_POST['rimosso'])){
+    if (isset($_POST['rimosso'])){                      // Nel momento in cui un utente viene rimosso il suo flag viene impostato a 0
         $id = $_POST['id'];
         $sql = "UPDATE Account 
                 SET Delete_status = 1
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit;    
    }
 
-    if (isset($_POST['ripristinato'])){
+    if (isset($_POST['ripristinato'])){                 // Quando viene ripristinato allora il flag viene impostato a 1
         $ripristinato = $_POST['ripristinato'];
         $id = $_POST['id'];
         $sql = "UPDATE Account 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit;
     }
 
-    if (isset($_POST['rimosso_d'])){
+    if (isset($_POST['rimosso_d'])){                   // La domanda viene rimossa dal DB
       $id_domanda = $_POST['id_domanda'];
       $sql = "DELETE FROM Domande 
               WHERE ID_Domanda = $id_domanda;";
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       
     }
 
-    if (isset($_POST['rimosso_c'])){
+    if (isset($_POST['rimosso_c'])){                   // IL contratto viene rimosso dal DB
         $id_contratto = $_POST['id_contratto'];
         $sql = "DELETE FROM Contratto 
                 WHERE ID_Contratto = $id_contratto;";

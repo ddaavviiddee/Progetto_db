@@ -97,7 +97,7 @@
 <?php endif; ?>
 
 <?php
-    if (isset($nome_azienda_offerta)){ // Printa le domande solo se l'ID_Esercente è presente nelle domande
+    if (isset($nome_azienda_offerta)){                // Printa le domande solo se l'ID_Esercente è presente nelle domande
         $sql3 = "SELECT * FROM Offerte_di_lavoro
                  WHERE ID_Esercente = $id_esercente;";
         
@@ -152,7 +152,7 @@
     if (isset($id_esercente_domanda)){
         $sql4 = "SELECT * FROM Domande
                   WHERE ID_Esercente = $id_esercente;";
-        $result4 = mysqli_query($connessione, $sql4);
+        $result4 = mysqli_query($connessione, $sql4);           // Qui vengono printate le domande effettuate dagli studenti in base alle offferte di lavoro inserite
         
         while ($row_d = mysqli_fetch_assoc($result4)){
               $id_offerta = $row_d['ID_Offerta'];
@@ -200,7 +200,7 @@
                   $result_stato = mysqli_query($connessione, $sql);
                   $array_stato = mysqli_fetch_assoc($result_stato);
                   $stato_c = '';
-                  if (isset($array_stato)){
+                  if (isset($array_stato)){               // Le domande possono essere accettate o rifiutate solo se è stata effettuata una valutazione dal referente
                   $stato_c = $array_stato['Stato'];
                   }
                   if ($row_d['Stato'] == 'Accettato dal referente' ){

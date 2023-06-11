@@ -55,7 +55,7 @@
 <script>
 
 function checkCharacterLimit(textarea) {
-  const maxLength = 100; //Numero massimo di caratteri
+  const maxLength = 100; // Numero massimo di caratteri nel commento
   const label = textarea.previousElementSibling;
   
   if (textarea.value.length > maxLength) {

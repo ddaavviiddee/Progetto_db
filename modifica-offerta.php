@@ -78,7 +78,7 @@ echo "<form action='processo-modifica.php' method='post' id='inserimento'>
 echo "<legend> Attuale offerta";
 echo "<fieldset>";
 $sql3 = "SELECT * FROM Offerte_di_lavoro
-                  WHERE ID_Offerta = '$id_offerta'";
+                  WHERE ID_Offerta = '$id_offerta'"; // L'offerta può essere modificata dopo l'inserimento
         $result3 = mysqli_query($connessione, $sql3);
         while($row=mysqli_fetch_assoc($result3)){
             echo '<div class="riquadro">

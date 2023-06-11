@@ -49,6 +49,8 @@ if (isset($_SESSION["user_id"])){
             $result4 = mysqli_query($connessione, $sql4);
             $array_id_referente = mysqli_fetch_assoc($result4);
             $id_referente = $array_id_referente['Account_ID'];
+
+            // Queste query aggiornano lo stato della domanda, e inseriscono nel contratto tutte le informazioni riguardanti l'offerta di lavoro, anche se modificata
     }
 }
 

@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $id_offerta = $array_domanda["ID_Offerta"];
   
   $sql_offerta = "SELECT * FROM Offerte_di_lavoro
-            WHERE ID_Offerta = $id_offerta;";
+                  WHERE ID_Offerta = $id_offerta;";
   
   $result_offerta = mysqli_query($connessione, $sql_offerta);
   $array_offerta = mysqli_fetch_assoc($result_offerta);
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
 
-if (isset($accettato_e)){
+if (isset($accettato_e)){     // L'esercente può modificare il la domanda nella formazione del contratto
   echo "<h3>Se desidera, può modificare il contratto</h3>";
   echo "<form action='processo-contratto.php' method='POST' id='inserimento'>
       <input type='hidden' name='id_domanda' value='".$id_domanda."'>

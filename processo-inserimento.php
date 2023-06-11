@@ -75,8 +75,10 @@ if (isset($_SESSION["user_id"])){
     }
 
     $sql_del = "DELETE FROM Offerte_di_lavoro WHERE Nome_azienda = '$nome_azienda' AND Posizione = '$posizione'
-    AND Ore = '$ore' AND Periodo = '$periodo' AND Stipendio = '$stipendio';";
+                AND Ore = '$ore' AND Periodo = '$periodo' AND Stipendio = '$stipendio';";
     $result_del = mysqli_query($connessione, $sql_del);
+
+    // Se viene inserita un'offerta esattamente uguale ad una precedentemente nella base di dati, allora verranno aggiornati i posti disponibili, rimuovendo invece l'offerta vecchia.
 
 }
 

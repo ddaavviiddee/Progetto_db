@@ -24,6 +24,7 @@ if (isset($_SESSION["user_id"])){
     }
 }
 
+// Vengono effettuate le modifiche in base ai parametri selezionati
 
 if (!empty($posizione)){
     $sql = "UPDATE Offerte_di_lavoro SET

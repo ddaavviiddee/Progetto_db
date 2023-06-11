@@ -54,20 +54,20 @@
 
     $query_e = "SELECT Matricola FROM Studente
                 WHERE Dipartimento = '$dipartimento'";
-    
+                                                            // Riceve le matricole degli studenti appartenenti al proprio dipartimento
     $result_e = mysqli_query($connessione, $query_e);
 
     while ($row_e=mysqli_fetch_assoc($result_e)){
 
-        $matricola = $row_e['Matricola'];
+        $matricola = $row_e['Matricola'];                   
 
-        if (isset($matricola)){       
+        if (isset($matricola)){                             // Se è presente una matricola nel proprio dipartimento allora vengono stampati i contratti dei propri studenti
                 $query = "SELECT * FROM Contratto 
-                        WHERE Matricola = '$matricola'";
+                          WHERE Matricola = '$matricola'";
                 $result2 = mysqli_query($connessione, $query);
 
                 $sql_id = "SELECT Account_ID FROM Studente
-                        WHERE Matricola = $matricola;";
+                           WHERE Matricola = $matricola;";
                 $result_id = mysqli_query($connessione, $sql_id);
                 $array_id = mysqli_fetch_assoc($result_id);
                 $account_id = $array_id['Account_ID'];
@@ -110,7 +110,7 @@
                             echo "</tr></table></td>";
                 }
             }
-        }
+        }           // Vengono stampati i contratti
     }
 ?>
 </fieldset> 

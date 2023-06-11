@@ -56,7 +56,7 @@
 <fieldset>
 <?php    
         $sql3 = "SELECT * FROM Domande
-                WHERE Stato = 'Rifiutato da esercente' OR Stato = 'Rifiutato da referente'";
+                WHERE Stato = 'Rifiutato da esercente' OR Stato = 'Rifiutato da referente'"; // Il moderatore vede le domande obsolete, ovvero quelle ormai rifiutate
         $result3 = mysqli_query($connessione, $sql3);
 
         if (isset($result3)){
@@ -114,7 +114,7 @@
     <legend></legend>
 <?php
         $sql3 = "SELECT * FROM Contratto
-                 WHERE Stato = 'Rifiutato dallo studente'";
+                 WHERE Stato = 'Rifiutato dallo studente'";             // Il moderatore può eliminare i contratti rifiutati dallo studente
         $result3 = mysqli_query($connessione, $sql3);
         if (isset($result3)){
             while($row=mysqli_fetch_assoc($result3)){

@@ -3,7 +3,7 @@
 $connessione = require __DIR__ . '/db_conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $nome_azienda = $_POST['nome_azienda'];
+    $nome_azienda = $_POST['nome_azienda'];         // Si prendono le informazioni dell'offerta di lavoro tramite post
     $ore  = $_POST['ore'];
     $indirizzo = $_POST['indirizzo'];
     $periodo = $_POST['periodo'];

@@ -23,6 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST'){
     $nome_azienda = $_POST['nome_azienda'];
     $posizione = $_POST["posizione"];
 
+    // Vengono ritirate con il post le informazioni dell'offerta
+
     $sql = "SELECT ID_Offerta FROM Domande
             WHERE ID_Domanda = $id_domanda";
     $result = mysqli_query($connessione, $sql);
@@ -32,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST'){
 }
 
 
-if (isset($_POST['accetta_s'])){
+if (isset($_POST['accetta_s'])){            // Se il contratto viene firmato, allora scala una posizione dall'offerta di lavoro corrispondente
     $data_inizio = date("Y-m-d H:i:s");
     $sql_u = "UPDATE Offerte_di_lavoro 
           SET Posti_disponibili = Posti_disponibili - 1 

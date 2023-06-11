@@ -80,7 +80,7 @@
             echo "<td>" . $row['Cognome'] . "</td>";
             echo "<td>" . $row['Email'] . "</td>";
             echo "<td>" . $row['Ruolo'] . "</td>";
-            if ($row['Delete_status'] == 0 && $row['ID'] != 60){
+            if ($row['Delete_status'] == 0 && $row['ID'] != 60){        // L'amministratore può sospendere e ripristinare account con un ID diverso dal suo
             echo "<td><form action='aggiornamenti-sito.php' method='POST'>
             <input type='hidden' name='rimosso' value='rimosso'>
             <input type='hidden' name='id' value='".$row['ID']."'>
