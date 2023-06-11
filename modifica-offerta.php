@@ -108,3 +108,5 @@ echo "</fieldset>";
 echo "</legend>";
 
 ?>
+
+</html>

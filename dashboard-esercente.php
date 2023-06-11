@@ -122,7 +122,7 @@
             echo "<td>" . $row['Ore'] . "</td>";
             echo "<td>" . $row['Indirizzo'] . "</td>";
             echo "<td>" . $row['Periodo'] . "</td>";
-            echo "<td>" . $row['Stipendio'] . "</td>";
+            echo "<td>" . $row['Stipendio']. '€' . "</td>";
             echo "<td>" . $row['Posti_disponibili'] . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
             echo "<td><form action='modifica-offerta.php' method='POST'>
@@ -147,7 +147,6 @@
 </fieldset>
 <h2> Le tue domande</h2>
 <fieldset>
-<legend></legend>
 <?php
     if (isset($id_esercente_domanda)){
         $sql4 = "SELECT * FROM Domande

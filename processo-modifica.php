@@ -17,6 +17,7 @@ if (isset($_SESSION["user_id"])){
     $posizione = $_POST["posizione"];
     $posizione = ucwords($posizione);
     $ore = $_POST['ore'];
+    $ore .= ' Settimanali';
     $periodo = $_POST['periodo'];
     $stipendio = $_POST['stipendio'];
     $id_offerta = $_POST['id_offerta'];
@@ -46,7 +47,7 @@ if (!empty($stipendio)){
 
 if (!empty($ore)){
     $sql = "UPDATE Offerte_di_lavoro SET
-            Ore = $Ore WHERE ID_Offerta = $id_offerta;";
+            Ore = '$ore' WHERE ID_Offerta = $id_offerta;";
     $result = mysqli_query($connessione, $sql);
 }
 

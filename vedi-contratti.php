@@ -180,3 +180,11 @@ if (isset($result2)){
 </tbody>
 </table>
 </fieldset>
+
+<button onclick="goBack()" type="button">Torna indietro</button>
+
+<script>
+function goBack() {
+  window.history.back(); // Torna alla pagina precedente
+}
+</script>

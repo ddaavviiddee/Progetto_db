@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Creato il: Giu 11, 2023 alle 10:40
+-- Creato il: Giu 11, 2023 alle 16:33
 -- Versione del server: 8.0.32
 -- Versione PHP: 8.1.17
 
@@ -54,7 +54,10 @@ INSERT INTO `Account` (`ID`, `Email`, `Nome`, `Cognome`, `Ruolo`, `password_hash
 (85, 'lauracosta@gmail.com', 'Laura', 'Costa', 'Referente', '$2y$10$.WETyHbKwLRr2tpv1wUAO.kDCSizOneZ2h7PduFC08Zg/Prh69R/a', 0),
 (86, 'arturocilia@gmail.com', 'Arturo', 'Cilia', 'Studente', '$2y$10$maGI9Yr9b5Tlpk0L8Gqo5e0r6ZV5NJsZ4k/66ZRaqWXXG.e4r9Xb6', 0),
 (87, 'enzoferrari@gmail.com', 'Enzo', 'Ferrari', 'Esercente', '$2y$10$y1Whz/QmwTre4WbXykoDw.DRPuuredx98TL5uu1BRX.cIdIZNfWu6', 0),
-(88, 'silvioberlusconi@gmail.com', 'Silvio', 'Berlusconi', 'Esercente', '$2y$10$S8KhEAS7yGuLuTXD1.9MaueBYUNg/ZVCEIiPJ2.yTX2ZKYoWtqZpq', 0);
+(88, 'silvioberlusconi@gmail.com', 'Silvio', 'Berlusconi', 'Esercente', '$2y$10$S8KhEAS7yGuLuTXD1.9MaueBYUNg/ZVCEIiPJ2.yTX2ZKYoWtqZpq', 0),
+(89, 'giuseppeverdi@gmail.com', 'Giuseppe', 'Verdi', 'Studente', '$2y$10$PtXm9PBDxF6EdqxxFobLk.aspT2tvbLQirit6FREsf2afvZlxP/Qq', 0),
+(90, 'jeffbezos@gmail.com', 'Jeff', 'Bezos', 'Esercente', '$2y$10$r57clbeP15PGHrXKqsR9EO.jAjJ9h39bCtHs.zPYUO8/csMuPMimW', 0),
+(91, 'alessandrobianchi@gmail.com', 'Alessandro', 'Bianchi', 'Referente', '$2y$10$0AveX3ihAgfcPIJefqzIr.1.qkhdQV2Yn23hcx/Db0JaKr2aTPF.q', 0);
 
 -- --------------------------------------------------------
 
@@ -75,7 +78,11 @@ CREATE TABLE `Aggiornamenti_sito` (
 
 INSERT INTO `Aggiornamenti_sito` (`ID_Aggiornamento`, `Modifica`, `ID_Operatore`, `Data_modifica`) VALUES
 (8, 'Sospeso account con ID = 85', 60, '2023-06-11'),
-(9, 'Ripristinato account con ID = 85', 60, '2023-06-11');
+(9, 'Ripristinato account con ID = 85', 60, '2023-06-11'),
+(10, 'Eliminato contratto con ID = 29', 62, '2023-06-11'),
+(11, 'Eliminata domanda con ID = 42', 62, '2023-06-11'),
+(12, 'Eliminata domanda con ID = 40', 62, '2023-06-11'),
+(13, 'Eliminata domanda con ID = 38', 62, '2023-06-11');
 
 -- --------------------------------------------------------
 
@@ -97,7 +104,8 @@ INSERT INTO `Azienda` (`ID_Azienda`, `Nome`, `Email_aziendale`) VALUES
 (9, 'Sciotto Automobili', 'sciottoautomobili@gmail.com'),
 (10, 'NumberOne', 'numberone@gmail.com'),
 (11, 'Ferrari', 'ferrari@gmail.com'),
-(12, 'Mediaset', 'mediaset@gmail.com');
+(12, 'Mediaset', 'mediaset@gmail.com'),
+(13, 'Amazon', 'amazon@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -129,7 +137,7 @@ INSERT INTO `Contratto` (`ID_Contratto`, `ID_Esercente`, `ID_Domanda`, `ID_Refer
 (26, 79, 35, 80, 312312, 'Mario', 'Rossi', '2023-06-09', '6 mesi', 30, 1300, 'Segretario', 'Accettato dallo studente'),
 (27, 79, 36, 80, 312312, 'Mario', 'Rossi', '2023-06-09', '3 mesi', 30, 800, 'Addetto Alle Pulizie', 'Accettato dallo studente'),
 (28, 84, 37, 77, 527917, 'Davide', 'Mento', '2023-06-10', '3 mesi', 30, 1200, 'Barista', 'Accettato dallo studente'),
-(29, 84, 39, 85, 526381, 'Arturo', 'Cilia', NULL, '9 mesi', 30, 1300, 'Barista', 'Rifiutato dallo studente');
+(30, 87, 41, 91, 444333, 'Giuseppe', 'Verdi', '2023-06-11', '9 mesi', 28, 1000, 'Spazzino', 'Accettato dallo studente');
 
 -- --------------------------------------------------------
 
@@ -177,8 +185,8 @@ INSERT INTO `Domande` (`ID_Domanda`, `ID_Offerta`, `ID_Esercente`, `Stato`, `Mat
 (35, 33, 79, 'Accettato da esercente', 312312, 'Bravo'),
 (36, 34, 79, 'Accettato da esercente', 312312, ''),
 (37, 35, 84, 'Accettato da esercente', 527917, 'Ottime capacità'),
-(38, 36, 87, 'Rifiutato da esercente', 526381, ''),
-(39, 35, 84, 'Accettato da esercente', 526381, 'Ottime abilità nel fare i drink');
+(39, 35, 84, 'Accettato da esercente', 526381, 'Ottime abilità nel fare i drink'),
+(41, 36, 87, 'Accettato da esercente', 444333, 'Idoneo');
 
 -- --------------------------------------------------------
 
@@ -202,7 +210,8 @@ INSERT INTO `Esercente` (`Account_ID`, `Nome`, `Cognome`, `Nome_azienda`, `Email
 (79, 'Pietro', 'Sciotto', 'Sciotto Automobili', 'sciottoautomobili@gmail.com'),
 (84, 'Steven', 'Basalari', 'NumberOne', 'numberone@gmail.com'),
 (87, 'Enzo', 'Ferrari', 'Ferrari', 'ferrari@gmail.com'),
-(88, 'Silvio', 'Berlusconi', 'Mediaset', 'mediaset@gmail.com');
+(88, 'Silvio', 'Berlusconi', 'Mediaset', 'mediaset@gmail.com'),
+(90, 'Jeff', 'Bezos', 'Amazon', 'amazon@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -230,7 +239,8 @@ INSERT INTO `Offerte_di_lavoro` (`ID_Offerta`, `ID_Esercente`, `Nome_azienda`, `
 (33, 79, 'Sciotto Automobili', '30 Settimanali', 'Via Messina 20', '6 mesi', 1300, 0, 'Segretario'),
 (34, 79, 'Sciotto Automobili', '30 Settimanali', 'Via Messina 20', '3 mesi', 800, 1, 'Addetto Alle Pulizie'),
 (35, 84, 'NumberOne', '30 Settimanali', 'Via Brescia 20', '3 mesi', 1200, 1, 'Barista'),
-(36, 87, 'Ferrari', '30 Settimanali', 'Via Monza 20', '6 mesi', 1100, 2, 'Spazzino');
+(36, 87, 'Ferrari', '30', 'Via Monza 20', '6 mesi', 1100, 1, 'Spazzino'),
+(37, 90, 'Amazon', '35', 'Via California, 20', '9 mesi', 1300, 5, 'Magazziniere');
 
 -- --------------------------------------------------------
 
@@ -273,7 +283,8 @@ CREATE TABLE `Referente` (
 INSERT INTO `Referente` (`Account_ID`, `Dipartimento`, `Nome`, `Cognome`) VALUES
 (77, 'MIFT', 'Massimo', 'Villari'),
 (80, 'DICAM', 'Alessandro', 'Barbero'),
-(85, 'Medicina', 'Laura', 'Costa');
+(85, 'Medicina', 'Laura', 'Costa'),
+(91, 'Economia', 'Alessandro', 'Bianchi');
 
 -- --------------------------------------------------------
 
@@ -296,6 +307,7 @@ CREATE TABLE `Studente` (
 
 INSERT INTO `Studente` (`Matricola`, `Account_ID`, `Dipartimento`, `Nome`, `Cognome`, `Luogo`) VALUES
 (312312, 81, 'DICAM', 'Mario', 'Rossi', 'Catania'),
+(444333, 89, 'Economia', 'Giuseppe', 'Verdi', 'Catanzaro'),
 (526381, 86, 'Medicina', 'Arturo', 'Cilia', 'Messina'),
 (526889, 76, 'MIFT', 'Emanuele', 'Russo', 'Messina'),
 (527917, 75, 'MIFT', 'Davide', 'Mento', 'Messina');
@@ -397,37 +409,37 @@ ALTER TABLE `Studente`
 -- AUTO_INCREMENT per la tabella `Account`
 --
 ALTER TABLE `Account`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT per la tabella `Aggiornamenti_sito`
 --
 ALTER TABLE `Aggiornamenti_sito`
-  MODIFY `ID_Aggiornamento` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_Aggiornamento` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT per la tabella `Azienda`
 --
 ALTER TABLE `Azienda`
-  MODIFY `ID_Azienda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID_Azienda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT per la tabella `Contratto`
 --
 ALTER TABLE `Contratto`
-  MODIFY `ID_Contratto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `ID_Contratto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT per la tabella `Domande`
 --
 ALTER TABLE `Domande`
-  MODIFY `ID_Domanda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `ID_Domanda` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT per la tabella `Offerte_di_lavoro`
 --
 ALTER TABLE `Offerte_di_lavoro`
-  MODIFY `ID_Offerta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `ID_Offerta` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Limiti per le tabelle scaricate

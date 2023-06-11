@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   
         $data = date("Y-m-d H:i:s");
         $modifica = 'Eliminato contratto con ID = '.$id_contratto;
-        $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, Operatore_modifica, Data_modifica)
+        $sql2 = "INSERT INTO Aggiornamenti_sito (Modifica, ID_Operatore, Data_modifica)
                  VALUES ('$modifica', $id_operatore, '$data');";
         $result2 = mysqli_query($connessione, $sql2);
         
