@@ -95,9 +95,9 @@
             echo "<td>" . $nome_azienda . "</td>";
             echo "<td>" . $email_aziendale . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
-            echo "<td>" . $row['Ore'] . "</td>";
+            echo "<td>" . $row['Ore'] . ' Settimanali' . "</td>";
             echo "<td>" . $row['Periodo'] . "</td>";
-            echo "<td>" . $row['Stipendio'] . "</td>";
+            echo "<td>" . $row['Stipendio'] . '€' . "</td>";
             echo "<td>" . $row['Stato'] . "</td>";
 
             
@@ -166,9 +166,9 @@ if (isset($result2)){
             echo "<td>" . $nome_azienda . "</td>";
             echo "<td>" . $email_aziendale . "</td>";
             echo "<td>" . $row['Posizione'] . "</td>";
-            echo "<td>" . $row['Ore'] . "</td>";
+            echo "<td>" . $row['Ore'] . ' Settimanali' . "</td>";
             echo "<td>" . $row['Periodo'] . "</td>";
-            echo "<td>" . $row['Stipendio'] . "</td>";
+            echo "<td>" . $row['Stipendio'] . '€' . "</td>";
             echo "<td>" . $row['Data_Inizio'] . "</td>";
 
         }

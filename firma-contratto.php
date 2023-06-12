@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST'){
     $id_contratto = $_POST['id_contratto'];
     $id_domanda = $_POST['id_domanda'];
     $ore = $_POST["ore"];
-    $ore .= ' Settimanali';
     $periodo = $_POST['periodo'];
     $stipendio = $_POST['stipendio'];
     $nome_azienda = $_POST['nome_azienda'];

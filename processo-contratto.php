@@ -28,14 +28,13 @@ if (isset($_SESSION["user_id"])){
             $result = mysqli_query($connessione, $sql);
 
             $sql2 = "SELECT * FROM Offerte_di_lavoro
-                    WHERE ID_Offerta = $id_offerta";
+                     WHERE ID_Offerta = $id_offerta";
             $result2 = mysqli_query($connessione, $sql2);
             $array_offerta = mysqli_fetch_assoc($result2);
             
             $periodo = $array_offerta['Periodo'];
             $stipendio = $array_offerta['Stipendio'];
             $ore = $array_offerta['Ore'];
-            $ore .= ' Settimanali';
             $data_inizio = date("Y-m-d H:i:s");
 
             $sql3 = "SELECT Dipartimento FROM Studente 
